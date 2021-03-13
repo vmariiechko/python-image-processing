@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtWidgets
 
 
 class MainWindowUI:
-    def setup_ui(self, main_window):
+    def init_ui(self, main_window):
         main_window.setObjectName("main_window")
         main_window.resize(475, 70)
 
@@ -31,6 +31,6 @@ class MainWindowUI:
     def retranslate_ui(self, main_window):
         _translate = QtCore.QCoreApplication.translate
 
-        main_window.setWindowTitle(_translate("main_window", "main_window"))
+        main_window.setWindowTitle(_translate("main_window", "APO"))
         self.menu_file.setTitle(_translate("main_window", "File"))
         self.action_open.setText(_translate("main_window", "Open"))
