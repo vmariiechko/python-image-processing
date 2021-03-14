@@ -4,16 +4,12 @@ from PyQt5 import QtCore, QtWidgets
 class MainWindowUI:
     def init_ui(self, main_window):
         main_window.setObjectName("main_window")
-        main_window.resize(800, 600)
+        main_window.resize(1280, 720)
 
-        self.central_widget = QtWidgets.QWidget(main_window)
-        self.central_widget.setObjectName("central_widget")
+        self.central_mdi_area = QtWidgets.QMdiArea()
+        self.central_mdi_area.setObjectName("mdi_area")
 
-        self.mdi_area = QtWidgets.QMdiArea(self.central_widget)
-        self.mdi_area.setGeometry(QtCore.QRect(0, 0, 800, 600))
-        self.mdi_area.setObjectName("mdi_area")
-
-        main_window.setCentralWidget(self.central_widget)
+        main_window.setCentralWidget(self.central_mdi_area)
 
         self.menu_bar = QtWidgets.QMenuBar(main_window)
         self.menu_bar.setGeometry(QtCore.QRect(0, 0, 475, 21))

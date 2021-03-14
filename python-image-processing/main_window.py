@@ -31,7 +31,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         sub_window.setWidget(image_label)
         sub_window.setWindowTitle(file_path.split("/")[-1])
 
-        self.mdi_area.addSubWindow(sub_window)
+        self.central_mdi_area.addSubWindow(sub_window)
         sub_window.show()
 
 
