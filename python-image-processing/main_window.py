@@ -1,8 +1,11 @@
+import cv2
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMdiSubWindow, QLabel
 from PyQt5.QtGui import QPixmap
 
 from main_window_ui import MainWindowUI
+from image import Image
 
 
 class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
@@ -11,6 +14,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         self.init_ui(self)
 
         self.action_open.triggered.connect(self.open_image)
+        self.images = []
 
     def __browse_file(self):
         file_path = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
@@ -20,6 +24,11 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
 
     def open_image(self):
         file_path = self.__browse_file()
+
+        if not file_path:
+            return
+
+        img = cv2.imread(file_path, -1)
 
         sub_window = QMdiSubWindow()
         image_label = QLabel()
@@ -31,6 +40,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         sub_window.setWidget(image_label)
         sub_window.setWindowTitle(file_path.split("/")[-1])
 
+        self.images.append(Image(img, sub_window))
         self.central_mdi_area.addSubWindow(sub_window)
         sub_window.show()
 

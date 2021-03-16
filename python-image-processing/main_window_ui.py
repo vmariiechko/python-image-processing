@@ -12,7 +12,7 @@ class MainWindowUI:
         main_window.setCentralWidget(self.central_mdi_area)
 
         self.menu_bar = QtWidgets.QMenuBar(main_window)
-        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 475, 21))
+        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 720, 21))
         self.menu_bar.setObjectName("menu_bar")
 
         self.menu_file = QtWidgets.QMenu(self.menu_bar)
