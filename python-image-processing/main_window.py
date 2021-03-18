@@ -1,8 +1,9 @@
 import cv2
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMdiSubWindow, QLabel
+from PyQt5.QtWidgets import QFileDialog, QMdiSubWindow, QLabel, QMessageBox
 from PyQt5.QtGui import QPixmap
+from matplotlib import pyplot as plt
 
 from main_window_ui import MainWindowUI
 from image import Image
@@ -14,7 +15,9 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         self.init_ui(self)
 
         self.action_open.triggered.connect(self.open_image)
-        self.images = []
+        self.action_histogram.triggered.connect(self.show_histogram)
+
+        self.images = dict()
 
     def __browse_file(self):
         file_path = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
@@ -40,9 +43,23 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         sub_window.setWidget(image_label)
         sub_window.setWindowTitle(file_path.split("/")[-1])
 
-        self.images.append(Image(img, sub_window))
+        self.images[sub_window] = Image(img)
         self.central_mdi_area.addSubWindow(sub_window)
         sub_window.show()
+
+    def show_histogram(self):
+        sub_window = self.central_mdi_area.activeSubWindow()
+
+        if not sub_window:
+            QMessageBox.warning(self, 'Opsss...', "Please, select an image")
+            return
+
+        image = self.images.get(sub_window)
+        hist = image.calc_histogram()
+
+        for i, col in enumerate(hist[1]):
+            plt.plot(range(256), hist[0][i], color=col)
+        plt.show()
 
 
 app = QtWidgets.QApplication([])
