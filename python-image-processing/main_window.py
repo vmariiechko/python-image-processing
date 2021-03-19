@@ -3,7 +3,6 @@ import cv2
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMdiSubWindow, QLabel, QMessageBox
 from PyQt5.QtGui import QPixmap
-from matplotlib import pyplot as plt
 
 from main_window_ui import MainWindowUI
 from image import Image
@@ -43,7 +42,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         sub_window.setWidget(image_label)
         sub_window.setWindowTitle(file_path.split("/")[-1])
 
-        self.images[sub_window] = Image(img)
+        self.images[sub_window] = Image(img, file_path)
         self.central_mdi_area.addSubWindow(sub_window)
         sub_window.show()
 
@@ -55,11 +54,10 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
             return
 
         image = self.images.get(sub_window)
-        hist = image.calc_histogram()
+        image.create_hist_window()
 
-        for i, col in enumerate(hist[1]):
-            plt.plot(range(256), hist[0][i], color=col)
-        plt.show()
+        self.central_mdi_area.addSubWindow(image.histogram)
+        image.histogram.show()
 
 
 app = QtWidgets.QApplication([])
