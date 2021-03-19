@@ -1,7 +1,7 @@
 import matplotlib
 
-from PyQt5.QtWidgets import QMdiSubWindow
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from PyQt5.QtWidgets import QMdiSubWindow, QVBoxLayout, QWidget
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 matplotlib.use("Qt5Agg")
@@ -26,5 +26,14 @@ class HistSubWindow(QMdiSubWindow):
         for i, col in enumerate(hist[1]):
             sc.axes.plot(range(256), hist[0][i], color=col)
 
-        self.setWidget(sc)
+        toolbar = NavigationToolbar(sc, self)
+
+        layout = QVBoxLayout()
+        layout.addWidget(toolbar)
+        layout.addWidget(sc)
+
+        widget = QWidget()
+        widget.setLayout(layout)
+
+        self.setWidget(widget)
         self.setWindowTitle("Histogram of " + img_name)
