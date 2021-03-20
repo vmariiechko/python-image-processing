@@ -18,8 +18,8 @@ class MainWindowUI:
         self.menu_file = QtWidgets.QMenu(self.menu_bar)
         self.menu_file.setObjectName("menu_file")
 
-        self.menu_operations = QtWidgets.QMenu(self.menu_bar)
-        self.menu_operations.setObjectName("menu_operations")
+        self.menu_analyze = QtWidgets.QMenu(self.menu_bar)
+        self.menu_analyze.setObjectName("menu_analyze")
 
         main_window.setMenuBar(self.menu_bar)
 
@@ -30,9 +30,10 @@ class MainWindowUI:
         self.action_histogram.setObjectName("action_histogram")
 
         self.menu_file.addAction(self.action_open)
-        self.menu_operations.addAction(self.action_histogram)
+        self.menu_analyze.addAction(self.action_histogram)
+
         self.menu_bar.addAction(self.menu_file.menuAction())
-        self.menu_bar.addAction(self.menu_operations.menuAction())
+        self.menu_bar.addAction(self.menu_analyze.menuAction())
 
         self.retranslate_ui(main_window)
         QtCore.QMetaObject.connectSlotsByName(main_window)
@@ -40,8 +41,8 @@ class MainWindowUI:
     def retranslate_ui(self, main_window):
         _translate = QtCore.QCoreApplication.translate
 
-        main_window.setWindowTitle(_translate("main_window", "APO"))
+        main_window.setWindowTitle(_translate("main_window", "APO Image Processing"))
         self.menu_file.setTitle(_translate("main_window", "File"))
-        self.menu_operations.setTitle(_translate("main_window", "Operations"))
+        self.menu_analyze.setTitle(_translate("main_window", "Analyze"))
         self.action_open.setText(_translate("main_window", "Open"))
         self.action_histogram.setText(_translate("main_window", "Histogram"))

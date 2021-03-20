@@ -35,4 +35,7 @@ class Image:
             return self.__calc_triple_histogram()
 
     def create_hist_window(self):
-        self.histogram.create_histogram_plot(self.calc_histogram(), self.path.split("/")[-1])
+        img_name = self.path.split("/")[-1]
+        hist = self.calc_histogram()
+
+        self.histogram.create_histogram_plot(hist, img_name)
