@@ -1,9 +1,11 @@
 import matplotlib
 
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QWidget, QPushButton
+from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QPushButton,
+                             QTableWidget, QTableWidgetItem, QAbstractItemView)
 from PyQt5.QtCore import QMetaObject
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
+from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg,
+                                                NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 
 matplotlib.use("Qt5Agg")
@@ -67,3 +69,25 @@ class HistGraphicalSubWindowUI:
 
         hist_sub_window.setWidget(self.widget)
         QMetaObject.connectSlotsByName(hist_sub_window)
+
+
+class HistListSubWindowUI:
+    def init_ui(self, hist_sub_window, row_count):
+        hist_sub_window.resize(239, 407)
+
+        self.table_widget = QTableWidget()
+        self.table_widget.setObjectName("table_widget")
+        self.table_widget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table_widget.setColumnCount(2)
+        self.table_widget.setRowCount(row_count)
+
+        for i in range(row_count):
+            self.table_widget.setVerticalHeaderItem(i, QTableWidgetItem())
+
+        item = QTableWidgetItem()
+        self.table_widget.setHorizontalHeaderItem(0, item)
+
+        item = QTableWidgetItem()
+        self.table_widget.setHorizontalHeaderItem(1, item)
+
+        hist_sub_window.setWidget(self.table_widget)

@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QMdiSubWindow
 
-from hist_window_ui import HistGraphicalSubWindowUI
+from hist_window_ui import HistGraphicalSubWindowUI, HistListSubWindowUI, QTableWidgetItem
 
 
 class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
@@ -12,7 +12,7 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
     def __retranslate_ui(self, img_name):
         _translate = QCoreApplication.translate
 
-        self.setWindowTitle("Histogram of " + img_name)
+        self.setWindowTitle("Histogram plot of " + img_name)
         self.btn_list.setText(_translate("Histogram of " + img_name, "List"))
         self.btn_red.setText(_translate("Histogram of " + img_name, "Red"))
         self.btn_green.setText(_translate("Histogram of " + img_name, "Green"))
@@ -27,6 +27,9 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
             self.sc_plot.axes.plot(range(256), hist[col], color=col)
         self.sc_plot.draw()
 
+        if not self.histogram_list.isHidden():
+            self.__show_histogram_list(hist)
+
     def __show_single_channel(self, hist, col):
         self.current_channel = col
 
@@ -34,24 +37,61 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
         self.sc_plot.axes.plot(range(256), hist[col], color=col)
         self.sc_plot.draw()
 
+        if not self.histogram_list.isHidden():
+            self.__show_histogram_list(hist)
+
+    def __show_histogram_list(self, hist, img_name=None):
+        if len(self.current_channel) < 3:
+            self.histogram_list.create_histogram_list(hist[self.current_channel], img_name)
+        else:
+            # Calculate maximum value for every pixel among all channels
+            max_channels_values = [max(i) for i in zip(*hist.values())]
+            self.histogram_list.create_histogram_list(max_channels_values, img_name)
+
+        self.histogram_list.show()
+
+    # Disable changing-channel buttons for grayscale image
+    def __disable_channel_buttons(self):
+        self.btn_red.setEnabled(False)
+        self.btn_green.setEnabled(False)
+        self.btn_blue.setEnabled(False)
+        self.btn_rgb.setEnabled(False)
+
     def create_histogram_plot(self, hist, img_name):
         self.init_ui(self)
-        self.__show_all_channels(hist)
+        self.histogram_list = HistListSubWindow()
 
-        self.btn_list.pressed.connect(lambda: self.__create_histogram_list(hist, img_name))
+        self.btn_list.pressed.connect(lambda: self.__show_histogram_list(hist, img_name))
         self.btn_red.pressed.connect(lambda: self.__show_single_channel(hist, 'r'))
         self.btn_green.pressed.connect(lambda: self.__show_single_channel(hist, 'g'))
         self.btn_blue.pressed.connect(lambda: self.__show_single_channel(hist, 'b'))
         self.btn_rgb.pressed.connect(lambda: self.__show_all_channels(hist))
 
-        # Block changing-channel buttons if an image is grayscale
         if len(hist) < 3:
-            self.btn_red.setEnabled(False)
-            self.btn_green.setEnabled(False)
-            self.btn_blue.setEnabled(False)
-            self.btn_rgb.setEnabled(False)
+            self.__show_single_channel(hist, 'b')
+            self.__disable_channel_buttons()
+        else:
+            self.__show_all_channels(hist)
 
         self.__retranslate_ui(img_name)
 
-    def __create_histogram_list(self, hist, img_name):
-        pass
+
+class HistListSubWindow(QMdiSubWindow, HistListSubWindowUI):
+
+    def __init__(self, *args, **kwargs):
+        super(HistListSubWindow, self).__init__(*args, **kwargs)
+
+    def create_histogram_list(self, hist, img_name):
+        if img_name:
+            self.setWindowTitle("Histogram list of " + img_name)
+
+        self.init_ui(self, len(hist))
+
+        value_header = self.table_widget.horizontalHeaderItem(0)
+        value_header.setText("Value")
+        count_header = self.table_widget.horizontalHeaderItem(1)
+        count_header.setText("Count")
+
+        for value, count in enumerate(hist):
+            self.table_widget.setItem(value, 0, QTableWidgetItem(str(value)))
+            self.table_widget.setItem(value, 1, QTableWidgetItem(str(count)))

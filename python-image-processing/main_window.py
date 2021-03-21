@@ -57,6 +57,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         image.create_hist_window()
 
         self.central_mdi_area.addSubWindow(image.histogram_graphical)
+        self.central_mdi_area.addSubWindow(image.histogram_graphical.histogram_list)
         image.histogram_graphical.show()
 
 
