@@ -17,7 +17,7 @@ class MplCanvas(FigureCanvasQTAgg):
         super(MplCanvas, self).__init__(figure)
 
 
-class HistSubWindowUI:
+class HistGraphicalSubWindowUI:
     def init_ui(self, hist_sub_window):
 
         self.sc_plot = MplCanvas(hist_sub_window)

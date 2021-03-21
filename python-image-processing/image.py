@@ -1,21 +1,21 @@
-from hist_window import HistSubWindow
+from hist_window import HistGraphicalSubWindow
 
 
 class Image:
     def __init__(self, image, path):
         self.image = image
         self.path = path
-        self.histogram = HistSubWindow()
+        self.histogram_graphical = HistGraphicalSubWindow()
 
     def __calc_single_histogram(self):
-        histogram = [[0] * 256]
+        histogram = [0] * 256
 
         for w in range(self.image.shape[0]):
             for h in range(self.image.shape[1]):
                 pixel = self.image[w][h]
-                histogram[0][pixel] += 1
+                histogram[pixel] += 1
 
-        return histogram, 'b'
+        return {'b': histogram}
 
     def __calc_triple_histogram(self):
         histogram_rgb = [[0] * 256, [0] * 256, [0] * 256]
@@ -26,7 +26,7 @@ class Image:
                     pixel = self.image[w][h][i]
                     histogram_rgb[i][pixel] += 1
 
-        return histogram_rgb, ('b', 'g', 'r')
+        return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
 
     def calc_histogram(self):
         if len(self.image.shape) == 2:
@@ -38,4 +38,4 @@ class Image:
         img_name = self.path.split("/")[-1]
         hist = self.calc_histogram()
 
-        self.histogram.create_histogram_plot(hist, img_name)
+        self.histogram_graphical.create_histogram_plot(hist, img_name)
