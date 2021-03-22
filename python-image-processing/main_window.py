@@ -1,11 +1,10 @@
-import cv2
+from cv2 import imread
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMdiSubWindow, QLabel, QMessageBox
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from main_window_ui import MainWindowUI
-from image import Image
+from image import Image, ImageWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
@@ -30,17 +29,8 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         if not file_path:
             return
 
-        img = cv2.imread(file_path, -1)
-
-        sub_window = QMdiSubWindow()
-        image_label = QLabel()
-
-        pixmap = QPixmap(file_path)
-        image_label.setPixmap(pixmap)
-        sub_window.resize(pixmap.width() + 15, pixmap.height() + 35)
-
-        sub_window.setWidget(image_label)
-        sub_window.setWindowTitle(file_path.split("/")[-1])
+        img = imread(file_path, -1)
+        sub_window = ImageWindow(file_path)
 
         self.images[sub_window] = Image(img, file_path)
         self.central_mdi_area.addSubWindow(sub_window)
