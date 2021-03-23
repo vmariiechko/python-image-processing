@@ -1,13 +1,13 @@
 from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtWidgets import QMdiSubWindow
+from PyQt5.QtWidgets import QMdiSubWindow, QTableWidgetItem
 
-from hist_window_ui import HistGraphicalSubWindowUI, HistListSubWindowUI, QTableWidgetItem
+from hist_window_ui import HistGraphicalUI, HistListUI
 
 
-class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
+class HistGraphical(QMdiSubWindow, HistGraphicalUI):
 
     def __init__(self, *args, **kwargs):
-        super(HistGraphicalSubWindow, self).__init__(*args, **kwargs)
+        super(HistGraphical, self).__init__(*args, **kwargs)
 
     def __retranslate_ui(self, img_name):
         _translate = QCoreApplication.translate
@@ -22,10 +22,10 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
     def __show_all_channels(self, hist):
         self.current_channel = 'rgb'
 
-        self.sc_plot.axes.clear()
+        self.hist_plot.axes.clear()
         for col in self.current_channel:
-            self.sc_plot.axes.plot(range(256), hist[col], color=col)
-        self.sc_plot.draw()
+            self.hist_plot.axes.plot(range(256), hist[col], color=col)
+        self.hist_plot.draw()
 
         if not self.histogram_list.isHidden():
             self.__show_histogram_list(hist)
@@ -33,9 +33,9 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
     def __show_single_channel(self, hist, col):
         self.current_channel = col
 
-        self.sc_plot.axes.clear()
-        self.sc_plot.axes.plot(range(256), hist[col], color=col)
-        self.sc_plot.draw()
+        self.hist_plot.axes.clear()
+        self.hist_plot.axes.plot(range(256), hist[col], color=col)
+        self.hist_plot.draw()
 
         if not self.histogram_list.isHidden():
             self.__show_histogram_list(hist)
@@ -59,7 +59,7 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
 
     def create_histogram_plot(self, hist, img_name):
         self.init_ui(self)
-        self.histogram_list = HistListSubWindow()
+        self.histogram_list = HistList()
 
         self.btn_list.pressed.connect(lambda: self.__show_histogram_list(hist, img_name))
         self.btn_red.pressed.connect(lambda: self.__show_single_channel(hist, 'r'))
@@ -76,10 +76,10 @@ class HistGraphicalSubWindow(QMdiSubWindow, HistGraphicalSubWindowUI):
         self.__retranslate_ui(img_name)
 
 
-class HistListSubWindow(QMdiSubWindow, HistListSubWindowUI):
+class HistList(QMdiSubWindow, HistListUI):
 
     def __init__(self, *args, **kwargs):
-        super(HistListSubWindow, self).__init__(*args, **kwargs)
+        super(HistList, self).__init__(*args, **kwargs)
 
     def create_histogram_list(self, hist, img_name):
         if img_name:

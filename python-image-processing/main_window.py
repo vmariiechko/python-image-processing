@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from main_window_ui import MainWindowUI
-from image import Image, ImageWindow
+from image import Image
 
 
 class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
@@ -14,6 +14,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
 
         self.action_open.triggered.connect(self.open_image)
         self.action_histogram.triggered.connect(self.show_histogram)
+        self.action_profile.triggered.connect(self.show_intensity_profile)
 
         self.images = dict()
 
@@ -29,26 +30,39 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         if not file_path:
             return
 
-        img = imread(file_path, -1)
-        sub_window = ImageWindow(file_path)
+        img_data = imread(file_path, -1)
+        image = Image(img_data, file_path)
 
-        self.images[sub_window] = Image(img, file_path)
-        self.central_mdi_area.addSubWindow(sub_window)
-        sub_window.show()
+        self.images[image.img_window] = image
+        self.central_mdi_area.addSubWindow(image.img_window)
+        image.img_window.show()
 
     def show_histogram(self):
-        sub_window = self.central_mdi_area.activeSubWindow()
+        img_window = self.central_mdi_area.activeSubWindow()
 
-        if not sub_window:
+        if not img_window:
             QMessageBox.warning(self, 'Opsss...', "Please, select an image")
             return
 
-        image = self.images.get(sub_window)
+        image = self.images.get(img_window)
         image.create_hist_window()
 
         self.central_mdi_area.addSubWindow(image.histogram_graphical)
         self.central_mdi_area.addSubWindow(image.histogram_graphical.histogram_list)
         image.histogram_graphical.show()
+
+    def show_intensity_profile(self):
+        img_window = self.central_mdi_area.activeSubWindow()
+
+        if not img_window:
+            QMessageBox.warning(self, 'Opsss...', "Please, select an image")
+            return
+
+        image = self.images.get(img_window)
+        image.img_window.create_profile()
+
+        self.central_mdi_area.addSubWindow(image.img_window.intensity_profile)
+        image.img_window.intensity_profile.show()
 
 
 app = QtWidgets.QApplication([])

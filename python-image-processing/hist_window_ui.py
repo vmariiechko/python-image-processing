@@ -3,7 +3,6 @@ import matplotlib
 from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QPushButton,
                              QTableWidget, QTableWidgetItem, QAbstractItemView)
 from PyQt5.QtCore import QMetaObject
-
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg,
                                                 NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
@@ -19,13 +18,13 @@ class MplCanvas(FigureCanvasQTAgg):
         super(MplCanvas, self).__init__(figure)
 
 
-class HistGraphicalSubWindowUI:
+class HistGraphicalUI:
     def init_ui(self, hist_sub_window):
 
-        self.sc_plot = MplCanvas(hist_sub_window)
-        self.sc_plot.setObjectName("sc_plot")
+        self.hist_plot = MplCanvas(hist_sub_window)
+        self.hist_plot.setObjectName("hist_plot")
 
-        self.toolbar = NavigationToolbar(self.sc_plot, self)
+        self.toolbar = NavigationToolbar(self.hist_plot, self)
         self.toolbar.setObjectName("toolbar")
 
         self.horizontal_layout = QHBoxLayout()
@@ -60,7 +59,7 @@ class HistGraphicalSubWindowUI:
         self.layout.setObjectName("layout")
 
         self.layout.addWidget(self.toolbar)
-        self.layout.addWidget(self.sc_plot)
+        self.layout.addWidget(self.hist_plot)
         self.layout.addLayout(self.horizontal_layout)
 
         self.widget = QWidget()
@@ -71,7 +70,7 @@ class HistGraphicalSubWindowUI:
         QMetaObject.connectSlotsByName(hist_sub_window)
 
 
-class HistListSubWindowUI:
+class HistListUI:
     def init_ui(self, hist_sub_window, row_count):
         hist_sub_window.resize(239, 407)
 

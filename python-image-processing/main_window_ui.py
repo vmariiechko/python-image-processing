@@ -29,8 +29,12 @@ class MainWindowUI:
         self.action_histogram = QtWidgets.QAction(main_window)
         self.action_histogram.setObjectName("action_histogram")
 
+        self.action_profile = QtWidgets.QAction(main_window)
+        self.action_profile.setObjectName("action_profile")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
+        self.menu_analyze.addAction(self.action_profile)
 
         self.menu_bar.addAction(self.menu_file.menuAction())
         self.menu_bar.addAction(self.menu_analyze.menuAction())
@@ -46,3 +50,4 @@ class MainWindowUI:
         self.menu_analyze.setTitle(_translate("main_window", "Analyze"))
         self.action_open.setText(_translate("main_window", "Open"))
         self.action_histogram.setText(_translate("main_window", "Histogram"))
+        self.action_profile.setText(_translate("main_window", "Plot Profile"))

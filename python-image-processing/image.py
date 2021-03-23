@@ -2,14 +2,16 @@ from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent
 from PyQt5.QtGui import QPainter, QPen, QPixmap
 
-from hist_window import HistGraphicalSubWindow
+from hist_window import HistGraphical
+from intensity_profile import IntensityProfile
 
 
 class Image:
-    def __init__(self, image, path):
-        self.image = image
+    def __init__(self, img_data, path):
+        self.image = img_data
+        self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
-        self.histogram_graphical = HistGraphicalSubWindow()
+        self.histogram_graphical = HistGraphical()
 
     def __calc_single_histogram(self):
         histogram = [0] * 256
@@ -46,8 +48,12 @@ class Image:
 
 class ImageWindow(QMdiSubWindow):
 
-    def __init__(self, path, parent=None):
+    def __init__(self, img_data, path, parent=None):
         super().__init__(parent)
+
+        self.image = img_data
+        self.intensity_profile = IntensityProfile()
+        self.img_name = path.split("/")[-1]
 
         self.image_label = QLabel()
         self.pixmap = QPixmap(path)
@@ -55,7 +61,7 @@ class ImageWindow(QMdiSubWindow):
         self.resize(self.pixmap.width() + 15, self.pixmap.height() + 35)
 
         self.setWidget(self.image_label)
-        self.setWindowTitle(path.split("/")[-1])
+        self.setWindowTitle(self.img_name)
 
         self.points = [QPoint(0, 0), QPoint(0, 0)]
         self.drawing = False
@@ -81,6 +87,11 @@ class ImageWindow(QMdiSubWindow):
 
         elif event_type == QEvent.MouseButtonRelease:
             if event.button() == Qt.LeftButton:
+                self.points[1] = event.pos()
                 self.drawing = False
+                self.create_profile()
 
         return super(ImageWindow, self).eventFilter(obj, event)
+
+    def create_profile(self):
+        self.intensity_profile.create_profile(self.points, self.image, self.img_name)
