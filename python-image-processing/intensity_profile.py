@@ -55,11 +55,11 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
         if len(image.shape) == 3:
             intensities = [0.24 * r + 0.69 * g + 0.07 * b for b, g, r in intensities]
 
-        self.profile_plot.axes.clear()
-        self.profile_plot.axes.plot(range(len(intensities)), intensities, color="black")
-        self.profile_plot.axes.set_xlabel("Distance (pixels)")
-        self.profile_plot.axes.set_ylabel("Gray Value")
-        self.profile_plot.draw()
+        self.profile_canvas.axes.clear()
+        self.profile_canvas.axes.plot(range(len(intensities)), intensities, color="black")
+        self.profile_canvas.axes.set_xlabel("Distance (pixels)")
+        self.profile_canvas.axes.set_ylabel("Gray Value")
+        self.profile_canvas.draw()
 
         self.__retranslate_ui(img_name)
 

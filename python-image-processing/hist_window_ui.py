@@ -1,13 +1,12 @@
-import matplotlib
-
 from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QPushButton,
                              QTableWidget, QTableWidgetItem, QAbstractItemView)
 from PyQt5.QtCore import QMetaObject
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg,
                                                 NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
+from matplotlib import use
 
-matplotlib.use("Qt5Agg")
+use("Qt5Agg")
 
 
 class MplCanvas(FigureCanvasQTAgg):
@@ -21,10 +20,10 @@ class MplCanvas(FigureCanvasQTAgg):
 class HistGraphicalUI:
     def init_ui(self, hist_sub_window):
 
-        self.hist_plot = MplCanvas(hist_sub_window)
-        self.hist_plot.setObjectName("hist_plot")
+        self.hist_canvas = MplCanvas(hist_sub_window)
+        self.hist_canvas.setObjectName("hist_canvas")
 
-        self.toolbar = NavigationToolbar(self.hist_plot, self)
+        self.toolbar = NavigationToolbar(self.hist_canvas, self)
         self.toolbar.setObjectName("toolbar")
 
         self.horizontal_layout = QHBoxLayout()
@@ -59,7 +58,7 @@ class HistGraphicalUI:
         self.layout.setObjectName("layout")
 
         self.layout.addWidget(self.toolbar)
-        self.layout.addWidget(self.hist_plot)
+        self.layout.addWidget(self.hist_canvas)
         self.layout.addLayout(self.horizontal_layout)
 
         self.widget = QWidget()

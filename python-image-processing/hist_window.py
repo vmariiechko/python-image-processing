@@ -22,10 +22,10 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
     def __show_all_channels(self, hist):
         self.current_channel = 'rgb'
 
-        self.hist_plot.axes.clear()
+        self.hist_canvas.axes.clear()
         for col in self.current_channel:
-            self.hist_plot.axes.plot(range(256), hist[col], color=col)
-        self.hist_plot.draw()
+            self.hist_canvas.axes.plot(range(256), hist[col], color=col)
+        self.hist_canvas.draw()
 
         if not self.histogram_list.isHidden():
             self.__show_histogram_list(hist)
@@ -33,9 +33,9 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
     def __show_single_channel(self, hist, col):
         self.current_channel = col
 
-        self.hist_plot.axes.clear()
-        self.hist_plot.axes.plot(range(256), hist[col], color=col)
-        self.hist_plot.draw()
+        self.hist_canvas.axes.clear()
+        self.hist_canvas.axes.plot(range(256), hist[col], color=col)
+        self.hist_canvas.draw()
 
         if not self.histogram_list.isHidden():
             self.__show_histogram_list(hist)

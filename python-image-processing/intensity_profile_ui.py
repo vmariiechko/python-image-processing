@@ -8,17 +8,17 @@ from hist_window_ui import MplCanvas
 class IntensityProfileUI:
     def init_ui(self, profile):
 
-        self.profile_plot = MplCanvas(profile)
-        self.profile_plot.setObjectName("profile_plot")
+        self.profile_canvas = MplCanvas(profile)
+        self.profile_canvas.setObjectName("profile_canvas")
 
-        self.toolbar = NavigationToolbar(self.profile_plot, self)
+        self.toolbar = NavigationToolbar(self.profile_canvas, self)
         self.toolbar.setObjectName("toolbar")
 
         self.layout = QVBoxLayout()
         self.layout.setObjectName("layout")
 
         self.layout.addWidget(self.toolbar)
-        self.layout.addWidget(self.profile_plot)
+        self.layout.addWidget(self.profile_canvas)
 
         self.widget = QWidget()
         self.widget.setObjectName("widget")
