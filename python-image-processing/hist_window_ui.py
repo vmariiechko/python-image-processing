@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QPushButton,
                              QTableWidget, QTableWidgetItem, QAbstractItemView)
 from PyQt5.QtCore import QMetaObject
+from PyQt5.QtGui import QIcon, QPixmap
 from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg,
                                                 NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
@@ -19,6 +20,10 @@ class MplCanvas(FigureCanvasQTAgg):
 
 class HistGraphicalUI:
     def init_ui(self, hist_sub_window):
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("images/histogram.png"), QIcon.Normal, QIcon.Off)
+        hist_sub_window.setWindowIcon(icon)
 
         self.hist_canvas = MplCanvas(hist_sub_window)
         self.hist_canvas.setObjectName("hist_canvas")
@@ -72,6 +77,10 @@ class HistGraphicalUI:
 class HistListUI:
     def init_ui(self, hist_sub_window, row_count):
         hist_sub_window.resize(239, 407)
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("images/table.png"), QIcon.Normal, QIcon.Off)
+        hist_sub_window.setWindowIcon(icon)
 
         self.table_widget = QTableWidget()
         self.table_widget.setObjectName("table_widget")

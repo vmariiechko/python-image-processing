@@ -1,11 +1,16 @@
 from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction
 from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
+from PyQt5.QtGui import QIcon, QPixmap
 
 
 class MainWindowUI:
     def init_ui(self, main_window):
         main_window.setObjectName("main_window")
         main_window.resize(1280, 720)
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("images/icon.png"), QIcon.Normal, QIcon.Off)
+        main_window.setWindowIcon(icon)
 
         self.central_mdi_area = QMdiArea()
         self.central_mdi_area.setObjectName("mdi_area")

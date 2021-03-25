@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent
-from PyQt5.QtGui import QPainter, QPen, QPixmap
+from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon
 
 from hist_window import HistGraphical
 from intensity_profile import IntensityProfile
@@ -60,8 +60,12 @@ class ImageWindow(QMdiSubWindow):
         self.image_label.setPixmap(self.pixmap.copy())
         self.resize(self.pixmap.width() + 15, self.pixmap.height() + 35)
 
+        icon = QIcon()
+        icon.addPixmap(QPixmap("images/picture.png"), QIcon.Normal, QIcon.Off)
+
         self.setWidget(self.image_label)
         self.setWindowTitle(self.img_name)
+        self.setWindowIcon(icon)
 
         self.points = [QPoint(0, 0), QPoint(0, 0)]
         self.drawing = False
