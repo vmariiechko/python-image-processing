@@ -42,7 +42,6 @@ class Image:
 
     def create_hist_window(self):
         hist = self.calc_histogram()
-
         self.histogram_graphical.create_histogram_plot(hist, self.img_name)
 
 

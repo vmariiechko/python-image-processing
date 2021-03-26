@@ -8,6 +8,7 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
 
     def __init__(self, *args, **kwargs):
         super(HistGraphical, self).__init__(*args, **kwargs)
+        self.histogram_list = HistList()
 
     def __retranslate_ui(self, img_name):
         _translate = QCoreApplication.translate
@@ -59,7 +60,6 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
 
     def create_histogram_plot(self, hist, img_name):
         self.init_ui(self)
-        self.histogram_list = HistList()
 
         self.btn_list.pressed.connect(lambda: self.__show_histogram_list(hist, img_name))
         self.btn_red.pressed.connect(lambda: self.__show_single_channel(hist, 'r'))

@@ -23,6 +23,21 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
                                                                        "Bitmap (*.bmp)")
         return file_path[0]
 
+    def __get_selected_image(self):
+        img_window = self.central_mdi_area.activeSubWindow()
+
+        if not img_window:
+            QMessageBox.warning(self, "Window isn't selected", "Please, select an image window")
+            return None
+
+        image = self.images.get(img_window)
+
+        if not image:
+            QMessageBox.warning(self, "Isn't image", "Please, select an image window")
+            return None
+
+        return image
+
     def open_image(self):
         file_path = self.__browse_file()
 
@@ -37,13 +52,11 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         image.img_window.show()
 
     def show_histogram(self):
-        img_window = self.central_mdi_area.activeSubWindow()
+        image = self.__get_selected_image()
 
-        if not img_window:
-            QMessageBox.warning(self, 'Opsss...', "Please, select an image")
+        if not image:
             return
 
-        image = self.images.get(img_window)
         image.create_hist_window()
 
         self.central_mdi_area.addSubWindow(image.histogram_graphical)
@@ -51,13 +64,11 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         image.histogram_graphical.show()
 
     def show_intensity_profile(self):
-        img_window = self.central_mdi_area.activeSubWindow()
+        image = self.__get_selected_image()
 
-        if not img_window:
-            QMessageBox.warning(self, 'Opsss...', "Please, select an image")
+        if not image:
             return
 
-        image = self.images.get(img_window)
         image.img_window.create_profile()
 
         self.central_mdi_area.addSubWindow(image.img_window.intensity_profile)
