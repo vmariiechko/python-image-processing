@@ -69,6 +69,23 @@ class ImageWindow(QMdiSubWindow):
         self.points = [QPoint(0, 0), QPoint(0, 0)]
         self.drawing = False
 
+    def __validate_point(self, point):
+        if point.x() < 0:
+            point.setX(0)
+
+        if point.y() < 0:
+            point.setY(0)
+
+        img_width = self.image.shape[1] - 1
+        if point.x() > img_width:
+            point.setX(img_width)
+
+        img_height = self.image.shape[0] - 1
+        if point.y() > img_height:
+            point.setY(img_height)
+
+        return point
+
     def eventFilter(self, obj, event):
         event_type = event.type()
 
@@ -79,7 +96,9 @@ class ImageWindow(QMdiSubWindow):
                 self.drawing = True
 
         elif event_type == QEvent.MouseMove and self.drawing:
-            self.points[1] = event.pos()
+            point = self.__validate_point(event.pos())
+
+            self.points[1] = point
             self.image_label.setPixmap(self.pixmap.copy())
 
             painter = QPainter(self.image_label.pixmap())
@@ -90,7 +109,6 @@ class ImageWindow(QMdiSubWindow):
 
         elif event_type == QEvent.MouseButtonRelease:
             if event.button() == Qt.LeftButton:
-                self.points[1] = event.pos()
                 self.drawing = False
                 self.create_profile()
 
