@@ -1,12 +1,11 @@
 from cv2 import imread
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 
 from main_window_ui import MainWindowUI
 from image import Image
 
 
-class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
+class MainWindow(QMainWindow, MainWindowUI):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.init_ui(self)
@@ -75,7 +74,7 @@ class MainWindow(QtWidgets.QMainWindow, MainWindowUI):
         image.img_window.intensity_profile.show()
 
 
-app = QtWidgets.QApplication([])
+app = QApplication([])
 main_window = MainWindow()
 main_window.show()
 app.exec_()

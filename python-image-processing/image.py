@@ -57,11 +57,12 @@ class ImageWindow(QMdiSubWindow):
         self.image_label = QLabel()
         self.pixmap = QPixmap(path)
         self.image_label.setPixmap(self.pixmap.copy())
-        self.resize(self.pixmap.width() + 15, self.pixmap.height() + 35)
 
         icon = QIcon()
         icon.addPixmap(QPixmap("images/picture.png"), QIcon.Normal, QIcon.Off)
 
+        self.setFixedSize(self.pixmap.width() + 15, self.pixmap.height() + 35)
+        self.setWindowFlags(Qt.WindowMinimizeButtonHint)
         self.setWidget(self.image_label)
         self.setWindowTitle(self.img_name)
         self.setWindowIcon(icon)
@@ -96,9 +97,7 @@ class ImageWindow(QMdiSubWindow):
                 self.drawing = True
 
         elif event_type == QEvent.MouseMove and self.drawing:
-            point = self.__validate_point(event.pos())
-
-            self.points[1] = point
+            self.points[1] = self.__validate_point(event.pos())
             self.image_label.setPixmap(self.pixmap.copy())
 
             painter = QPainter(self.image_label.pixmap())
@@ -109,6 +108,7 @@ class ImageWindow(QMdiSubWindow):
 
         elif event_type == QEvent.MouseButtonRelease:
             if event.button() == Qt.LeftButton:
+                self.points[1] = self.__validate_point(event.pos())
                 self.drawing = False
                 self.create_profile()
 
