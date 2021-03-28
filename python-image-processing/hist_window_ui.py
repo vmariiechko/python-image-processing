@@ -11,15 +11,38 @@ use("Qt5Agg")
 
 
 class MplCanvas(FigureCanvasQTAgg):
+    """Build base canvas for plotting."""
 
     def __init__(self, parent=None, width=5, height=4, dpi=100):
+        """
+        Create the center figure for plotting.
+
+        :param width: The width of the figure in inches
+        :type width: int
+        :param height: The height of the figure in inches
+        :type height: int
+        :param dpi: The number of pixels that the figure comprises
+        :type dpi: int
+        """
+
         figure = Figure(figsize=(width, height), dpi=dpi)
         self.axes = figure.add_subplot(111)
         super(MplCanvas, self).__init__(figure)
 
 
 class HistGraphicalUI:
+    """Build UI for :class:`hist_window.HistGraphical`."""
+
     def init_ui(self, hist_sub_window):
+        """
+        Create user interface for :class:`hist_window.HistGraphical`.
+
+        The method creates the widget objects in the proper containers
+        and assigns the object names to them.
+
+        :param hist_sub_window: The window for graphical representation of histogram
+        :type hist_sub_window: :class:`hist_window.HistGraphical`
+        """
 
         icon = QIcon()
         icon.addPixmap(QPixmap("images/histogram.png"), QIcon.Normal, QIcon.Off)
@@ -75,7 +98,21 @@ class HistGraphicalUI:
 
 
 class HistListUI:
+    """Build UI for :class:`hist_window.HistList`."""
+
     def init_ui(self, hist_sub_window, row_count):
+        """
+        Create user interface for :class:`hist_window.HistList`.
+
+        The method creates the widget objects in the proper containers
+        and assigns the object names to them.
+
+        :param hist_sub_window: The window for list representation of histogram
+        :type hist_sub_window: :class:`hist_window.HistList`
+        :param row_count: The number of rows in list
+        :type row_count: int
+        """
+
         hist_sub_window.resize(239, 407)
 
         icon = QIcon()
