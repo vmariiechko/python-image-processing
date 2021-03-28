@@ -6,7 +6,11 @@ from image import Image
 
 
 class MainWindow(QMainWindow, MainWindowUI):
+    """The MainWindow class represents the main window and its behavior."""
+
     def __init__(self, parent=None):
+        """Create a new main window."""
+
         super().__init__(parent)
         self.init_ui(self)
 
@@ -17,12 +21,29 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.images = dict()
 
     def __browse_file(self):
-        file_path = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
-                                                                       "Image files (*.jpg, *.png, *.tif, *.gif);;"
-                                                                       "Bitmap (*.bmp)")
-        return file_path[0]
+        """
+        Navigate to the file using a file dialog.
+
+        :return: The path to the chosen file
+        :rtype: str
+        """
+
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
+                                                                          "Image files (*.jpg, *.png, *.tif, *.gif);;"
+                                                                          "Bitmap (*.bmp)")
+        return file_path
 
     def __get_selected_image(self):
+        """
+        Find an active image window.
+
+        If there's no window selected or the active window isn't an image,
+        then show a warning message window.
+
+        :return: The :class:`image.Image` object of selected window
+        :rtype: :class:`image.Image`
+        """
+
         img_window = self.central_mdi_area.activeSubWindow()
 
         if not img_window:
@@ -38,6 +59,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         return image
 
     def open_image(self):
+        """Create :class:`image.Image` object of chosen image and show it in the sub-window."""
+
         file_path = self.__browse_file()
 
         if not file_path:
@@ -51,6 +74,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         image.img_window.show()
 
     def show_histogram(self):
+        """Create a graphical representation of the histogram and show it in the sub-window."""
+
         image = self.__get_selected_image()
 
         if not image:
@@ -63,6 +88,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         image.histogram_graphical.show()
 
     def show_intensity_profile(self):
+        """Create intensity profile of drawn line and show it in the sub-window."""
+
         image = self.__get_selected_image()
 
         if not image:

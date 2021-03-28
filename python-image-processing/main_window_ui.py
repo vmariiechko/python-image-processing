@@ -4,7 +4,19 @@ from PyQt5.QtGui import QIcon, QPixmap
 
 
 class MainWindowUI:
+    """Build UI for :class:`main_window.ManWindow`."""
+
     def init_ui(self, main_window):
+        """
+        Create user interface for :class:`main_window.ManWindow`.
+
+        The method creates the widget objects in the proper containers
+        and assigns the object names to them.
+
+        :param main_window: The main window of program
+        :type main_window: :class:`main_window.MainWindow`
+        """
+
         main_window.setObjectName("main_window")
         main_window.resize(1280, 720)
 
@@ -49,6 +61,13 @@ class MainWindowUI:
         QMetaObject.connectSlotsByName(main_window)
 
     def retranslate_ui(self, main_window):
+        """
+        Set the text and titles of the widgets.
+
+        :param main_window: The main window of program
+        :type main_window: :class:`main_window.MainWindow`
+        """
+
         _translate = QCoreApplication.translate
 
         main_window.setWindowTitle(_translate("main_window", "APO Image Processing"))
