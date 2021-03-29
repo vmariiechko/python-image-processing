@@ -7,7 +7,18 @@ from hist_window_ui import MplCanvas
 
 
 class IntensityProfileUI:
+    """Build UI for :class:`intensity_profile.IntensityProfile`."""
+
     def init_ui(self, profile):
+        """
+        Create user interface for :class:`intensity_profile.IntensityProfile`.
+
+        The method creates the widget objects in the proper containers
+        and assigns the object names to them.
+
+        :param profile: The window for graphical representation of profile
+        :type profile: :class:`intensity_profile.IntensityProfile`
+        """
 
         icon = QIcon()
         icon.addPixmap(QPixmap("images/histogram.png"), QIcon.Normal, QIcon.Off)
