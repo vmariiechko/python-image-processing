@@ -7,13 +7,34 @@ from intensity_profile import IntensityProfile
 
 
 class Image:
+    """The Image class represents the image."""
+
     def __init__(self, img_data, path):
+        """
+        Create a new image.
+
+        :param img_data: The image data. Taken from cv2.imread
+        :type img_data: :class:`numpy.ndarray`
+        :param path: The path to the image
+        :type path: str
+        """
+
         self.image = img_data
         self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
         self.histogram_graphical = HistGraphical()
 
     def __calc_single_histogram(self):
+        """
+        Calculate the image histogram data for one channel.
+
+        Count the number of pixels for each tonal value,
+        iterating through one channel of the image.
+
+        :return: The image histogram data: {channel_char: [number_of_pixels]}
+        :rtype: dict[str, list[int]]
+        """
+
         histogram = [0] * 256
 
         for w in range(self.image.shape[0]):
@@ -24,6 +45,16 @@ class Image:
         return {'b': histogram}
 
     def __calc_triple_histogram(self):
+        """
+        Calculate the image histogram data for three channels.
+
+        Count the number of pixels for each tonal value,
+        iterating through three channels of the image.
+
+        :return: The image histogram data: {channel_char: [number_of_pixels]}
+        :rtype: dict[str, list[int]]
+        """
+
         histogram_rgb = [[0] * 256, [0] * 256, [0] * 256]
 
         for w in range(self.image.shape[0]):
@@ -35,19 +66,46 @@ class Image:
         return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
 
     def calc_histogram(self):
+        """
+        Calculate image histogram data.
+
+        Depending on the number of channels, calculate histogram:
+
+        - for grayscale image using :meth:`__calc_single_histogram`;
+        - for color iamge using :meth:`__calc_triple_histogram`.
+
+        :return: The image histogram data for every channel: {channel_char: [number_of_pixels]}
+        :rtype: dict[str, list[int]]
+        """
+
         if len(self.image.shape) == 2:
             return self.__calc_single_histogram()
         else:
             return self.__calc_triple_histogram()
 
     def create_hist_window(self):
+        """Create a histogram plot window of the image."""
+
         hist = self.calc_histogram()
         self.histogram_graphical.create_histogram_plot(hist, self.img_name)
 
 
 class ImageWindow(QMdiSubWindow):
+    """The ImageWindow class implements image visualization in sub-window."""
 
     def __init__(self, img_data, path, parent=None):
+        """
+        Create a new image sub-window.
+
+        Create an empty :class:`intensity_profile.IntensityProfile` object.
+        Load image to window. Set icon and window size.
+
+        :param img_data: The image data. Taken from cv2.imread
+        :type img_data: :class:`numpy.ndarray`
+        :param path: The path to the image
+        :type path: str
+        """
+
         super().__init__(parent)
 
         self.image = img_data
@@ -71,6 +129,17 @@ class ImageWindow(QMdiSubWindow):
         self.drawing = False
 
     def __validate_point(self, point):
+        """
+        Validate the given point.
+
+        Make sure point coordinates aren't beyond the corners of the image.
+
+        :param point: The point of coordinates on image
+        :type point: :class:`.PyQt5.QtCore.QPoint`
+        :return: The validated point, which doesn't exceed the corners
+        :rtype: :class:`.PyQt5.QtCore.QPoint`
+        """
+
         if point.x() < 0:
             point.setX(0)
 
@@ -88,6 +157,19 @@ class ImageWindow(QMdiSubWindow):
         return point
 
     def eventFilter(self, obj, event):
+        """
+        Filter mouse clicks.
+
+        - If LMB is clicked, then save first point coordinates and start drawing.
+        - If LMB is moved, then save second point coordinates and draw a line.
+        - If LMB is released, then save second point coordinates and create a profile between points.
+
+        :param obj: The event sender object.
+        :type obj: :class:`.PyQt5.QtCore.QObject`
+        :param event: The happened event.
+        :type event: :class:`.PyQt5.QtCore.QEvent`
+        """
+
         event_type = event.type()
 
         if event_type == QEvent.MouseButtonPress:
@@ -115,4 +197,6 @@ class ImageWindow(QMdiSubWindow):
         return super(ImageWindow, self).eventFilter(obj, event)
 
     def create_profile(self):
+        """Create intensity profile window."""
+
         self.intensity_profile.create_profile(self.points, self.image, self.img_name)
