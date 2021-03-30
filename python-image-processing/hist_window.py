@@ -20,13 +20,14 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         """Set the text and titles of the widgets."""
 
         _translate = QCoreApplication.translate
+        _window_title = "Histogram plot of " + self.img_name
 
-        self.setWindowTitle("Histogram plot of " + self.img_name)
-        self.btn_list.setText(_translate("Histogram of " + self.img_name, "List"))
-        self.btn_red.setText(_translate("Histogram of " + self.img_name, "Red"))
-        self.btn_green.setText(_translate("Histogram of " + self.img_name, "Green"))
-        self.btn_blue.setText(_translate("Histogram of " + self.img_name, "Blue"))
-        self.btn_rgb.setText(_translate("Histogram of " + self.img_name, "R + G + B"))
+        self.setWindowTitle(_window_title)
+        self.btn_list.setText(_translate(_window_title, "List"))
+        self.btn_red.setText(_translate(_window_title, "Red"))
+        self.btn_green.setText(_translate(_window_title, "Green"))
+        self.btn_blue.setText(_translate(_window_title, "Blue"))
+        self.btn_rgb.setText(_translate(_window_title, "R + G + B"))
 
     def __show_all_channels(self, hist):
         """

@@ -81,13 +81,14 @@ class MainWindowUI:
         """
 
         _translate = QCoreApplication.translate
+        _window_title = "main_window"
 
-        main_window.setWindowTitle(_translate("main_window", "APO Image Processing"))
-        self.menu_file.setTitle(_translate("main_window", "File"))
-        self.menu_analyze.setTitle(_translate("main_window", "Analyze"))
-        self.menu_operations.setTitle(_translate("main_window", "Operations"))
-        self.menu_histogram.setTitle(_translate("main_window", "Histogram"))
-        self.action_open.setText(_translate("main_window", "Open"))
-        self.action_histogram.setText(_translate("main_window", "Histogram"))
-        self.action_profile.setText(_translate("main_window", "Plot Profile"))
-        self.action_normalize.setText(_translate("main_window", "Normalize"))
+        main_window.setWindowTitle(_translate(_window_title, "APO Image Processing"))
+        self.menu_file.setTitle(_translate(_window_title, "File"))
+        self.menu_analyze.setTitle(_translate(_window_title, "Analyze"))
+        self.menu_operations.setTitle(_translate(_window_title, "Operations"))
+        self.menu_histogram.setTitle(_translate(_window_title, "Histogram"))
+        self.action_open.setText(_translate(_window_title, "Open"))
+        self.action_histogram.setText(_translate(_window_title, "Histogram"))
+        self.action_profile.setText(_translate(_window_title, "Plot Profile"))
+        self.action_normalize.setText(_translate(_window_title, "Normalize"))
