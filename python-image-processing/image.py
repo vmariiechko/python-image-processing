@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent
-from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon
+from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from hist_window import HistGraphical
 from intensity_profile import IntensityProfile
@@ -65,6 +65,12 @@ class Image:
 
         return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
 
+    def update(self):
+        self.img_window.update_window(self.image)
+
+    def is_grayscale(self):
+        return len(self.image.shape) == 2
+
     def calc_histogram(self):
         """
         Calculate image histogram data.
@@ -78,7 +84,7 @@ class Image:
         :rtype: dict[str, list[int]]
         """
 
-        if len(self.image.shape) == 2:
+        if self.is_grayscale():
             return self.__calc_single_histogram()
         else:
             return self.__calc_triple_histogram()
@@ -86,8 +92,18 @@ class Image:
     def create_hist_window(self):
         """Create a histogram plot window of the image."""
 
-        hist = self.calc_histogram()
-        self.histogram_graphical.create_histogram_plot(hist, self.img_name)
+        self.histogram_graphical.create_histogram_plot(self.calc_histogram(), self.img_name)
+
+    def normalize_histogram(self):
+        img_min = self.image.min()
+        img_max = self.image.max()
+
+        min_val = 0
+        max_val = 255
+
+        for w in range(self.image.shape[0]):
+            for h in range(self.image.shape[1]):
+                self.image[w][h] = ((self.image[w][h] - img_min) * max_val) / (img_max - img_min)
 
 
 class ImageWindow(QMdiSubWindow):
@@ -155,6 +171,14 @@ class ImageWindow(QMdiSubWindow):
             point.setY(img_height)
 
         return point
+
+    def update_window(self, img_data):
+        self.image = img_data
+        height, width = img_data.shape
+
+        img = QImage(self.image, width, height, QImage.Format_Grayscale8)
+        self.pixmap = QPixmap(img)
+        self.image_label.setPixmap(self.pixmap.copy())
 
     def eventFilter(self, obj, event):
         """

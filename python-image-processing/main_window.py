@@ -17,6 +17,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_open.triggered.connect(self.open_image)
         self.action_histogram.triggered.connect(self.show_histogram)
         self.action_profile.triggered.connect(self.show_intensity_profile)
+        self.action_normalize.triggered.connect(self.run_histogram_operation)
 
         self.images = dict()
 
@@ -47,13 +48,13 @@ class MainWindow(QMainWindow, MainWindowUI):
         img_window = self.central_mdi_area.activeSubWindow()
 
         if not img_window:
-            QMessageBox.warning(self, "Window isn't selected", "Please, select an image window")
+            QMessageBox.warning(self, "Window isn't selected", "Please, select an image window.")
             return None
 
         image = self.images.get(img_window)
 
         if not image:
-            QMessageBox.warning(self, "Isn't image", "Please, select an image window")
+            QMessageBox.warning(self, "Isn't image", "Please, select an image window.")
             return None
 
         return image
@@ -99,6 +100,19 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         self.central_mdi_area.addSubWindow(image.img_window.intensity_profile)
         image.img_window.intensity_profile.show()
+
+    def run_histogram_operation(self):
+        image = self.__get_selected_image()
+
+        if not image:
+            return
+
+        if not image.is_grayscale():
+            QMessageBox.warning(self, "Not grayscale", "Selected image isn't grayscale.")
+            return
+
+        image.normalize_histogram()
+        image.update()
 
 
 app = QApplication([])

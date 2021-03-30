@@ -39,6 +39,12 @@ class MainWindowUI:
         self.menu_analyze = QMenu(self.menu_bar)
         self.menu_analyze.setObjectName("menu_analyze")
 
+        self.menu_operations = QMenu(self.menu_bar)
+        self.menu_operations.setObjectName("menu_operations")
+
+        self.menu_histogram = QMenu(self.menu_bar)
+        self.menu_histogram.setObjectName("menu_histogram")
+
         main_window.setMenuBar(self.menu_bar)
 
         self.action_open = QAction(main_window)
@@ -50,12 +56,18 @@ class MainWindowUI:
         self.action_profile = QAction(main_window)
         self.action_profile.setObjectName("action_profile")
 
+        self.action_normalize = QAction(main_window)
+        self.action_normalize.setObjectName("action_normalize")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
+        self.menu_histogram.addAction(self.action_normalize)
 
+        self.menu_operations.addAction(self.menu_histogram.menuAction())
         self.menu_bar.addAction(self.menu_file.menuAction())
         self.menu_bar.addAction(self.menu_analyze.menuAction())
+        self.menu_bar.addAction(self.menu_operations.menuAction())
 
         self.retranslate_ui(main_window)
         QMetaObject.connectSlotsByName(main_window)
@@ -73,6 +85,9 @@ class MainWindowUI:
         main_window.setWindowTitle(_translate("main_window", "APO Image Processing"))
         self.menu_file.setTitle(_translate("main_window", "File"))
         self.menu_analyze.setTitle(_translate("main_window", "Analyze"))
+        self.menu_operations.setTitle(_translate("main_window", "Operations"))
+        self.menu_histogram.setTitle(_translate("main_window", "Histogram"))
         self.action_open.setText(_translate("main_window", "Open"))
         self.action_histogram.setText(_translate("main_window", "Histogram"))
         self.action_profile.setText(_translate("main_window", "Plot Profile"))
+        self.action_normalize.setText(_translate("main_window", "Normalize"))
