@@ -7,28 +7,26 @@ from hist_window_ui import HistGraphicalUI, HistListUI
 class HistGraphical(QMdiSubWindow, HistGraphicalUI):
     """The HistGraphical class implements a graphical representation of the image histogram."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, img_name, *args, **kwargs):
         """Create a new histogram graphical representation and :class:`HistList` instance."""
 
         super(HistGraphical, self).__init__(*args, **kwargs)
-        self.histogram_list = HistList()
 
-    def __retranslate_ui(self, img_name):
-        """
-        Set the text and titles of the widgets.
+        self.histogram_list = HistList(img_name)
+        self.img_name = img_name
+        self.window_is_opened = False
 
-        :param img_name: The name of the image
-        :type img_name: str
-        """
+    def __retranslate_ui(self):
+        """Set the text and titles of the widgets."""
 
         _translate = QCoreApplication.translate
 
-        self.setWindowTitle("Histogram plot of " + img_name)
-        self.btn_list.setText(_translate("Histogram of " + img_name, "List"))
-        self.btn_red.setText(_translate("Histogram of " + img_name, "Red"))
-        self.btn_green.setText(_translate("Histogram of " + img_name, "Green"))
-        self.btn_blue.setText(_translate("Histogram of " + img_name, "Blue"))
-        self.btn_rgb.setText(_translate("Histogram of " + img_name, "R + G + B"))
+        self.setWindowTitle("Histogram plot of " + self.img_name)
+        self.btn_list.setText(_translate("Histogram of " + self.img_name, "List"))
+        self.btn_red.setText(_translate("Histogram of " + self.img_name, "Red"))
+        self.btn_green.setText(_translate("Histogram of " + self.img_name, "Green"))
+        self.btn_blue.setText(_translate("Histogram of " + self.img_name, "Blue"))
+        self.btn_rgb.setText(_translate("Histogram of " + self.img_name, "R + G + B"))
 
     def __show_all_channels(self, hist):
         """
@@ -77,7 +75,7 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         if not self.histogram_list.isHidden():
             self.__show_histogram_list(hist)
 
-    def __show_histogram_list(self, hist, img_name=None):
+    def __show_histogram_list(self, hist):
         """
         Create a histogram list of the image.
 
@@ -89,16 +87,14 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         :param hist: The histogram data of the image. Taken from :meth:`image.Image.calc_histogram`
                      {channel_char: [number_of_pixels]}
         :type hist: dict[str, list[int]]
-        :param img_name: The name of the image, optional
-        :type img_name: str
         """
 
         if len(self.current_channel) < 3:
-            self.histogram_list.create_histogram_list(hist[self.current_channel], img_name)
+            self.histogram_list.create_histogram_list(hist[self.current_channel])
         else:
             # Calculate maximum value for every pixel among all channels
             max_channels_values = [max(i) for i in zip(*hist.values())]
-            self.histogram_list.create_histogram_list(max_channels_values, img_name)
+            self.histogram_list.create_histogram_list(max_channels_values)
 
         self.histogram_list.show()
 
@@ -110,7 +106,7 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         self.btn_blue.setEnabled(False)
         self.btn_rgb.setEnabled(False)
 
-    def create_histogram_plot(self, hist, img_name):
+    def create_histogram_plot(self, hist):
         """
         Create a histogram plot of the image.
 
@@ -121,13 +117,12 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         :param hist: The histogram data of the image. Taken from :meth:`image.Image.calc_histogram`
                      {channel_char: [number_of_pixels]}
         :type hist: dict[str, list[int]]
-        :param img_name: The name of the image
-        :type img_name: str
         """
 
         self.init_ui(self)
+        self.window_is_opened = True
 
-        self.btn_list.pressed.connect(lambda: self.__show_histogram_list(hist, img_name))
+        self.btn_list.pressed.connect(lambda: self.__show_histogram_list(hist))
         self.btn_red.pressed.connect(lambda: self.__show_single_channel(hist, 'r'))
         self.btn_green.pressed.connect(lambda: self.__show_single_channel(hist, 'g'))
         self.btn_blue.pressed.connect(lambda: self.__show_single_channel(hist, 'b'))
@@ -139,18 +134,25 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         else:
             self.__show_all_channels(hist)
 
-        self.__retranslate_ui(img_name)
+        self.__retranslate_ui()
+
+    def closeEvent(self, event):
+        """Mark close event by setting :attr:`window_is_opened` to ``False``."""
+
+        self.window_is_opened = False
+        super(HistGraphical, self).closeEvent(event)
 
 
 class HistList(QMdiSubWindow, HistListUI):
     """The HistList class implements a list representation of the image histogram."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, img_name, *args, **kwargs):
         """Create a new histogram list representation."""
 
         super(HistList, self).__init__(*args, **kwargs)
+        self.img_name = img_name
 
-    def create_histogram_list(self, hist, img_name):
+    def create_histogram_list(self, hist):
         """
         Create a histogram list of the image.
 
@@ -162,12 +164,9 @@ class HistList(QMdiSubWindow, HistListUI):
 
         :param hist: The histogram data of the image without specifying channel
         :type hist: list[int]
-        :param img_name: The name of the image
-        :type img_name: str
         """
 
-        if img_name:
-            self.setWindowTitle("Histogram list of " + img_name)
+        self.setWindowTitle("Histogram list of " + self.img_name)
 
         self.init_ui(self, len(hist))
 

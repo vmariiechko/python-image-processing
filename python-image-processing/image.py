@@ -22,7 +22,7 @@ class Image:
         self.image = img_data
         self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
-        self.histogram_graphical = HistGraphical()
+        self.histogram_graphical = HistGraphical(self.img_name)
 
     def __calc_single_histogram(self):
         """
@@ -68,6 +68,9 @@ class Image:
     def update(self):
         self.img_window.update_window(self.image)
 
+        if self.histogram_graphical.window_is_opened:
+            self.create_hist_window()
+
     def is_grayscale(self):
         return len(self.image.shape) == 2
 
@@ -92,7 +95,7 @@ class Image:
     def create_hist_window(self):
         """Create a histogram plot window of the image."""
 
-        self.histogram_graphical.create_histogram_plot(self.calc_histogram(), self.img_name)
+        self.histogram_graphical.create_histogram_plot(self.calc_histogram())
 
     def normalize_histogram(self):
         img_min = self.image.min()
