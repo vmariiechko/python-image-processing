@@ -66,17 +66,34 @@ class Image:
         return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
 
     def __apply_lut(self, lut):
+        """
+        Apply LUT to the image.
+
+        :param lut: The Lookup Table
+        :type lut: list[int]
+        """
+
         for w in range(self.image.shape[0]):
             for h in range(self.image.shape[1]):
                 self.image[w][h] = lut[self.image[w][h]]
 
     def update(self):
+        """Update image graphical elements such as image window, histogram, etc."""
+
         self.img_window.update_window(self.image)
 
         if self.histogram_graphical.window_is_opened:
             self.create_hist_window()
 
     def is_grayscale(self):
+        """
+        Check if the image is grayscale.
+
+        ``True`` if the image has one channel, otherwise ``False``.
+
+        :rtype: bool
+        """
+
         return len(self.image.shape) == 2
 
     def calc_histogram(self):
@@ -98,6 +115,13 @@ class Image:
             return self.__calc_triple_histogram()
 
     def calc_cumulative_histogram(self):
+        """
+        Calculate cumulative histogram, which equals to the empirical distribution of histogram.
+
+        :return: The empirical distribution
+        :rtype: list[int]
+        """
+
         hist = self.calc_histogram()['b']
 
         empirical_distr = [hist[0]]
@@ -112,9 +136,17 @@ class Image:
         self.histogram_graphical.create_histogram_plot(self.calc_histogram())
 
     def normalize_histogram(self):
+        """
+        Change the image, execute histogram normalization:
+
+        - Define min/max values in the image.
+        - Calculate contrast stretching.
+        """
+
         img_min = self.image.min()
         img_max = self.image.max()
 
+        # Scaling range
         min_val = 0
         max_val = 255
 
@@ -123,15 +155,24 @@ class Image:
                 self.image[w][h] = ((self.image[w][h] - img_min) * max_val) / (img_max - img_min)
 
     def equalize_histogram(self):
+        """
+        Change the image, execute histogram equalization:
+
+        - Calculate cumulative histogram.
+        - Calculate LUT for equalization.
+        - Apply LUT to the picture.
+        """
+
         lut = []
         cumulative_hist = self.calc_cumulative_histogram()
 
-        # Find min/max values in cumulative histogram, excluding zero as minimum
+        # Find min/max values in the cumulative histogram, excluding zero as a minimum
         ord_hist_values = sorted(set(cumulative_hist))
         hist_min = ord_hist_values[1]
         hist_max = ord_hist_values[-1]
 
         for i in cumulative_hist:
+            # Normalize cumulative sum to 0-255 range
             equalized_val = abs(int(((i - hist_min) * 255) / (hist_max - hist_min)))
             lut.append(equalized_val)
 
