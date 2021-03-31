@@ -65,6 +65,11 @@ class Image:
 
         return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
 
+    def __apply_lut(self, lut):
+        for w in range(self.image.shape[0]):
+            for h in range(self.image.shape[1]):
+                self.image[w][h] = lut[self.image[w][h]]
+
     def update(self):
         self.img_window.update_window(self.image)
 
@@ -92,6 +97,15 @@ class Image:
         else:
             return self.__calc_triple_histogram()
 
+    def calc_cumulative_histogram(self):
+        hist = self.calc_histogram()['b']
+
+        empirical_distr = [hist[0]]
+        for i in hist[1:]:
+            empirical_distr.append(empirical_distr[-1] + i)
+
+        return empirical_distr
+
     def create_hist_window(self):
         """Create a histogram plot window of the image."""
 
@@ -107,6 +121,21 @@ class Image:
         for w in range(self.image.shape[0]):
             for h in range(self.image.shape[1]):
                 self.image[w][h] = ((self.image[w][h] - img_min) * max_val) / (img_max - img_min)
+
+    def equalize_histogram(self):
+        lut = []
+        cumulative_hist = self.calc_cumulative_histogram()
+
+        # Find min/max values in cumulative histogram, excluding zero as minimum
+        ord_hist_values = sorted(set(cumulative_hist))
+        hist_min = ord_hist_values[1]
+        hist_max = ord_hist_values[-1]
+
+        for i in cumulative_hist:
+            equalized_val = abs(int(((i - hist_min) * 255) / (hist_max - hist_min)))
+            lut.append(equalized_val)
+
+        self.__apply_lut(lut)
 
 
 class ImageWindow(QMdiSubWindow):

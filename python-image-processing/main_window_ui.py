@@ -59,10 +59,14 @@ class MainWindowUI:
         self.action_normalize = QAction(main_window)
         self.action_normalize.setObjectName("action_normalize")
 
+        self.action_equalize = QAction(main_window)
+        self.action_equalize.setObjectName("action_equalize")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
         self.menu_histogram.addAction(self.action_normalize)
+        self.menu_histogram.addAction(self.action_equalize)
 
         self.menu_operations.addAction(self.menu_histogram.menuAction())
         self.menu_bar.addAction(self.menu_file.menuAction())
@@ -91,4 +95,5 @@ class MainWindowUI:
         self.action_open.setText(_translate(_window_title, "Open"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
-        self.action_normalize.setText(_translate(_window_title, "Normalize"))
+        self.action_normalize.setText(_translate(_window_title, "Normalization"))
+        self.action_equalize.setText(_translate(_window_title, "Equalization"))

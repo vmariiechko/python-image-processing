@@ -17,7 +17,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_open.triggered.connect(self.open_image)
         self.action_histogram.triggered.connect(self.show_histogram)
         self.action_profile.triggered.connect(self.show_intensity_profile)
-        self.action_normalize.triggered.connect(self.run_histogram_operation)
+        self.action_normalize.triggered.connect(lambda: self.run_histogram_operation("normalization"))
+        self.action_equalize.triggered.connect(lambda: self.run_histogram_operation("equalization"))
 
         self.images = dict()
 
@@ -101,7 +102,14 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.central_mdi_area.addSubWindow(image.img_window.intensity_profile)
         image.img_window.intensity_profile.show()
 
-    def run_histogram_operation(self):
+    def run_histogram_operation(self, operation):
+        """
+        Execute specified histogram operation.
+
+        :param operation: The histogram operation, can be "normalization" or "equalization"
+        :type operation: str
+        """
+
         image = self.__get_selected_image()
 
         if not image:
@@ -111,7 +119,11 @@ class MainWindow(QMainWindow, MainWindowUI):
             QMessageBox.warning(self, "Not grayscale", "Selected image isn't grayscale.")
             return
 
-        image.normalize_histogram()
+        if operation == "normalization":
+            image.normalize_histogram()
+        elif operation == "equalization":
+            image.equalize_histogram()
+
         image.update()
 
 
