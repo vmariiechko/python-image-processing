@@ -42,11 +42,11 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         :type hist: dict[str, list[int]]
         """
 
-        self.current_channel = 'rgb'
+        self.current_channel = 'bgr'
 
         self.hist_canvas.axes.clear()
         for col in self.current_channel:
-            self.hist_canvas.axes.plot(range(256), hist[col], color=col)
+            self.hist_canvas.axes.bar(range(256), hist[col], color=col, alpha=0.3)
         self.hist_canvas.draw()
 
         if not self.histogram_list.isHidden():
@@ -70,7 +70,7 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         self.current_channel = col
 
         self.hist_canvas.axes.clear()
-        self.hist_canvas.axes.plot(range(256), hist[col], color=col)
+        self.hist_canvas.axes.bar(range(256), hist[col], color=col, alpha=0.5)
         self.hist_canvas.draw()
 
         if not self.histogram_list.isHidden():
