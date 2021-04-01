@@ -39,11 +39,14 @@ class MainWindowUI:
         self.menu_analyze = QMenu(self.menu_bar)
         self.menu_analyze.setObjectName("menu_analyze")
 
-        self.menu_operations = QMenu(self.menu_bar)
-        self.menu_operations.setObjectName("menu_operations")
+        self.menu_process = QMenu(self.menu_bar)
+        self.menu_process.setObjectName("menu_process")
 
         self.menu_histogram = QMenu(self.menu_bar)
         self.menu_histogram.setObjectName("menu_histogram")
+
+        self.menu_point_operations = QMenu(self.menu_bar)
+        self.menu_point_operations.setObjectName("menu_point_operations")
 
         main_window.setMenuBar(self.menu_bar)
 
@@ -62,16 +65,21 @@ class MainWindowUI:
         self.action_equalize = QAction(main_window)
         self.action_equalize.setObjectName("action_equalize")
 
+        self.action_negation = QAction(main_window)
+        self.action_negation.setObjectName("action_negation")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
         self.menu_histogram.addAction(self.action_normalize)
         self.menu_histogram.addAction(self.action_equalize)
+        self.menu_point_operations.addAction(self.action_negation)
 
-        self.menu_operations.addAction(self.menu_histogram.menuAction())
+        self.menu_process.addAction(self.menu_histogram.menuAction())
+        self.menu_process.addAction(self.menu_point_operations.menuAction())
         self.menu_bar.addAction(self.menu_file.menuAction())
         self.menu_bar.addAction(self.menu_analyze.menuAction())
-        self.menu_bar.addAction(self.menu_operations.menuAction())
+        self.menu_bar.addAction(self.menu_process.menuAction())
 
         self.retranslate_ui(main_window)
         QMetaObject.connectSlotsByName(main_window)
@@ -90,10 +98,12 @@ class MainWindowUI:
         main_window.setWindowTitle(_translate(_window_title, "APO Image Processing"))
         self.menu_file.setTitle(_translate(_window_title, "File"))
         self.menu_analyze.setTitle(_translate(_window_title, "Analyze"))
-        self.menu_operations.setTitle(_translate(_window_title, "Operations"))
+        self.menu_process.setTitle(_translate(_window_title, "Process"))
         self.menu_histogram.setTitle(_translate(_window_title, "Histogram"))
+        self.menu_point_operations.setTitle(_translate(_window_title, "Point Operations"))
         self.action_open.setText(_translate(_window_title, "Open"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
         self.action_normalize.setText(_translate(_window_title, "Normalization"))
         self.action_equalize.setText(_translate(_window_title, "Equalization"))
+        self.action_negation.setText(_translate(_window_title, "Negation"))

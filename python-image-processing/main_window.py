@@ -21,6 +21,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_profile.triggered.connect(self.show_intensity_profile)
         self.action_normalize.triggered.connect(lambda: self.run_histogram_operation("normalization"))
         self.action_equalize.triggered.connect(lambda: self.run_histogram_operation("equalization"))
+        self.action_negation.triggered.connect(lambda: self.run_point_operation("negation"))
 
         self.images = dict()
 
@@ -86,6 +87,11 @@ class MainWindow(QMainWindow, MainWindowUI):
         if not image:
             return
 
+        if image.color_depth > 256:
+            QMessageBox.warning(self, "Too high", "The size of the image item is too high.\n"
+                                                  "Convert the image to 8 bits per pixel.")
+            return
+
         image.create_hist_window()
 
         self.central_mdi_area.addSubWindow(image.histogram_graphical)
@@ -118,14 +124,33 @@ class MainWindow(QMainWindow, MainWindowUI):
         if not image:
             return
 
-        if not image.is_grayscale():
-            QMessageBox.warning(self, "Not grayscale", "Selected image isn't grayscale.")
+        if not image.is_grayscale() or image.color_depth > 256:
+            QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
+                                                     "The image must be grayscale, 8 bits per pixel")
             return
 
         if operation == "normalization":
             image.normalize_histogram()
         elif operation == "equalization":
             image.equalize_histogram()
+
+        image.update()
+
+    def run_point_operation(self, operation):
+        """
+        Execute specified point operation.
+
+        :param operation: The point operation, can be "negation"
+        :type operation: str
+        """
+
+        image = self.__get_selected_image()
+
+        if not image:
+            return
+
+        if operation == "negation":
+            image.negation()
 
         image.update()
 

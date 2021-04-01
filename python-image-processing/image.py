@@ -22,6 +22,7 @@ class Image:
         self.image = img_data
         self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
+        self.color_depth = 2**(8 * self.image.dtype.itemsize)
         self.histogram_graphical = HistGraphical(self.img_name)
 
     def __calc_single_histogram(self):
@@ -35,7 +36,7 @@ class Image:
         :rtype: dict[str, list[int]]
         """
 
-        histogram = [0] * 256
+        histogram = [0] * self.color_depth
 
         for w in range(self.image.shape[0]):
             for h in range(self.image.shape[1]):
@@ -55,7 +56,7 @@ class Image:
         :rtype: dict[str, list[int]]
         """
 
-        histogram_rgb = [[0] * 256, [0] * 256, [0] * 256]
+        histogram_rgb = [[0] * self.color_depth, [0] * self.color_depth, [0] * self.color_depth]
 
         for w in range(self.image.shape[0]):
             for h in range(self.image.shape[1]):
@@ -73,9 +74,15 @@ class Image:
         :type lut: list[int]
         """
 
-        for w in range(self.image.shape[0]):
-            for h in range(self.image.shape[1]):
-                self.image[w][h] = lut[self.image[w][h]]
+        if self.is_grayscale():
+            for w in range(self.image.shape[0]):
+                for h in range(self.image.shape[1]):
+                    self.image[w][h] = lut[self.image[w][h]]
+        else:
+            for w in range(self.image.shape[0]):
+                for h in range(self.image.shape[1]):
+                    for i in range(self.image.shape[2]):
+                        self.image[w][h][i] = lut[self.image[w][h][i]]
 
     def update(self):
         """Update image graphical elements such as image window, histogram, etc."""
@@ -178,9 +185,21 @@ class Image:
 
         self.__apply_lut(lut)
 
+    def negation(self):
+        """Perform image negation."""
+
+        lut = [self.color_depth - i - 1 for i in range(self.color_depth)]
+        self.__apply_lut(lut)
+
 
 class ImageWindow(QMdiSubWindow):
     """The ImageWindow class implements image visualization in sub-window."""
+
+    # Map ndarray.dtype.itemsize to QImage bytes per pixel format for grayscale image
+    bytes_per_pixel = {
+        1: QImage.Format_Grayscale8,
+        2: QImage.Format_Grayscale16
+    }
 
     def __init__(self, img_data, path, parent=None):
         """
@@ -246,10 +265,25 @@ class ImageWindow(QMdiSubWindow):
         return point
 
     def update_window(self, img_data):
-        self.image = img_data
-        height, width = img_data.shape
+        """
+        Update image sub-window.
 
-        img = QImage(self.image, width, height, QImage.Format_Grayscale8)
+        Convert new image data to :class:`PyQt5.QtGui.QImage`.
+        Reload the image to the the sub-window.
+
+        :param img_data: The changed image data
+        :type img_data: :class:`ndarray`
+        """
+
+        self.image = img_data
+        height, width = img_data.shape[:2]
+
+        if len(img_data.shape) == 2:
+            color_depth = img_data.dtype.itemsize
+            img = QImage(self.image, width, height, self.bytes_per_pixel[color_depth])
+        else:
+            img = QImage(self.image, width, height, 3*width, QImage.Format_RGB888)
+
         self.pixmap = QPixmap(img)
         self.image_label.setPixmap(self.pixmap.copy())
 
