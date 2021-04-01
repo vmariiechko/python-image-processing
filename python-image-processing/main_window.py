@@ -1,5 +1,6 @@
 from cv2 import imread
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
+from PyQt5.QtCore import Qt
 
 from main_window_ui import MainWindowUI
 from image import Image
@@ -13,6 +14,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         super().__init__(parent)
         self.init_ui(self)
+        self.setAcceptDrops(True)
 
         self.action_open.triggered.connect(self.open_image)
         self.action_histogram.triggered.connect(self.show_histogram)
@@ -60,13 +62,14 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         return image
 
-    def open_image(self):
+    def open_image(self, file_path=None):
         """Create :class:`image.Image` object of chosen image and show it in the sub-window."""
 
-        file_path = self.__browse_file()
-
         if not file_path:
-            return
+            file_path = self.__browse_file()
+
+            if not file_path:
+                return
 
         img_data = imread(file_path, -1)
         image = Image(img_data, file_path)
@@ -125,6 +128,24 @@ class MainWindow(QMainWindow, MainWindowUI):
             image.equalize_histogram()
 
         image.update()
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasImage:
+            event.accept()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasImage:
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        if event.mimeData().hasImage:
+            event.setDropAction(Qt.CopyAction)
+            file_path = event.mimeData().urls()[0].toLocalFile()
+            self.open_image(file_path)
 
 
 app = QApplication([])
