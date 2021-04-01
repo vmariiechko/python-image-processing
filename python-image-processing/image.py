@@ -270,8 +270,10 @@ class ImageWindow(QMdiSubWindow):
         event_type = event.type()
 
         if event_type == QEvent.MouseButtonPress:
-            if event.button() == Qt.LeftButton:
-                self.points[0] = event.pos()
+            point = event.pos()
+
+            if event.button() == Qt.LeftButton and point.y() > -1:
+                self.points[0] = point
                 self.image_label.setPixmap(self.pixmap.copy())
                 self.drawing = True
 
@@ -286,7 +288,7 @@ class ImageWindow(QMdiSubWindow):
             self.update()
 
         elif event_type == QEvent.MouseButtonRelease:
-            if event.button() == Qt.LeftButton:
+            if event.button() == Qt.LeftButton and self.drawing:
                 self.points[1] = self.__validate_point(event.pos())
                 self.drawing = False
                 self.create_profile()
