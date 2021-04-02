@@ -22,6 +22,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_normalize.triggered.connect(lambda: self.run_histogram_operation("normalization"))
         self.action_equalize.triggered.connect(lambda: self.run_histogram_operation("equalization"))
         self.action_negation.triggered.connect(lambda: self.run_point_operation("negation"))
+        self.action_threshold.triggered.connect(lambda: self.run_point_operation("threshold"))
 
         self.images = dict()
 
@@ -140,7 +141,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
         Execute specified point operation.
 
-        :param operation: The point operation, can be "negation"
+        :param operation: The point operation, can be "negation", "threshold"
         :type operation: str
         """
 
@@ -151,6 +152,8 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         if operation == "negation":
             image.negation()
+        elif operation == "threshold":
+            image.threshold()
 
         image.update()
 

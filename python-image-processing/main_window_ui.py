@@ -68,12 +68,16 @@ class MainWindowUI:
         self.action_negation = QAction(main_window)
         self.action_negation.setObjectName("action_negation")
 
+        self.action_threshold = QAction(main_window)
+        self.action_threshold.setObjectName("action_threshold")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
         self.menu_histogram.addAction(self.action_normalize)
         self.menu_histogram.addAction(self.action_equalize)
         self.menu_point_operations.addAction(self.action_negation)
+        self.menu_point_operations.addAction(self.action_threshold)
 
         self.menu_process.addAction(self.menu_histogram.menuAction())
         self.menu_process.addAction(self.menu_point_operations.menuAction())
@@ -107,3 +111,4 @@ class MainWindowUI:
         self.action_normalize.setText(_translate(_window_title, "Normalization"))
         self.action_equalize.setText(_translate(_window_title, "Equalization"))
         self.action_negation.setText(_translate(_window_title, "Negation"))
+        self.action_threshold.setText(_translate(_window_title, "Threshold"))

@@ -4,6 +4,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from hist_window import HistGraphical
 from intensity_profile import IntensityProfile
+from threshold import Threshold
 
 
 class Image:
@@ -190,6 +191,12 @@ class Image:
 
         lut = [self.color_depth - i - 1 for i in range(self.color_depth)]
         self.__apply_lut(lut)
+
+    def threshold(self):
+        threshold = Threshold(self)
+
+        if threshold.exec():
+            self.image = threshold.img_data
 
 
 class ImageWindow(QMdiSubWindow):
