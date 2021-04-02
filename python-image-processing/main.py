@@ -2,7 +2,7 @@ from cv2 import imread
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 
-from main_window_ui import MainWindowUI
+from main_ui import MainWindowUI
 from image import Image
 
 

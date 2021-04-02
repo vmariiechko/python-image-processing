@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QWidget
 from PyQt5.QtGui import QIcon, QPixmap
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-from hist_window_ui import MplCanvas
+from histogram_ui import MplCanvas
 
 
 class IntensityProfileUI:

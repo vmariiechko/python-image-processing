@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
-from hist_window import HistGraphical
+from histogram import HistGraphical
 from intensity_profile import IntensityProfile
 from threshold import Threshold
 
