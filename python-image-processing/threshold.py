@@ -1,13 +1,23 @@
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtCore import Qt
 
 from threshold_ui import ThresholdUI
 
 
 class Threshold(QDialog, ThresholdUI):
+    """The Threshold class implements a thresholding point operation."""
 
-    def __init__(self, parent=None):
+    def __init__(self, parent):
+        """
+        Create a new dialog window to perform thresholding.
+
+        Get image data and color depth from :param:`parent`.
+        Set slider values based on image data.
+
+        :param parent: The image to threshold
+        :type parent: :class:`image.Image`
+        """
+
         super().__init__()
         self.init_ui(self)
         self.setWindowTitle("Threshold")
@@ -19,19 +29,36 @@ class Threshold(QDialog, ThresholdUI):
         self.threshold_slider.setMaximum(self.color_depth)
         self.threshold_slider.setProperty("value", self.color_depth // 2)
 
+        self.rbtn_thresh_binary.clicked.connect(self.update_img_preview)
+        self.rbtn_thresh_zero.clicked.connect(self.update_img_preview)
         self.threshold_slider.valueChanged.connect(self.update_thresh_value)
         self.threshold_slider.sliderReleased.connect(self.update_img_preview)
         self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         self.update_thresh_value()
         self.update_img_preview()
 
     def update_thresh_value(self):
+        """Update :attr:`label_thresh_value` whenever is changed."""
+
         self.label_thresh_value.setText("Threshold value: "
                                         + str(self.threshold_slider.value()))
 
-    def calc_threshold(self, thresh_value):
+    def calc_threshold_binary(self, thresh_value):
+        """
+        Calculate threshold binary point operation.
+
+        if the pixel is higher than :param:`thresh_value`,
+        then the new pixel intensity is set to a maximum
+        value - :attr:`color_depth`-1.
+        Otherwise, the pixels are set to 0
+
+        :param thresh_value: The value for segmentation
+        :type thresh_value: int
+        :return: The new updated image data
+        :rtype: class:`numpy.ndarray`
+        """
+
         img_data = self.img_data.copy()
 
         for w in range(img_data.shape[0]):
@@ -40,9 +67,43 @@ class Threshold(QDialog, ThresholdUI):
 
         return img_data
 
+    def calc_threshold_zero(self, thresh_value):
+        """
+        Calculate threshold to zero point operation.
+
+        If the pixel is lower than :param:`thresh_value`,
+        the new pixel value will be set to 0.
+
+        :param thresh_value: The value for segmentation
+        :type thresh_value: int
+        :return: The new updated image data
+        :rtype: class:`numpy.ndarray`
+        """
+
+        img_data = self.img_data.copy()
+
+        for w in range(img_data.shape[0]):
+            for h in range(img_data.shape[1]):
+                if img_data[w][h] < thresh_value:
+                    img_data[w][h] = 0
+
+        return img_data
+
     def update_img_preview(self):
+        """
+        Update image preview window.
+
+        Calculate image thresholding based on slider value.
+        Convert new image data to :class:`PyQt5.QtGui.QImage`.
+        Reload the image to the preview window.
+        """
+
         thresh_value = self.threshold_slider.value()
-        img_data = self.calc_threshold(thresh_value)
+
+        if self.rbtn_thresh_binary.isChecked():
+            img_data = self.calc_threshold_binary(thresh_value)
+        else:
+            img_data = self.calc_threshold_zero(thresh_value)
 
         height, width = img_data.shape[:2]
 
@@ -56,5 +117,7 @@ class Threshold(QDialog, ThresholdUI):
         self.new_img_data = img_data
 
     def accept_changes(self):
+        """Accept changed image data to the original one."""
+
         self.img_data = self.new_img_data
         self.accept()

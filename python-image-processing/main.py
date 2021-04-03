@@ -153,6 +153,12 @@ class MainWindow(QMainWindow, MainWindowUI):
         if operation == "negation":
             image.negation()
         elif operation == "threshold":
+
+            if not image.is_grayscale():
+                QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
+                                                             "Please, select a grayscale image.")
+                return
+
             image.threshold()
 
         image.update()
