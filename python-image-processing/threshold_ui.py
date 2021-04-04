@@ -51,6 +51,7 @@ class ThresholdUI:
 
         self.label_image = QLabel(threshold)
         self.label_image.setObjectName("label_image")
+        self.label_image.setAlignment(Qt.AlignCenter)
 
         self.button_box = QDialogButtonBox(threshold)
         self.button_box.setOrientation(Qt.Horizontal)

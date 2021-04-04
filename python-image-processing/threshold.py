@@ -22,9 +22,9 @@ class Threshold(QDialog, ThresholdUI):
         self.init_ui(self)
         self.setWindowTitle("Threshold")
 
+        self.color_depth = parent.color_depth - 1
         self.img_data = parent.image.copy()
         self.new_img_data = None
-        self.color_depth = parent.color_depth - 1
 
         self.threshold_slider.setMaximum(self.color_depth)
         self.threshold_slider.setProperty("value", self.color_depth // 2)

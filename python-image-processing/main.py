@@ -23,6 +23,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_equalize.triggered.connect(lambda: self.run_histogram_operation("equalization"))
         self.action_negation.triggered.connect(lambda: self.run_point_operation("negation"))
         self.action_threshold.triggered.connect(lambda: self.run_point_operation("threshold"))
+        self.action_posterize.triggered.connect(lambda: self.run_point_operation("posterize"))
 
         self.images = dict()
 
@@ -160,6 +161,14 @@ class MainWindow(QMainWindow, MainWindowUI):
                 return
 
             image.threshold()
+        elif operation == "posterize":
+
+            if not image.is_grayscale():
+                QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
+                                                             "Please, select a grayscale image.")
+                return
+
+            image.posterize()
 
         image.update()
 

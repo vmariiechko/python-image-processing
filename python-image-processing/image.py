@@ -5,6 +5,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 from histogram import HistGraphical
 from intensity_profile import IntensityProfile
 from threshold import Threshold
+from posterize import Posterize
 
 
 class Image:
@@ -197,6 +198,12 @@ class Image:
 
         if threshold.exec():
             self.image = threshold.img_data
+
+    def posterize(self):
+        posterize = Posterize(self)
+
+        if posterize.exec():
+            self.image = posterize.img_data
 
 
 class ImageWindow(QMdiSubWindow):
