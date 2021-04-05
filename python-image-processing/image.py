@@ -4,6 +4,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from histogram import HistGraphical
 from intensity_profile import IntensityProfile
+from normalize import Normalize
 from threshold import Threshold
 from posterize import Posterize
 
@@ -145,27 +146,16 @@ class Image:
         self.histogram_graphical.create_histogram_plot(self.calc_histogram())
 
     def normalize_histogram(self):
-        """
-        Change the image, execute histogram normalization:
+        """Perform histogram normalization."""
 
-        - Define min/max values in the image.
-        - Calculate contrast stretching.
-        """
+        normalize = Normalize(self)
 
-        img_min = self.image.min()
-        img_max = self.image.max()
-
-        # Scaling range
-        min_val = 0
-        max_val = 255
-
-        for w in range(self.image.shape[0]):
-            for h in range(self.image.shape[1]):
-                self.image[w][h] = ((self.image[w][h] - img_min) * max_val) / (img_max - img_min)
+        if normalize.exec():
+            self.image = normalize.img_data
 
     def equalize_histogram(self):
         """
-        Change the image, execute histogram equalization:
+        Perform histogram equalization:
 
         - Calculate cumulative histogram.
         - Calculate LUT for equalization.
@@ -194,12 +184,16 @@ class Image:
         self.__apply_lut(lut)
 
     def threshold(self):
+        """Perform image thresholding."""
+
         threshold = Threshold(self)
 
         if threshold.exec():
             self.image = threshold.img_data
 
     def posterize(self):
+        """Perform image posterization."""
+
         posterize = Posterize(self)
 
         if posterize.exec():

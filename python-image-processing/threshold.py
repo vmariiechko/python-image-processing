@@ -22,12 +22,12 @@ class Threshold(QDialog, ThresholdUI):
         self.init_ui(self)
         self.setWindowTitle("Threshold")
 
-        self.color_depth = parent.color_depth - 1
+        self.color_depth = parent.color_depth
         self.img_data = parent.image.copy()
         self.new_img_data = None
 
-        self.threshold_slider.setMaximum(self.color_depth)
-        self.threshold_slider.setProperty("value", self.color_depth // 2)
+        self.threshold_slider.setMaximum(self.color_depth - 1)
+        self.threshold_slider.setProperty("value", self.color_depth // 2 - 1)
 
         self.rbtn_thresh_binary.clicked.connect(self.update_img_preview)
         self.rbtn_thresh_zero.clicked.connect(self.update_img_preview)
@@ -37,12 +37,6 @@ class Threshold(QDialog, ThresholdUI):
 
         self.update_thresh_value()
         self.update_img_preview()
-
-    def update_thresh_value(self):
-        """Update :attr:`label_thresh_value` whenever is changed."""
-
-        self.label_thresh_value.setText("Threshold value: "
-                                        + str(self.threshold_slider.value()))
 
     def calc_threshold_binary(self, thresh_value):
         """
@@ -88,6 +82,12 @@ class Threshold(QDialog, ThresholdUI):
                     img_data[w][h] = 0
 
         return img_data
+
+    def update_thresh_value(self):
+        """Update :attr:`label_thresh_value` whenever is changed."""
+
+        self.label_thresh_value.setText("Threshold value: "
+                                        + str(self.threshold_slider.value()))
 
     def update_img_preview(self):
         """

@@ -53,12 +53,6 @@ class Posterize(QDialog, PosterizeUI):
 
         return img_data
 
-    def update_bins_value(self):
-        """Update :attr:`label_bins_num` whenever is changed."""
-
-        self.label_bins_num.setText("Posterize Bins Number: "
-                                    + str(self.bins_slider.value()))
-
     def calc_posterize_lut(self, bins_num):
         """
         Calculate LUT for posterizing point operation.
@@ -86,6 +80,12 @@ class Posterize(QDialog, PosterizeUI):
         lut.extend([self.color_depth - 1] * (self.color_depth - bins_range[-1]))
 
         return lut
+
+    def update_bins_value(self):
+        """Update :attr:`label_bins_num` whenever is changed."""
+
+        self.label_bins_num.setText("Posterize Bins Number: "
+                                    + str(self.bins_slider.value()))
 
     def update_img_preview(self):
         """
