@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 
 from main_ui import MainWindowUI
+from image_bmp import ImageBmp
 from image import Image
 
 
@@ -74,7 +75,16 @@ class MainWindow(QMainWindow, MainWindowUI):
             if not file_path:
                 return
 
-        img_data = imread(file_path, -1)
+        if file_path.split(".")[-1] == "bmp":
+            with open(file_path, "rb") as file:
+                try:
+                    img_bmp = ImageBmp(file.read())
+                    img_data = img_bmp.pixels
+                except AssertionError:
+                    img_data = imread(file_path, -1)
+        else:
+            img_data = imread(file_path, -1)
+
         image = Image(img_data, file_path)
 
         self.images[image.img_window] = image
