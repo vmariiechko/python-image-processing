@@ -75,8 +75,8 @@ class Normalize(QDialog, NormalizeUI):
 
         for w in range(img_data.shape[0]):
             for h in range(img_data.shape[1]):
-                # todo normalization from min to max value range
-                img_data[w][h] = ((img_data[w][h] - img_min) * max_val) / (img_max - img_min)
+                # Linear transformation
+                img_data[w][h] = min_val + (img_data[w][h] - img_min) * (max_val - min_val)/(img_max - img_min)
 
         return img_data
 
