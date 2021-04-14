@@ -24,7 +24,7 @@ class Posterize(QDialog, PosterizeUI):
 
         self.color_depth = parent.color_depth
         self.img_data = parent.image.copy()
-        self.new_img_data = None
+        self.current_img_data = None
 
         self.bins_slider.setMinimum(2)
         self.bins_slider.setMaximum(self.color_depth // 2 - 1)
@@ -91,9 +91,9 @@ class Posterize(QDialog, PosterizeUI):
         """
         Update image preview window.
 
-        Calculate image posterization based on slider value.
-        Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        Reload the image to the preview window.
+        - Calculate image posterization based on slider value.
+        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
+        - Reload the image to the preview window.
         """
 
         bins_num = self.bins_slider.value()
@@ -109,10 +109,10 @@ class Posterize(QDialog, PosterizeUI):
 
         pixmap = QPixmap(image)
         self.label_image.setPixmap(pixmap)
-        self.new_img_data = img_data
+        self.current_img_data = img_data
 
     def accept_changes(self):
         """Accept changed image data to the original one."""
 
-        self.img_data = self.new_img_data
+        self.img_data = self.current_img_data
         self.accept()

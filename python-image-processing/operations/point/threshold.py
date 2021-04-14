@@ -24,7 +24,7 @@ class Threshold(QDialog, ThresholdUI):
 
         self.color_depth = parent.color_depth
         self.img_data = parent.image.copy()
-        self.new_img_data = None
+        self.current_img_data = None
 
         self.threshold_slider.setMaximum(self.color_depth - 1)
         self.threshold_slider.setProperty("value", self.color_depth // 2 - 1)
@@ -93,9 +93,9 @@ class Threshold(QDialog, ThresholdUI):
         """
         Update image preview window.
 
-        Calculate image thresholding based on slider value.
-        Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        Reload the image to the preview window.
+        - Calculate image thresholding based on slider value.
+        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
+        - Reload the image to the preview window.
         """
 
         thresh_value = self.threshold_slider.value()
@@ -114,10 +114,10 @@ class Threshold(QDialog, ThresholdUI):
 
         pixmap = QPixmap(image)
         self.label_image.setPixmap(pixmap)
-        self.new_img_data = img_data
+        self.current_img_data = img_data
 
     def accept_changes(self):
         """Accept changed image data to the original one."""
 
-        self.img_data = self.new_img_data
+        self.img_data = self.current_img_data
         self.accept()

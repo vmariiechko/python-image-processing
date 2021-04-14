@@ -19,7 +19,7 @@ class Normalize(QDialog, NormalizeUI):
         self.color_depth = parent.color_depth
         self.original_hist = parent.calc_histogram()['b']
         self.img_data = parent.image.copy()
-        self.new_img_data = None
+        self.current_img_data = None
 
         self.init_ui(self, [self.img_data.min(), self.img_data.max()])
         self.label_txt.setText("Choose the range for normalization:")
@@ -27,12 +27,12 @@ class Normalize(QDialog, NormalizeUI):
 
         self.range_slider.left_value_changed.connect(self.update_left_value)
         self.range_slider.right_value_changed.connect(self.update_right_value)
-        self.range_slider.range_chagned.connect(self.update_preview_plot)
+        self.range_slider.range_chagned.connect(self.update_plot_preview)
         self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
         self.update_left_value()
         self.update_right_value()
-        self.update_preview_plot()
+        self.update_plot_preview()
 
     def calc_histogram(self, img_data):
         """
@@ -90,7 +90,7 @@ class Normalize(QDialog, NormalizeUI):
 
         self.label_right_value.setText(str(self.range_slider.second_position))
 
-    def update_preview_plot(self):
+    def update_plot_preview(self):
         """
         Update histogram preview window.
 
@@ -108,10 +108,10 @@ class Normalize(QDialog, NormalizeUI):
         self.hist_canvas.axes.bar(range(256), new_hist, color='g')
         self.hist_canvas.draw()
 
-        self.new_img_data = img_data
+        self.current_img_data = img_data
 
     def accept_changes(self):
         """Accept changed image data to the original one."""
 
-        self.img_data = self.new_img_data
+        self.img_data = self.current_img_data
         self.accept()

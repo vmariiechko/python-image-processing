@@ -4,6 +4,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from .analyze import HistGraphical, IntensityProfile
 from operations.point import Normalize, Posterize, Threshold
+from operations.local import Smooth
 
 
 class Image:
@@ -196,6 +197,14 @@ class Image:
         if posterize.exec():
             self.image = posterize.img_data
 
+    def smooth(self):
+        """Perform image smoothing."""
+
+        smooth = Smooth(self)
+
+        if smooth.exec():
+            self.image = smooth.img_data
+
 
 class ImageWindow(QMdiSubWindow):
     """The ImageWindow class implements image visualization in sub-window."""
@@ -287,7 +296,7 @@ class ImageWindow(QMdiSubWindow):
             color_depth = img_data.dtype.itemsize
             img = QImage(self.image, width, height, self.bytes_per_pixel[color_depth])
         else:
-            img = QImage(self.image, width, height, 3*width, QImage.Format_RGB888)
+            img = QImage(self.image, width, height, 3*width, QImage.Format_BGR888)
 
         self.pixmap = QPixmap(img)
         self.image_label.setPixmap(self.pixmap.copy())

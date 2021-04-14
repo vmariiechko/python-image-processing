@@ -48,6 +48,9 @@ class MainWindowUI:
         self.menu_point_operations = QMenu(self.menu_bar)
         self.menu_point_operations.setObjectName("menu_point_operations")
 
+        self.menu_local_operations = QMenu(self.menu_bar)
+        self.menu_local_operations.setObjectName("menu_local_operations")
+
         main_window.setMenuBar(self.menu_bar)
 
         self.action_open = QAction(main_window)
@@ -74,6 +77,9 @@ class MainWindowUI:
         self.action_posterize = QAction(main_window)
         self.action_posterize.setObjectName("action_posterize")
 
+        self.action_smooth = QAction(main_window)
+        self.action_smooth.setObjectName("action_smooth")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
@@ -82,9 +88,11 @@ class MainWindowUI:
         self.menu_point_operations.addAction(self.action_negation)
         self.menu_point_operations.addAction(self.action_threshold)
         self.menu_point_operations.addAction(self.action_posterize)
+        self.menu_local_operations.addAction(self.action_smooth)
 
         self.menu_process.addAction(self.menu_histogram.menuAction())
         self.menu_process.addAction(self.menu_point_operations.menuAction())
+        self.menu_process.addAction(self.menu_local_operations.menuAction())
         self.menu_bar.addAction(self.menu_file.menuAction())
         self.menu_bar.addAction(self.menu_analyze.menuAction())
         self.menu_bar.addAction(self.menu_process.menuAction())
@@ -109,6 +117,7 @@ class MainWindowUI:
         self.menu_process.setTitle(_translate(_window_title, "Process"))
         self.menu_histogram.setTitle(_translate(_window_title, "Histogram"))
         self.menu_point_operations.setTitle(_translate(_window_title, "Point Operations"))
+        self.menu_local_operations.setTitle(_translate(_window_title, "Local Operations"))
         self.action_open.setText(_translate(_window_title, "Open"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
@@ -117,3 +126,4 @@ class MainWindowUI:
         self.action_negation.setText(_translate(_window_title, "Negation"))
         self.action_threshold.setText(_translate(_window_title, "Threshold"))
         self.action_posterize.setText(_translate(_window_title, "Posterize"))
+        self.action_smooth.setText(_translate(_window_title, "Smooth"))

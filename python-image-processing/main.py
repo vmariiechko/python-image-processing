@@ -24,6 +24,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_negation.triggered.connect(lambda: self.run_point_operation("negation"))
         self.action_threshold.triggered.connect(lambda: self.run_point_operation("threshold"))
         self.action_posterize.triggered.connect(lambda: self.run_point_operation("posterize"))
+        self.action_smooth.triggered.connect(lambda: self.run_local_operation("smooth"))
 
         self.images = dict()
 
@@ -151,7 +152,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
         Execute specified point operation.
 
-        :param operation: The point operation, can be "negation", "threshold"
+        :param operation: The point operation, can be "negation", "threshold", "posterize"
         :type operation: str
         """
 
@@ -178,6 +179,24 @@ class MainWindow(QMainWindow, MainWindowUI):
                 return
 
             image.posterize()
+
+        image.update()
+
+    def run_local_operation(self, operation):
+        """
+        Execute specified local operation.
+
+        :param operation: The local operation, can be "smooth"
+        :type operation: str
+        """
+
+        image = self.__get_selected_image()
+
+        if not image:
+            return
+
+        if operation == "smooth":
+            image.smooth()
 
         image.update()
 
