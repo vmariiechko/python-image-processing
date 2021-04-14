@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 
-from normalize_ui import NormalizeUI
+from .normalize_ui import NormalizeUI
 
 
 class Normalize(QDialog, NormalizeUI):

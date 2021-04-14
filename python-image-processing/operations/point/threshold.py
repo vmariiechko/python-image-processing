@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 from PyQt5.QtGui import QImage, QPixmap
 
-from threshold_ui import ThresholdUI
+from .threshold_ui import ThresholdUI
 
 
 class Threshold(QDialog, ThresholdUI):

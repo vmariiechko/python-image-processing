@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QMdiSubWindow, QTableWidgetItem
 
-from histogram_ui import HistGraphicalUI, HistListUI
+from .histogram_ui import HistGraphicalUI, HistListUI
 
 
 class HistGraphical(QMdiSubWindow, HistGraphicalUI):

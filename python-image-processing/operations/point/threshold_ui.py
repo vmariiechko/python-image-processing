@@ -21,7 +21,7 @@ class ThresholdUI:
         threshold.setObjectName("threshold")
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/threshold.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/threshold.png"), QIcon.Normal, QIcon.Off)
         threshold.setWindowIcon(icon)
 
         self.label_thresh_value = QLabel(threshold)

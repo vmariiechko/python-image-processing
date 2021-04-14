@@ -2,11 +2,8 @@ from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
-from histogram import HistGraphical
-from intensity_profile import IntensityProfile
-from normalize import Normalize
-from threshold import Threshold
-from posterize import Posterize
+from .analyze import HistGraphical, IntensityProfile
+from operations.point import Normalize, Posterize, Threshold
 
 
 class Image:
@@ -233,7 +230,7 @@ class ImageWindow(QMdiSubWindow):
         self.image_label.setPixmap(self.pixmap.copy())
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/picture.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/picture.png"), QIcon.Normal, QIcon.Off)
 
         self.setFixedSize(self.pixmap.width() + 15, self.pixmap.height() + 35)
         self.setWindowFlags(Qt.WindowMinimizeButtonHint)

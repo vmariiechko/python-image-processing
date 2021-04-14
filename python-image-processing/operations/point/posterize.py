@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 from PyQt5.QtGui import QImage, QPixmap
 
-from posterize_ui import PosterizeUI
+from .posterize_ui import PosterizeUI
 
 
 class Posterize(QDialog, PosterizeUI):

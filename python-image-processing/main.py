@@ -3,8 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 
 from main_ui import MainWindowUI
-from image_bmp import ImageBmp
-from image import Image
+from image import Image, ImageBmp
 
 
 class MainWindow(QMainWindow, MainWindowUI):
@@ -201,7 +200,8 @@ class MainWindow(QMainWindow, MainWindowUI):
             self.open_image(file_path)
 
 
-app = QApplication([])
-main_window = MainWindow()
-main_window.show()
-app.exec_()
+if __name__ == "__main__":
+    app = QApplication([])
+    main_window = MainWindow()
+    main_window.show()
+    app.exec_()

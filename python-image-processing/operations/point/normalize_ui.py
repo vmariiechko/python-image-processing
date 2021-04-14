@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QLabel, QDialogButtonBox, QVBoxLayout, QHBoxLayout, 
 from PyQt5.QtCore import Qt, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
-from histogram_ui import MplCanvas
-from range_slider import RangeSlider
+from image.analyze import MplCanvas
+from widgets.range_slider import RangeSlider
 
 
 class NormalizeUI:
@@ -25,7 +25,7 @@ class NormalizeUI:
         normalize.setObjectName("normalize")
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/normalize.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/normalize.png"), QIcon.Normal, QIcon.Off)
         normalize.setWindowIcon(icon)
 
         self.label_txt = QLabel(normalize)

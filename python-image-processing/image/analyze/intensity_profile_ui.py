@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QWidget
 from PyQt5.QtGui import QIcon, QPixmap
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-from histogram_ui import MplCanvas
+from .histogram_ui import MplCanvas
 
 
 class IntensityProfileUI:
@@ -21,7 +21,7 @@ class IntensityProfileUI:
         """
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/histogram.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/histogram.png"), QIcon.Normal, QIcon.Off)
         profile.setWindowIcon(icon)
 
         self.profile_canvas = MplCanvas(profile)

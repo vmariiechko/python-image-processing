@@ -21,7 +21,7 @@ class MainWindowUI:
         main_window.resize(1280, 720)
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/icon.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/icon.png"), QIcon.Normal, QIcon.Off)
         main_window.setWindowIcon(icon)
 
         self.central_mdi_area = QMdiArea()

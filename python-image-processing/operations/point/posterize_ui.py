@@ -20,7 +20,7 @@ class PosterizeUI:
         posterize.setObjectName("posterize")
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/posterize.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/posterize.png"), QIcon.Normal, QIcon.Off)
         posterize.setWindowIcon(icon)
 
         self.label_bins_num = QLabel(posterize)

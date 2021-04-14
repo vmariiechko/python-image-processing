@@ -45,7 +45,7 @@ class HistGraphicalUI:
         """
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/histogram.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/histogram.png"), QIcon.Normal, QIcon.Off)
         hist_sub_window.setWindowIcon(icon)
 
         self.hist_canvas = MplCanvas(hist_sub_window)
@@ -116,7 +116,7 @@ class HistListUI:
         hist_sub_window.resize(239, 407)
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("images/table.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/table.png"), QIcon.Normal, QIcon.Off)
         hist_sub_window.setWindowIcon(icon)
 
         self.table_widget = QTableWidget()

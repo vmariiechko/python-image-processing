@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QMdiSubWindow
 
-from intensity_profile_ui import IntensityProfileUI
+from .intensity_profile_ui import IntensityProfileUI
 
 
 class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
