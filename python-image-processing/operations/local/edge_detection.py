@@ -27,7 +27,7 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         self.__retranslate_ui()
 
         self.color_depth = parent.color_depth
-        self.img_data = parent.image.copy()
+        self.img_data = parent.img_data.copy()
         self.current_img_data = None
 
         # Convert to uint8 data type, Canny method operates only on CV_8U

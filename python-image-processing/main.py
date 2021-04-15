@@ -38,7 +38,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
 
         file_path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
-                                                                          "Image files (*.jpg, *.png, *.tif, *.gif);;"
+                                                                          "Image files (*.jpg, *.png, *.tif);;"
                                                                           "Bitmap (*.bmp)")
         return file_path
 

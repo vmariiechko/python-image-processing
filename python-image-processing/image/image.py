@@ -20,7 +20,7 @@ class Image:
         :type path: str
         """
 
-        self.image = img_data
+        self.img_data = img_data
         self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
         self.histogram_graphical = HistGraphical(self.img_name)
@@ -28,7 +28,7 @@ class Image:
         self.__update_color_depth()
 
     def __update_color_depth(self):
-        self.color_depth = 2**(8 * self.image.dtype.itemsize)
+        self.color_depth = 2**(8 * self.img_data.dtype.itemsize)
 
     def __calc_single_histogram(self):
         """
@@ -43,9 +43,9 @@ class Image:
 
         histogram = [0] * self.color_depth
 
-        for w in range(self.image.shape[0]):
-            for h in range(self.image.shape[1]):
-                pixel = self.image[w][h]
+        for w in range(self.img_data.shape[0]):
+            for h in range(self.img_data.shape[1]):
+                pixel = self.img_data[w][h]
                 histogram[pixel] += 1
 
         return {'b': histogram}
@@ -63,10 +63,10 @@ class Image:
 
         histogram_rgb = [[0] * self.color_depth, [0] * self.color_depth, [0] * self.color_depth]
 
-        for w in range(self.image.shape[0]):
-            for h in range(self.image.shape[1]):
-                for i in range(self.image.shape[2]):
-                    pixel = self.image[w][h][i]
+        for w in range(self.img_data.shape[0]):
+            for h in range(self.img_data.shape[1]):
+                for i in range(self.img_data.shape[2]):
+                    pixel = self.img_data[w][h][i]
                     histogram_rgb[i][pixel] += 1
 
         return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
@@ -80,20 +80,20 @@ class Image:
         """
 
         if self.is_grayscale():
-            for w in range(self.image.shape[0]):
-                for h in range(self.image.shape[1]):
-                    self.image[w][h] = lut[self.image[w][h]]
+            for w in range(self.img_data.shape[0]):
+                for h in range(self.img_data.shape[1]):
+                    self.img_data[w][h] = lut[self.img_data[w][h]]
         else:
-            for w in range(self.image.shape[0]):
-                for h in range(self.image.shape[1]):
-                    for i in range(self.image.shape[2]):
-                        self.image[w][h][i] = lut[self.image[w][h][i]]
+            for w in range(self.img_data.shape[0]):
+                for h in range(self.img_data.shape[1]):
+                    for i in range(self.img_data.shape[2]):
+                        self.img_data[w][h][i] = lut[self.img_data[w][h][i]]
 
     def update(self):
         """Update image graphical elements such as image window, histogram, etc."""
 
         self.__update_color_depth()
-        self.img_window.update_window(self.image)
+        self.img_window.update_window(self.img_data)
 
         if self.histogram_graphical.window_is_opened:
             self.create_hist_window()
@@ -107,7 +107,7 @@ class Image:
         :rtype: bool
         """
 
-        return len(self.image.shape) == 2
+        return len(self.img_data.shape) == 2
 
     def calc_histogram(self):
         """
@@ -154,7 +154,7 @@ class Image:
         normalize = Normalize(self)
 
         if normalize.exec():
-            self.image = normalize.img_data
+            self.img_data = normalize.img_data
 
     def equalize_histogram(self):
         """
@@ -192,7 +192,7 @@ class Image:
         threshold = Threshold(self)
 
         if threshold.exec():
-            self.image = threshold.img_data
+            self.img_data = threshold.img_data
 
     def posterize(self):
         """Perform image posterization."""
@@ -200,7 +200,7 @@ class Image:
         posterize = Posterize(self)
 
         if posterize.exec():
-            self.image = posterize.img_data
+            self.img_data = posterize.img_data
 
     def smooth(self):
         """Perform image smoothing."""
@@ -208,7 +208,7 @@ class Image:
         smooth = Smooth(self)
 
         if smooth.exec():
-            self.image = smooth.img_data
+            self.img_data = smooth.img_data
 
     def detect_edges(self):
         """Perform image edges detection."""
@@ -216,7 +216,7 @@ class Image:
         edge_dt = EdgeDetection(self)
 
         if edge_dt.exec():
-            self.image = edge_dt.img_data
+            self.img_data = edge_dt.img_data
 
 
 class ImageWindow(QMdiSubWindow):
@@ -243,7 +243,7 @@ class ImageWindow(QMdiSubWindow):
 
         super().__init__(parent)
 
-        self.image = img_data
+        self.img_data = img_data
         self.intensity_profile = IntensityProfile()
         self.img_name = path.split("/")[-1]
 
@@ -281,11 +281,11 @@ class ImageWindow(QMdiSubWindow):
         if point.y() < 0:
             point.setY(0)
 
-        img_width = self.image.shape[1] - 1
+        img_width = self.img_data.shape[1] - 1
         if point.x() > img_width:
             point.setX(img_width)
 
-        img_height = self.image.shape[0] - 1
+        img_height = self.img_data.shape[0] - 1
         if point.y() > img_height:
             point.setY(img_height)
 
@@ -302,14 +302,14 @@ class ImageWindow(QMdiSubWindow):
         :type img_data: :class:`ndarray`
         """
 
-        self.image = img_data
+        self.img_data = img_data
         height, width = img_data.shape[:2]
 
         if len(img_data.shape) == 2:
             color_depth = img_data.dtype.itemsize
-            img = QImage(self.image, width, height, self.bytes_per_pixel[color_depth])
+            img = QImage(self.img_data, width, height, self.bytes_per_pixel[color_depth])
         else:
-            img = QImage(self.image, width, height, 3*width, QImage.Format_BGR888)
+            img = QImage(self.img_data, width, height, 3*width, QImage.Format_BGR888)
 
         self.pixmap = QPixmap(img)
         self.image_label.setPixmap(self.pixmap.copy())
@@ -359,4 +359,4 @@ class ImageWindow(QMdiSubWindow):
     def create_profile(self):
         """Create intensity profile window."""
 
-        self.intensity_profile.create_profile(self.points, self.image, self.img_name)
+        self.intensity_profile.create_profile(self.points, self.img_data, self.img_name)

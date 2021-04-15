@@ -35,7 +35,7 @@ class Smooth(QDialog, SmoothUI):
         self.init_ui(self)
         self.__retranslate_ui()
 
-        self.img_data = parent.image.copy()
+        self.img_data = parent.img_data.copy()
         self.current_img_data = None
 
         self.cb_smooth_type.activated[str].connect(self.update_img_preview)
