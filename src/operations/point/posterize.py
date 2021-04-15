@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 from PyQt5.QtGui import QImage, QPixmap
 
+from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .posterize_ui import PosterizeUI
 
 
@@ -101,11 +102,8 @@ class Posterize(QDialog, PosterizeUI):
         img_data = self.__apply_lut(lut)
 
         height, width = img_data.shape[:2]
-
-        if img_data.dtype.itemsize == 1:
-            image = QImage(img_data, width, height, QImage.Format_Grayscale8)
-        else:
-            image = QImage(img_data, width, height, QImage.Format_Grayscale16)
+        pixel_bytes = img_data.dtype.itemsize
+        image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
 
         pixmap = QPixmap(image)
         self.label_image.setPixmap(pixmap)

@@ -3,22 +3,12 @@ from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
 
+from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, BORDER_TYPES
 from .smooth_ui import SmoothUI
 
 
 class Smooth(QDialog, SmoothUI):
     """The Smooth class implements a local smoothing operation."""
-
-    BORDER_TYPES = {
-        "Isolated": 16,
-        "Reflect": 2,
-        "Replicate": 1,
-    }
-
-    bytes_per_pixel = {
-        1: QImage.Format_Grayscale8,
-        2: QImage.Format_Grayscale16,
-    }
 
     def __init__(self, parent):
         """
@@ -71,7 +61,7 @@ class Smooth(QDialog, SmoothUI):
         :rtype: class:`numpy.ndarray`
         """
 
-        border_type = self.BORDER_TYPES[border]
+        border_type = BORDER_TYPES[border]
 
         if smooth == "Blur":
             img_data = blur(self.img_data, (ksize, ksize), borderType=border_type)
@@ -101,8 +91,8 @@ class Smooth(QDialog, SmoothUI):
         height, width = img_data.shape[:2]
 
         if len(img_data.shape) == 2:
-            color_depth = img_data.dtype.itemsize
-            image = QImage(img_data, width, height, self.bytes_per_pixel[color_depth])
+            pixel_bytes = img_data.dtype.itemsize
+            image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
             image = QImage(img_data, width, height, 3*width, QImage.Format_BGR888)
 

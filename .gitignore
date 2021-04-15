@@ -142,3 +142,6 @@ key.txt
 
 # Pycharm configuration folder
 .idea/
+
+# Custom run .bat from terminal
+src/pythonpath.bat

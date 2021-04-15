@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
+from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
 from operations.point import Normalize, Posterize, Threshold
 from operations.local import Smooth, EdgeDetection
@@ -222,12 +223,6 @@ class Image:
 class ImageWindow(QMdiSubWindow):
     """The ImageWindow class implements image visualization in sub-window."""
 
-    # Map ndarray.dtype.itemsize to QImage bytes per pixel format for grayscale image
-    bytes_per_pixel = {
-        1: QImage.Format_Grayscale8,
-        2: QImage.Format_Grayscale16
-    }
-
     def __init__(self, img_data, path, parent=None):
         """
         Create a new image sub-window.
@@ -306,8 +301,8 @@ class ImageWindow(QMdiSubWindow):
         height, width = img_data.shape[:2]
 
         if len(img_data.shape) == 2:
-            color_depth = img_data.dtype.itemsize
-            img = QImage(self.img_data, width, height, self.bytes_per_pixel[color_depth])
+            pixel_bytes = img_data.dtype.itemsize
+            img = QImage(self.img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
             img = QImage(self.img_data, width, height, 3*width, QImage.Format_BGR888)
 

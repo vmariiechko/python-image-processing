@@ -4,22 +4,12 @@ from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
 from numpy import abs
 
+from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, BORDER_TYPES
 from .edge_detection_ui import EdgeDetectionUI
 
 
 class EdgeDetection(QDialog, EdgeDetectionUI):
     """The EdgeDetection class implements a local edge detection operation."""
-
-    BORDER_TYPES = {
-        "Isolated": 16,
-        "Reflect": 2,
-        "Replicate": 1,
-    }
-
-    bytes_per_pixel = {
-        1: QImage.Format_Grayscale8,
-        2: QImage.Format_Grayscale16,
-    }
 
     def __init__(self, parent):
         super().__init__()
@@ -120,7 +110,7 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         :rtype: class:`numpy.ndarray`
         """
 
-        border_type = self.BORDER_TYPES[border]
+        border_type = BORDER_TYPES[border]
 
         # The kernel size must be odd and not larger than 31
         if ksize % 2 == 0:
@@ -161,8 +151,8 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         height, width = img_data.shape[:2]
 
         if len(img_data.shape) == 2:
-            color_depth = img_data.dtype.itemsize
-            image = QImage(img_data, width, height, self.bytes_per_pixel[color_depth])
+            pixel_bytes = img_data.dtype.itemsize
+            image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
             image = QImage(img_data, width, height, 3 * width, QImage.Format_BGR888)
 

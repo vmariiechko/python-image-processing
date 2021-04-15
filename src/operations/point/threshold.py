@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox
 from PyQt5.QtGui import QImage, QPixmap
 
+from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .threshold_ui import ThresholdUI
 
 
@@ -106,11 +107,8 @@ class Threshold(QDialog, ThresholdUI):
             img_data = self.calc_threshold_zero(thresh_value)
 
         height, width = img_data.shape[:2]
-
-        if img_data.dtype.itemsize == 1:
-            image = QImage(img_data, width, height, QImage.Format_Grayscale8)
-        else:
-            image = QImage(img_data, width, height, QImage.Format_Grayscale16)
+        pixel_bytes = img_data.dtype.itemsize
+        image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
 
         pixmap = QPixmap(image)
         self.label_image.setPixmap(pixmap)
