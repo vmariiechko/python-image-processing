@@ -4,7 +4,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from .analyze import HistGraphical, IntensityProfile
 from operations.point import Normalize, Posterize, Threshold
-from operations.local import Smooth
+from operations.local import Smooth, EdgeDetection
 
 
 class Image:
@@ -23,8 +23,12 @@ class Image:
         self.image = img_data
         self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
-        self.color_depth = 2**(8 * self.image.dtype.itemsize)
         self.histogram_graphical = HistGraphical(self.img_name)
+
+        self.__update_color_depth()
+
+    def __update_color_depth(self):
+        self.color_depth = 2**(8 * self.image.dtype.itemsize)
 
     def __calc_single_histogram(self):
         """
@@ -88,6 +92,7 @@ class Image:
     def update(self):
         """Update image graphical elements such as image window, histogram, etc."""
 
+        self.__update_color_depth()
         self.img_window.update_window(self.image)
 
         if self.histogram_graphical.window_is_opened:
@@ -204,6 +209,14 @@ class Image:
 
         if smooth.exec():
             self.image = smooth.img_data
+
+    def detect_edges(self):
+        """Perform image edges detection."""
+
+        edge_dt = EdgeDetection(self)
+
+        if edge_dt.exec():
+            self.image = edge_dt.img_data
 
 
 class ImageWindow(QMdiSubWindow):

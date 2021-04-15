@@ -40,6 +40,7 @@ class Smooth(QDialog, SmoothUI):
 
         self.cb_smooth_type.activated[str].connect(self.update_img_preview)
         self.cb_border_type.activated[str].connect(self.update_img_preview)
+
         self.sb_kernel_size.valueChanged.connect(self.update_img_preview)
         self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
@@ -56,7 +57,7 @@ class Smooth(QDialog, SmoothUI):
         self.label_kernel_size.setText(_translate(_window_title, "Kernel size:"))
         self.label_border_type.setText(_translate(_window_title, "Border type:"))
 
-    def calc_smooth(self, smooth, border, kernel):
+    def calc_smooth(self, smooth, border, ksize):
         """
         Calculate the smoothing of the selected type.
 
@@ -64,20 +65,22 @@ class Smooth(QDialog, SmoothUI):
         :type smooth: str
         :param border: The border type for smoothing, defined in BORDER_TYPES
         :type border: str
-        :param kernel: The number for NxN kernel
-        :type kernel: int
+        :param ksize: The number for NxN kernel
+        :type ksize: int
         :return: The smoothed image data
         :rtype: class:`numpy.ndarray`
         """
 
-        if smooth == "Blur":
-            img_data = blur(self.img_data, (kernel, kernel), borderType=self.BORDER_TYPES[border])
-        else:
-            if kernel % 2 == 0:
-                kernel -= 1
-                self.sb_kernel_size.setValue(kernel_size)
+        border_type = self.BORDER_TYPES[border]
 
-            img_data = GaussianBlur(self.img_data, (kernel, kernel), 0, borderType=self.BORDER_TYPES[border])
+        if smooth == "Blur":
+            img_data = blur(self.img_data, (ksize, ksize), borderType=border_type)
+        else:
+            if ksize % 2 == 0:
+                ksize -= 1
+                self.sb_kernel_size.setValue(ksize)
+
+            img_data = GaussianBlur(self.img_data, (ksize, ksize), 0, borderType=border_type)
 
         return img_data
 

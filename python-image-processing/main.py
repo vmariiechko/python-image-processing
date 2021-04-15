@@ -25,6 +25,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_threshold.triggered.connect(lambda: self.run_point_operation("threshold"))
         self.action_posterize.triggered.connect(lambda: self.run_point_operation("posterize"))
         self.action_smooth.triggered.connect(lambda: self.run_local_operation("smooth"))
+        self.action_edge_detection.triggered.connect(lambda: self.run_local_operation("edge_dt"))
 
         self.images = dict()
 
@@ -186,7 +187,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
         Execute specified local operation.
 
-        :param operation: The local operation, can be "smooth"
+        :param operation: The local operation, can be "smooth", "edge_dt"
         :type operation: str
         """
 
@@ -197,6 +198,8 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         if operation == "smooth":
             image.smooth()
+        elif operation == "edge_dt":
+            image.detect_edges()
 
         image.update()
 

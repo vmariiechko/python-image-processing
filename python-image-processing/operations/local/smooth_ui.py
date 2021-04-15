@@ -21,8 +21,6 @@ class SmoothUI:
 
         self.layout_form = QFormLayout(smooth)
         self.layout_form.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
-        self.layout_form.setRowWrapPolicy(QFormLayout.DontWrapRows)
-        self.layout_form.setLabelAlignment(Qt.AlignLeading | Qt.AlignLeft | Qt.AlignVCenter)
         self.layout_form.setFormAlignment(Qt.AlignCenter)
         self.layout_form.setObjectName("layout_form")
 
