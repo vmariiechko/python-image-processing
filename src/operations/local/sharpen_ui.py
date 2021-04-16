@@ -1,10 +1,12 @@
-from PyQt5.QtWidgets import (QLabel, QVBoxLayout, QHBoxLayout, QWidget, QDialogButtonBox,
-                             QRadioButton, QComboBox, QFormLayout)
-from PyQt5.QtCore import Qt, QMetaObject, QSize
+from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QHBoxLayout,
+                             QRadioButton, QFormLayout)
+from PyQt5.QtCore import Qt, QSize, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
+from ..operation_ui import OperationUI
 
-class SharpenUI:
+
+class SharpenUI(OperationUI):
     """Build UI for :class:`sharpen.Sharpen`."""
 
     def init_ui(self, sharpen):
@@ -18,6 +20,7 @@ class SharpenUI:
         :type sharpen: :class:`sharpen.Sharpen`
         """
 
+        self.operation_ui(self)
         sharpen.setObjectName("sharpen")
 
         self.layout_form = QFormLayout(sharpen)
@@ -73,21 +76,6 @@ class SharpenUI:
         self.masks = QWidget(sharpen)
         self.masks.setLayout(self.layout_masks)
 
-        self.label_image = QLabel(sharpen)
-        self.label_image.setObjectName("label_image")
-        self.label_image.setAlignment(Qt.AlignCenter)
-
-        self.button_box = QDialogButtonBox(sharpen)
-        self.button_box.setOrientation(Qt.Horizontal)
-        self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
-        self.button_box.setCenterButtons(True)
-        self.button_box.rejected.connect(sharpen.reject)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(sharpen.accept_changes)
-        self.button_box.setObjectName("button_box")
-
-        self.layout = QVBoxLayout()
-        self.layout.setObjectName("layout")
-
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_masks)
         self.layout.addWidget(self.masks)
@@ -95,5 +83,4 @@ class SharpenUI:
         self.layout.addWidget(self.button_box)
 
         sharpen.setLayout(self.layout)
-        sharpen.setWindowFlags(sharpen.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         QMetaObject.connectSlotsByName(sharpen)

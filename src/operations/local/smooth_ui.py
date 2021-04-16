@@ -1,9 +1,10 @@
-from PyQt5.QtWidgets import (QLabel, QVBoxLayout, QWidget, QDialogButtonBox,
-                             QSpinBox, QComboBox, QFormLayout)
+from PyQt5.QtWidgets import QWidget, QLabel, QSpinBox, QComboBox, QFormLayout
 from PyQt5.QtCore import Qt, QMetaObject
 
+from ..operation_ui import OperationUI
 
-class SmoothUI:
+
+class SmoothUI(OperationUI):
     """Build UI for :class:`smooth.SmoothUI`."""
 
     def init_ui(self, smooth):
@@ -17,6 +18,7 @@ class SmoothUI:
         :type smooth: :class:`smooth.SmoothUI`
         """
 
+        self.operation_ui(self)
         smooth.setObjectName("smooth")
 
         self.layout_form = QFormLayout(smooth)
@@ -54,25 +56,9 @@ class SmoothUI:
         self.form = QWidget(smooth)
         self.form.setLayout(self.layout_form)
 
-        self.label_image = QLabel(smooth)
-        self.label_image.setObjectName("label_image")
-        self.label_image.setAlignment(Qt.AlignCenter)
-
-        self.button_box = QDialogButtonBox(smooth)
-        self.button_box.setOrientation(Qt.Horizontal)
-        self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
-        self.button_box.setCenterButtons(True)
-        self.button_box.rejected.connect(smooth.reject)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(smooth.accept_changes)
-        self.button_box.setObjectName("button_box")
-
-        self.layout = QVBoxLayout()
-        self.layout.setObjectName("layout")
-
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_image)
         self.layout.addWidget(self.button_box)
 
         smooth.setLayout(self.layout)
-        smooth.setWindowFlags(smooth.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         QMetaObject.connectSlotsByName(smooth)

@@ -1,9 +1,10 @@
-from PyQt5.QtWidgets import (QLabel, QVBoxLayout, QWidget, QDialogButtonBox,
-                             QSpinBox, QComboBox, QFormLayout)
+from PyQt5.QtWidgets import QWidget, QLabel, QSpinBox, QComboBox, QFormLayout
 from PyQt5.QtCore import Qt, QMetaObject
 
+from ..operation_ui import OperationUI
 
-class EdgeDetectionUI:
+
+class EdgeDetectionUI(OperationUI):
     """Build UI for :class:`edge_detection.EdgeDetection`."""
 
     def init_ui(self, edge_dt):
@@ -17,6 +18,7 @@ class EdgeDetectionUI:
         :type edge_dt: :class:`edge_detection.EdgeDetection`
         """
 
+        self.operation_ui(self)
         edge_dt.setObjectName("edge_dt")
 
         self.layout_form = QFormLayout(edge_dt)
@@ -70,25 +72,9 @@ class EdgeDetectionUI:
         self.form = QWidget(edge_dt)
         self.form.setLayout(self.layout_form)
 
-        self.label_image = QLabel(edge_dt)
-        self.label_image.setObjectName("label_image")
-        self.label_image.setAlignment(Qt.AlignCenter)
-
-        self.button_box = QDialogButtonBox(edge_dt)
-        self.button_box.setOrientation(Qt.Horizontal)
-        self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
-        self.button_box.setCenterButtons(True)
-        self.button_box.rejected.connect(edge_dt.reject)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(edge_dt.accept_changes)
-        self.button_box.setObjectName("button_box")
-
-        self.layout = QVBoxLayout()
-        self.layout.setObjectName("layout")
-
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_image)
         self.layout.addWidget(self.button_box)
 
         edge_dt.setLayout(self.layout)
-        edge_dt.setWindowFlags(edge_dt.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         QMetaObject.connectSlotsByName(edge_dt)

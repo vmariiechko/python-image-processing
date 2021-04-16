@@ -1,12 +1,13 @@
-from PyQt5.QtWidgets import QLabel, QDialogButtonBox, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout
 from PyQt5.QtCore import Qt, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
+from ..operation_ui import OperationUI
 from image.analyze import MplCanvas
 from widgets.range_slider import RangeSlider
 
 
-class NormalizeUI:
+class NormalizeUI(OperationUI):
     """Build UI for :class:`normalize.Normalize`."""
 
     def init_ui(self, normalize, limits):
@@ -22,6 +23,7 @@ class NormalizeUI:
         :type limits: list[int, int]
         """
 
+        self.operation_ui(self)
         normalize.setObjectName("normalize")
 
         icon = QIcon()
@@ -60,22 +62,10 @@ class NormalizeUI:
         self.slider_widget.setObjectName("slider_widget")
         self.slider_widget.setLayout(self.layout_slider)
 
-        self.button_box = QDialogButtonBox(normalize)
-        self.button_box.setOrientation(Qt.Horizontal)
-        self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
-        self.button_box.setCenterButtons(True)
-        self.button_box.rejected.connect(normalize.reject)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(normalize.accept_changes)
-        self.button_box.setObjectName("button_box")
-
-        self.layout = QVBoxLayout()
-        self.layout.setObjectName("layout")
-
         self.layout.addWidget(self.label_txt)
         self.layout.addWidget(self.hist_canvas)
         self.layout.addWidget(self.slider_widget)
         self.layout.addWidget(self.button_box)
 
         normalize.setLayout(self.layout)
-        normalize.setWindowFlags(normalize.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         QMetaObject.connectSlotsByName(normalize)

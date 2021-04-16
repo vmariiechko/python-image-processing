@@ -1,9 +1,11 @@
-from PyQt5.QtWidgets import QLabel, QSlider, QVBoxLayout, QDialogButtonBox
+from PyQt5.QtWidgets import QLabel, QSlider
 from PyQt5.QtCore import Qt, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
+from ..operation_ui import OperationUI
 
-class PosterizeUI:
+
+class PosterizeUI(OperationUI):
     """Build UI for :class:`posterize.Posterize`."""
 
     def init_ui(self, posterize):
@@ -17,6 +19,7 @@ class PosterizeUI:
         :type posterize: :class:`posterize.Posterize`
         """
 
+        self.operation_ui(self)
         posterize.setObjectName("posterize")
 
         icon = QIcon()
@@ -31,26 +34,10 @@ class PosterizeUI:
         self.bins_slider.setOrientation(Qt.Horizontal)
         self.bins_slider.setObjectName("bins_slider")
 
-        self.label_image = QLabel(posterize)
-        self.label_image.setObjectName("label_image")
-        self.label_image.setAlignment(Qt.AlignCenter)
-
-        self.button_box = QDialogButtonBox(posterize)
-        self.button_box.setOrientation(Qt.Horizontal)
-        self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
-        self.button_box.setCenterButtons(True)
-        self.button_box.rejected.connect(posterize.reject)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(posterize.accept_changes)
-        self.button_box.setObjectName("button_box")
-
-        self.layout = QVBoxLayout()
-        self.layout.setObjectName("layout")
-
         self.layout.addWidget(self.label_bins_num)
         self.layout.addWidget(self.bins_slider)
         self.layout.addWidget(self.label_image)
         self.layout.addWidget(self.button_box)
 
         posterize.setLayout(self.layout)
-        posterize.setWindowFlags(posterize.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         QMetaObject.connectSlotsByName(posterize)
