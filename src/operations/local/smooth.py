@@ -1,5 +1,5 @@
 from cv2 import blur, GaussianBlur
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
 
@@ -30,9 +30,7 @@ class Smooth(QDialog, SmoothUI):
 
         self.cb_smooth_type.activated[str].connect(self.update_img_preview)
         self.cb_border_type.activated[str].connect(self.update_img_preview)
-
         self.sb_kernel_size.valueChanged.connect(self.update_img_preview)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
         self.update_img_preview()
 

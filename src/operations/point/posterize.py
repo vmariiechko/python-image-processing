@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QImage, QPixmap
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
@@ -33,7 +33,6 @@ class Posterize(QDialog, PosterizeUI):
 
         self.bins_slider.valueChanged.connect(self.update_bins_value)
         self.bins_slider.sliderReleased.connect(self.update_img_preview)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
         self.update_bins_value()
         self.update_img_preview()

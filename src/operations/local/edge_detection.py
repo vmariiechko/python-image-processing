@@ -1,5 +1,5 @@
 from cv2 import Sobel, Laplacian, Canny, CV_64F, normalize, NORM_MINMAX, add
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
 from numpy import abs
@@ -51,8 +51,6 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         self.sb_low_threshold.valueChanged.connect(self.validate_low_value)
         self.sb_high_threshold.valueChanged.connect(self.update_img_preview)
         self.sb_high_threshold.valueChanged.connect(self.validate_high_value)
-
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
         self.update_img_preview()
         self.update_form()

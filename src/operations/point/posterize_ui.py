@@ -40,6 +40,7 @@ class PosterizeUI:
         self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
         self.button_box.setCenterButtons(True)
         self.button_box.rejected.connect(posterize.reject)
+        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(posterize.accept_changes)
         self.button_box.setObjectName("button_box")
 
         self.layout = QVBoxLayout()

@@ -1,5 +1,5 @@
 from cv2 import filter2D, normalize, NORM_MINMAX, CV_8U
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
 from numpy import array, abs
@@ -36,7 +36,6 @@ class Sharpen(QDialog, SharpenUI):
         self.rbtn_mask1.clicked.connect(self.update_img_preview)
         self.rbtn_mask2.clicked.connect(self.update_img_preview)
         self.rbtn_mask3.clicked.connect(self.update_img_preview)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
         self.update_img_preview()
 

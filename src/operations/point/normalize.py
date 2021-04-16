@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QDialog
 
 from .normalize_ui import NormalizeUI
 
@@ -28,7 +28,6 @@ class Normalize(QDialog, NormalizeUI):
         self.range_slider.left_value_changed.connect(self.update_left_value)
         self.range_slider.right_value_changed.connect(self.update_right_value)
         self.range_slider.range_chagned.connect(self.update_plot_preview)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.accept_changes)
 
         self.update_left_value()
         self.update_right_value()
@@ -104,8 +103,8 @@ class Normalize(QDialog, NormalizeUI):
         new_hist = self.calc_histogram(img_data)
 
         self.hist_canvas.axes.clear()
-        self.hist_canvas.axes.bar(range(256), self.original_hist, color='b')
-        self.hist_canvas.axes.bar(range(256), new_hist, color='g')
+        self.hist_canvas.axes.bar(range(256), self.original_hist, color='b', alpha=0.7)
+        self.hist_canvas.axes.bar(range(256), new_hist, color='g', alpha=0.7)
         self.hist_canvas.draw()
 
         self.current_img_data = img_data

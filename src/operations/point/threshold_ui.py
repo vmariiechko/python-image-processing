@@ -58,6 +58,7 @@ class ThresholdUI:
         self.button_box.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
         self.button_box.setCenterButtons(True)
         self.button_box.rejected.connect(threshold.reject)
+        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(threshold.accept_changes)
         self.button_box.setObjectName("button_box")
 
         self.layout = QVBoxLayout()
