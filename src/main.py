@@ -26,6 +26,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_posterize.triggered.connect(lambda: self.run_point_operation("posterize"))
         self.action_smooth.triggered.connect(lambda: self.run_local_operation("smooth"))
         self.action_edge_detection.triggered.connect(lambda: self.run_local_operation("edge_dt"))
+        self.action_sharpen.triggered.connect(lambda: self.run_local_operation("sharpen"))
 
         self.images = dict()
 
@@ -200,6 +201,8 @@ class MainWindow(QMainWindow, MainWindowUI):
             image.smooth()
         elif operation == "edge_dt":
             image.detect_edges()
+        elif operation == "sharpen":
+            image.sharpen()
 
         image.update()
 

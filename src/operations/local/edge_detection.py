@@ -12,6 +12,18 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
     """The EdgeDetection class implements a local edge detection operation."""
 
     def __init__(self, parent):
+        """
+        Create a new dialog window to perform edge detection.
+
+        Get image data and color depth from :param:`parent`.
+        Convert to uint8 data type.
+
+        Set spin box maximum values.
+
+        :param parent: The image to detect edges
+        :type parent: :class:`image.Image`
+        """
+
         super().__init__()
         self.init_ui(self)
         self.__retranslate_ui()
@@ -21,7 +33,7 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         self.current_img_data = None
 
         # Convert to uint8 data type, Canny method operates only on CV_8U
-        if self.color_depth > 256:
+        if self.img_data.dtype.itemsize > 1:
             self.img_data = normalize(abs(self.img_data), None, 0, 255, NORM_MINMAX, dtype=0)
             self.color_depth = 256
 

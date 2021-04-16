@@ -83,6 +83,9 @@ class MainWindowUI:
         self.action_edge_detection = QAction(main_window)
         self.action_edge_detection.setObjectName("action_edge_detection")
 
+        self.action_sharpen = QAction(main_window)
+        self.action_sharpen.setObjectName("action_sharpen")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
@@ -93,6 +96,7 @@ class MainWindowUI:
         self.menu_point_operations.addAction(self.action_posterize)
         self.menu_local_operations.addAction(self.action_smooth)
         self.menu_local_operations.addAction(self.action_edge_detection)
+        self.menu_local_operations.addAction(self.action_sharpen)
 
         self.menu_process.addAction(self.menu_histogram.menuAction())
         self.menu_process.addAction(self.menu_point_operations.menuAction())
@@ -132,3 +136,4 @@ class MainWindowUI:
         self.action_posterize.setText(_translate(_window_title, "Posterize"))
         self.action_smooth.setText(_translate(_window_title, "Smooth"))
         self.action_edge_detection.setText(_translate(_window_title, "Edge Detection"))
+        self.action_sharpen.setText(_translate(_window_title, "Sharpen"))

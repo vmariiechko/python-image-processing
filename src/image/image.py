@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
 from operations.point import Normalize, Posterize, Threshold
-from operations.local import Smooth, EdgeDetection
+from operations.local import Smooth, EdgeDetection, Sharpen
 
 
 class Image:
@@ -218,6 +218,14 @@ class Image:
 
         if edge_dt.exec():
             self.img_data = edge_dt.img_data
+
+    def sharpen(self):
+        """Perform linear image sharpen."""
+
+        sharpen = Sharpen(self)
+
+        if sharpen.exec():
+            self.img_data = sharpen.img_data
 
 
 class ImageWindow(QMdiSubWindow):
