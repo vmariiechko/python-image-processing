@@ -1,12 +1,12 @@
-from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QHBoxLayout,
-                             QRadioButton, QFormLayout)
+from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QRadioButton
 from PyQt5.QtCore import Qt, QSize, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
+from .local_ui import LocalUI
 
 
-class SharpenUI(OperationUI):
+class SharpenUI(OperationUI, LocalUI):
     """Build UI for :class:`sharpen.Sharpen`."""
 
     def init_ui(self, sharpen):
@@ -21,24 +21,13 @@ class SharpenUI(OperationUI):
         """
 
         self.operation_ui(self)
+        self.local_ui(self)
         sharpen.setObjectName("sharpen")
 
-        self.layout_form = QFormLayout(sharpen)
-        self.layout_form.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
-        self.layout_form.setFormAlignment(Qt.AlignCenter)
-        self.layout_form.setObjectName("layout_form")
-
-        self.label_border_type = QLabel(sharpen)
-        self.label_border_type.setObjectName("label_border_type")
-
-        self.cb_border_type = QComboBox(sharpen)
-        self.cb_border_type.addItems(["Isolated", "Reflect", "Replicate"])
-        self.cb_border_type.setObjectName("cb_border_type")
+        self.label_kernel_size.setVisible(False)
+        self.sb_kernel_size.setVisible(False)
 
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
-
-        self.form = QWidget(sharpen)
-        self.form.setLayout(self.layout_form)
 
         self.layout_masks = QHBoxLayout(sharpen)
         self.layout_masks.setObjectName("layout_masks")

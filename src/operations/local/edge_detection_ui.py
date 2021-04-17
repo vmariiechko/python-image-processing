@@ -1,10 +1,11 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QSpinBox, QComboBox, QFormLayout
-from PyQt5.QtCore import Qt, QMetaObject
+from PyQt5.QtWidgets import QLabel, QSpinBox, QComboBox
+from PyQt5.QtCore import QMetaObject
 
 from ..operation_ui import OperationUI
+from .local_ui import LocalUI
 
 
-class EdgeDetectionUI(OperationUI):
+class EdgeDetectionUI(OperationUI, LocalUI):
     """Build UI for :class:`edge_detection.EdgeDetection`."""
 
     def init_ui(self, edge_dt):
@@ -19,12 +20,8 @@ class EdgeDetectionUI(OperationUI):
         """
 
         self.operation_ui(self)
+        self.local_ui(self)
         edge_dt.setObjectName("edge_dt")
-
-        self.layout_form = QFormLayout(edge_dt)
-        self.layout_form.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
-        self.layout_form.setFormAlignment(Qt.AlignCenter)
-        self.layout_form.setObjectName("layout_form")
 
         self.label_edge_dt_type = QLabel(edge_dt)
         self.label_edge_dt_type.setObjectName("label_kernel_size")
@@ -32,22 +29,6 @@ class EdgeDetectionUI(OperationUI):
         self.cb_edge_dt_type = QComboBox(edge_dt)
         self.cb_edge_dt_type.addItems(["Sobel", "Laplacian", "Canny"])
         self.cb_edge_dt_type.setObjectName("cb_border_type")
-
-        self.label_kernel_size = QLabel(edge_dt)
-        self.label_kernel_size.setObjectName("label_kernel_size")
-
-        self.sb_kernel_size = QSpinBox(edge_dt)
-        self.sb_kernel_size.setMinimum(3)
-        self.sb_kernel_size.setMaximum(31)
-        self.sb_kernel_size.setSingleStep(2)
-        self.sb_kernel_size.setObjectName("sb_kernel_size")
-
-        self.label_border_type = QLabel(edge_dt)
-        self.label_border_type.setObjectName("label_border_type")
-
-        self.cb_border_type = QComboBox(edge_dt)
-        self.cb_border_type.addItems(["Isolated", "Reflect", "Replicate"])
-        self.cb_border_type.setObjectName("cb_border_type")
 
         self.label_low_threshold = QLabel(edge_dt)
         self.label_low_threshold.setObjectName("label_low_threshold")
@@ -68,9 +49,6 @@ class EdgeDetectionUI(OperationUI):
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
         self.layout_form.addRow(self.label_low_threshold, self.sb_low_threshold)
         self.layout_form.addRow(self.label_high_threshold, self.sb_high_threshold)
-
-        self.form = QWidget(edge_dt)
-        self.form.setLayout(self.layout_form)
 
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_image)
