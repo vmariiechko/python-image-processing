@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QDialog
 
+from ..operation import Operation
 from .normalize_ui import NormalizeUI
 
 
-class Normalize(QDialog, NormalizeUI):
+class Normalize(QDialog, Operation, NormalizeUI):
     """The Normalize class impelements a histogram normalization."""
 
     def __init__(self, parent):
@@ -108,9 +109,3 @@ class Normalize(QDialog, NormalizeUI):
         self.hist_canvas.draw()
 
         self.current_img_data = img_data
-
-    def accept_changes(self):
-        """Accept changed image data to the original one."""
-
-        self.img_data = self.current_img_data
-        self.accept()

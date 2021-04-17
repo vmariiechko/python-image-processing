@@ -1,11 +1,10 @@
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtGui import QImage, QPixmap
 
-from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
+from ..operation import Operation
 from .posterize_ui import PosterizeUI
 
 
-class Posterize(QDialog, PosterizeUI):
+class Posterize(QDialog, Operation, PosterizeUI):
     """The Posterize class implements a posterizing point operation."""
 
     def __init__(self, parent):
@@ -92,24 +91,11 @@ class Posterize(QDialog, PosterizeUI):
         Update image preview window.
 
         - Calculate image posterization based on slider value.
-        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        - Reload the image to the preview window.
+        - Reload image preview using the base :class:`operation.Operation` method
         """
 
         bins_num = self.bins_slider.value()
         lut = self.calc_posterize_lut(bins_num)
-        img_data = self.__apply_lut(lut)
 
-        height, width = img_data.shape[:2]
-        pixel_bytes = img_data.dtype.itemsize
-        image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
-
-        pixmap = QPixmap(image)
-        self.label_image.setPixmap(pixmap)
-        self.current_img_data = img_data
-
-    def accept_changes(self):
-        """Accept changed image data to the original one."""
-
-        self.img_data = self.current_img_data
-        self.accept()
+        self.current_img_data = self.__apply_lut(lut)
+        super().update_img_preview()

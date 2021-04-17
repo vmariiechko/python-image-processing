@@ -1,14 +1,14 @@
 from cv2 import filter2D, normalize, NORM_MINMAX, CV_8U
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtGui import QImage, QPixmap
 from numpy import array, abs
 
-from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, BORDER_TYPES
+from src.constants import BORDER_TYPES
+from ..operation import Operation
 from .sharpen_ui import SharpenUI
 
 
-class Sharpen(QDialog, SharpenUI):
+class Sharpen(QDialog, Operation, SharpenUI):
     """The Sharpen class implements a local sharpen operation."""
 
     def __init__(self, parent):
@@ -75,27 +75,10 @@ class Sharpen(QDialog, SharpenUI):
         Update image preview window.
 
         - Calculate image sharpen
-        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        - Reload the image to the preview window.
+        - Reload image preview using the base :class:`operation.Operation` method
         """
 
         border = self.cb_border_type.currentText()
 
-        img_data = self.calc_sharpen(border)
-        height, width = img_data.shape[:2]
-
-        if len(img_data.shape) == 2:
-            pixel_bytes = img_data.dtype.itemsize
-            image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
-        else:
-            image = QImage(img_data, width, height, 3 * width, QImage.Format_BGR888)
-
-        pixmap = QPixmap(image)
-        self.label_image.setPixmap(pixmap)
-        self.current_img_data = img_data
-
-    def accept_changes(self):
-        """Accept changed image data to the original one."""
-
-        self.img_data = self.current_img_data
-        self.accept()
+        self.current_img_data = self.calc_sharpen(border)
+        super().update_img_preview()

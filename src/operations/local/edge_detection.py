@@ -1,14 +1,14 @@
 from cv2 import Sobel, Laplacian, Canny, CV_64F, normalize, NORM_MINMAX, add
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtGui import QImage, QPixmap
 from numpy import abs
 
-from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, BORDER_TYPES
+from src.constants import BORDER_TYPES
+from ..operation import Operation
 from .edge_detection_ui import EdgeDetectionUI
 
 
-class EdgeDetection(QDialog, EdgeDetectionUI):
+class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
     """The EdgeDetection class implements a local edge detection operation."""
 
     def __init__(self, parent):
@@ -147,8 +147,7 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         Update image preview window.
 
         - Calculate image edges based on form parameters
-        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        - Reload the image to the preview window.
+        - Reload image preview using the base :class:`operation.Operation` method
         """
 
         edge = self.cb_edge_dt_type.currentText()
@@ -157,21 +156,5 @@ class EdgeDetection(QDialog, EdgeDetectionUI):
         low_thresh = self.sb_low_threshold.value()
         high_thresh = self.sb_high_threshold.value()
 
-        img_data = self.calc_edges(edge, border, ksize, (low_thresh, high_thresh))
-        height, width = img_data.shape[:2]
-
-        if len(img_data.shape) == 2:
-            pixel_bytes = img_data.dtype.itemsize
-            image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
-        else:
-            image = QImage(img_data, width, height, 3 * width, QImage.Format_BGR888)
-
-        pixmap = QPixmap(image)
-        self.label_image.setPixmap(pixmap)
-        self.current_img_data = img_data
-
-    def accept_changes(self):
-        """Accept changed image data to the original one."""
-
-        self.img_data = self.current_img_data
-        self.accept()
+        self.current_img_data = self.calc_edges(edge, border, ksize, (low_thresh, high_thresh))
+        super().update_img_preview()

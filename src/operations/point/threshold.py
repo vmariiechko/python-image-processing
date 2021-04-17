@@ -1,11 +1,10 @@
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtGui import QImage, QPixmap
 
-from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
+from ..operation import Operation
 from .threshold_ui import ThresholdUI
 
 
-class Threshold(QDialog, ThresholdUI):
+class Threshold(QDialog, Operation, ThresholdUI):
     """The Threshold class implements a thresholding point operation."""
 
     def __init__(self, parent):
@@ -94,27 +93,14 @@ class Threshold(QDialog, ThresholdUI):
         Update image preview window.
 
         - Calculate image thresholding based on slider value.
-        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        - Reload the image to the preview window.
+        - Reload image preview using the base :class:`operation.Operation` method.
         """
 
         thresh_value = self.threshold_slider.value()
 
         if self.rbtn_thresh_binary.isChecked():
-            img_data = self.calc_threshold_binary(thresh_value)
+            self.current_img_data = self.calc_threshold_binary(thresh_value)
         else:
-            img_data = self.calc_threshold_zero(thresh_value)
+            self.current_img_data = self.calc_threshold_zero(thresh_value)
 
-        height, width = img_data.shape[:2]
-        pixel_bytes = img_data.dtype.itemsize
-        image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
-
-        pixmap = QPixmap(image)
-        self.label_image.setPixmap(pixmap)
-        self.current_img_data = img_data
-
-    def accept_changes(self):
-        """Accept changed image data to the original one."""
-
-        self.img_data = self.current_img_data
-        self.accept()
+        super().update_img_preview()

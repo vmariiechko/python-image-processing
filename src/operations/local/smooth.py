@@ -1,13 +1,13 @@
 from cv2 import blur, GaussianBlur
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtGui import QImage, QPixmap
 
-from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, BORDER_TYPES
+from src.constants import BORDER_TYPES
+from ..operation import Operation
 from .smooth_ui import SmoothUI
 
 
-class Smooth(QDialog, SmoothUI):
+class Smooth(QDialog, Operation, SmoothUI):
     """The Smooth class implements a local smoothing operation."""
 
     def __init__(self, parent):
@@ -77,29 +77,12 @@ class Smooth(QDialog, SmoothUI):
         Update image preview window.
 
         - Calculate image smoothing based on kernel size, smooth and border type
-        - Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        - Reload the image to the preview window.
+        - Reload image preview using the base :class:`operation.Operation` method
         """
 
         smooth_type = self.cb_smooth_type.currentText()
         border_type = self.cb_border_type.currentText()
         kernel_size = self.sb_kernel_size.value()
 
-        img_data = self.calc_smooth(smooth_type, border_type, kernel_size)
-        height, width = img_data.shape[:2]
-
-        if len(img_data.shape) == 2:
-            pixel_bytes = img_data.dtype.itemsize
-            image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
-        else:
-            image = QImage(img_data, width, height, 3*width, QImage.Format_BGR888)
-
-        pixmap = QPixmap(image)
-        self.label_image.setPixmap(pixmap)
-        self.current_img_data = img_data
-
-    def accept_changes(self):
-        """Accept changed image data to the original one."""
-
-        self.img_data = self.current_img_data
-        self.accept()
+        self.current_img_data = self.calc_smooth(smooth_type, border_type, kernel_size)
+        super().update_img_preview()
