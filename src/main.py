@@ -25,7 +25,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_threshold.triggered.connect(lambda: self.run_point_operation("threshold"))
         self.action_posterize.triggered.connect(lambda: self.run_point_operation("posterize"))
         self.action_smooth.triggered.connect(lambda: self.run_local_operation("smooth"))
-        self.action_edge_detection.triggered.connect(lambda: self.run_local_operation("edge_dt"))
+        self.action_edge_dt_dir.triggered.connect(lambda: self.run_local_operation("edge_dt_dir"))
+        self.action_edge_dt_nondir.triggered.connect(lambda: self.run_local_operation("edge_dt_nondir"))
         self.action_sharpen.triggered.connect(lambda: self.run_local_operation("sharpen"))
 
         self.images = dict()
@@ -199,8 +200,10 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         if operation == "smooth":
             image.smooth()
-        elif operation == "edge_dt":
-            image.detect_edges()
+        elif operation == "edge_dt_dir":
+            image.detect_edges(is_directional=True)
+        elif operation == "edge_dt_nondir":
+            image.detect_edges(is_directional=False)
         elif operation == "sharpen":
             image.sharpen()
 

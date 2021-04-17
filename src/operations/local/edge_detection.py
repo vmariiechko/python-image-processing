@@ -1,11 +1,12 @@
-from cv2 import Sobel, Laplacian, Canny, CV_64F, normalize, NORM_MINMAX, add
+from cv2 import (Sobel, Laplacian, Canny, CV_64F, normalize,
+                 NORM_MINMAX, add, CV_8U, filter2D)
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
-from numpy import abs
+from numpy import array, abs
 
 from src.constants import BORDER_TYPES
 from ..operation import Operation
-from .edge_detection_ui import EdgeDetectionUI
+from .edge_detection_ui import EdgeDetectionUI, DirectionalEdgeDetectionUI
 
 
 class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
@@ -17,7 +18,6 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
 
         Get image data and color depth from :param:`parent`.
         Convert to uint8 data type.
-
         Set spin box maximum values.
 
         :param parent: The image to detect edges
@@ -106,11 +106,11 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         Detect image edges for selected edge type.
 
         To get better results, Sobel and Laplacian methods
-        perform edge detection in int16 data type
+        perform edge detection in int16 data type.
 
         :param edge_type: The type of edge detecting, can be "Sobel", "Laplacian", "Canny"
         :type edge_type: str
-        :param border: The border type for smoothing, defined in BORDER_TYPES
+        :param border: The border type for edge detection, defined in BORDER_TYPES
         :type border: str
         :param ksize: The number for NxN kernel
         :type ksize: int
@@ -146,8 +146,8 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         """
         Update image preview window.
 
-        - Calculate image edges based on form parameters
-        - Reload image preview using the base :class:`operation.Operation` method
+        - Calculate image edges based on form parameters.
+        - Reload image preview using the base :class:`operation.Operation` method.
         """
 
         edge = self.cb_edge_dt_type.currentText()
@@ -157,4 +157,88 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         high_thresh = self.sb_high_threshold.value()
 
         self.current_img_data = self.calc_edges(edge, border, ksize, (low_thresh, high_thresh))
+        super().update_img_preview()
+
+
+class DirectionalEdgeDetection(QDialog, Operation, DirectionalEdgeDetectionUI):
+    """The DirectionalEdgeDetection class implements a local direction edge detection operation."""
+
+    # Map directions to Prewitt masks
+    DIRECTION_MASKS = {
+        "E": array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]),
+        "SE": array([[-1, -1, 0], [-1, 0, 1], [0, 1, 1]]),
+        "S": array([[-1, -1, -1], [0, 0, 0], [1, 1, 1]]),
+        "SW": array([[0, -1, -1], [1, 0, -1], [1, 1, 0]]),
+        "W": array([[1, 0, -1], [1, 0, -1], [1, 0, -1]]),
+        "NW": array([[1, 1, 0], [1, 0, -1], [0, -1, -1]]),
+        "N": array([[1, 1, 1], [0, 0, 0], [-1, -1, -1]]),
+        "NE": array([[0, 1, 1], [-1, 0, 1], [-1, -1, 0]]),
+    }
+
+    def __init__(self, parent):
+        """
+        Create a new dialog window to perform direction edge detection.
+
+        Get image data from :param:`parent`.
+        Convert to uint8 data type.
+
+        :param parent: The image to detect edges
+        :type parent: :class:`image.Image`
+        """
+
+        super().__init__()
+        self.init_ui(self)
+        self.__retranslate_ui()
+
+        self.img_data = parent.img_data.copy()
+        self.current_img_data = None
+
+        if self.img_data.dtype.itemsize > 1:
+            self.img_data = normalize(abs(self.img_data), None, 0, 255, NORM_MINMAX, dtype=0)
+
+        self.cb_border_type.activated[str].connect(self.update_img_preview)
+        self.cb_edge_dt_direction.activated[str].connect(self.update_img_preview)
+
+        self.update_img_preview()
+
+    def __retranslate_ui(self):
+        """Set the text and titles of the widgets."""
+
+        _translate = QCoreApplication.translate
+        _window_title = "Directional Edge Detection"
+
+        self.setWindowTitle(_window_title)
+        self.label_edge_dt_direction.setText(_translate(_window_title, "Direction:"))
+        self.label_border_type.setText(_translate(_window_title, "Border type:"))
+        self.label_masks_txt.setText(_translate(_window_title, "Prewitt direction masks:\n"))
+
+    def calc_edges(self, direction, border):
+        """
+        Detect image edges for selected direction.
+        Direction specifies Prewitt mask.
+
+        :param direction: The Prewitt mask direction, defined in DIRECTION_MASKS
+        :param border: The border type for edge detection, defined in BORDER_TYPES
+        :type border: str
+        :return: The new image data with detected edges
+        :rtype: class:`numpy.ndarray`
+        """
+
+        border_type = BORDER_TYPES[border]
+        direction_mask = self.DIRECTION_MASKS[direction]
+
+        return filter2D(self.img_data, CV_8U, direction_mask, borderType=border_type)
+
+    def update_img_preview(self):
+        """
+        Update image preview window.
+
+        - Calculate image edges based on chosen direction and border.
+        - Reload image preview using the base :class:`operation.Operation` method.
+        """
+
+        direction = self.cb_edge_dt_direction.currentText()
+        border = self.cb_border_type.currentText()
+
+        self.current_img_data = self.calc_edges(direction, border)
         super().update_img_preview()

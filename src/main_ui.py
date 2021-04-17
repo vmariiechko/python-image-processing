@@ -51,6 +51,9 @@ class MainWindowUI:
         self.menu_local_operations = QMenu(self.menu_bar)
         self.menu_local_operations.setObjectName("menu_local_operations")
 
+        self.menu_edge_detection = QMenu(main_window)
+        self.menu_edge_detection.setObjectName("menu_edge_detection")
+
         main_window.setMenuBar(self.menu_bar)
 
         self.action_open = QAction(main_window)
@@ -80,8 +83,11 @@ class MainWindowUI:
         self.action_smooth = QAction(main_window)
         self.action_smooth.setObjectName("action_smooth")
 
-        self.action_edge_detection = QAction(main_window)
-        self.action_edge_detection.setObjectName("action_edge_detection")
+        self.action_edge_dt_dir = QAction(main_window)
+        self.action_edge_dt_dir.setObjectName("action_edge_dt_dir")
+
+        self.action_edge_dt_nondir = QAction(main_window)
+        self.action_edge_dt_nondir.setObjectName("action_edge_dt_nondir")
 
         self.action_sharpen = QAction(main_window)
         self.action_sharpen.setObjectName("action_sharpen")
@@ -94,10 +100,12 @@ class MainWindowUI:
         self.menu_point_operations.addAction(self.action_negation)
         self.menu_point_operations.addAction(self.action_threshold)
         self.menu_point_operations.addAction(self.action_posterize)
+        self.menu_edge_detection.addAction(self.action_edge_dt_dir)
+        self.menu_edge_detection.addAction(self.action_edge_dt_nondir)
         self.menu_local_operations.addAction(self.action_smooth)
-        self.menu_local_operations.addAction(self.action_edge_detection)
         self.menu_local_operations.addAction(self.action_sharpen)
 
+        self.menu_local_operations.addAction(self.menu_edge_detection.menuAction())
         self.menu_process.addAction(self.menu_histogram.menuAction())
         self.menu_process.addAction(self.menu_point_operations.menuAction())
         self.menu_process.addAction(self.menu_local_operations.menuAction())
@@ -126,6 +134,8 @@ class MainWindowUI:
         self.menu_histogram.setTitle(_translate(_window_title, "Histogram"))
         self.menu_point_operations.setTitle(_translate(_window_title, "Point Operations"))
         self.menu_local_operations.setTitle(_translate(_window_title, "Local Operations"))
+        self.menu_edge_detection.setTitle(_translate(_window_title, "Edge Detection"))
+
         self.action_open.setText(_translate(_window_title, "Open"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
@@ -135,5 +145,6 @@ class MainWindowUI:
         self.action_threshold.setText(_translate(_window_title, "Threshold"))
         self.action_posterize.setText(_translate(_window_title, "Posterize"))
         self.action_smooth.setText(_translate(_window_title, "Smooth"))
-        self.action_edge_detection.setText(_translate(_window_title, "Edge Detection"))
+        self.action_edge_dt_dir.setText(_translate(_window_title, "Directional"))
+        self.action_edge_dt_nondir.setText(_translate(_window_title, "Non-directional"))
         self.action_sharpen.setText(_translate(_window_title, "Sharpen"))

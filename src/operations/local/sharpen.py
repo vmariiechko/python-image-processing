@@ -47,7 +47,7 @@ class Sharpen(QDialog, Operation, SharpenUI):
 
         self.setWindowTitle(_window_title)
         self.label_border_type.setText(_translate(_window_title, "Border type:"))
-        self.label_masks.setText(_translate(_window_title, "Laplacian mask:"))
+        self.label_masks.setText(_translate(_window_title, "Laplacian masks:"))
 
     def calc_sharpen(self, border):
         """

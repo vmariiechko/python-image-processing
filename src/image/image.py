@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
 from operations.point import Normalize, Posterize, Threshold
-from operations.local import Smooth, EdgeDetection, Sharpen
+from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen
 
 
 class Image:
@@ -211,10 +211,18 @@ class Image:
         if smooth.exec():
             self.img_data = smooth.img_data
 
-    def detect_edges(self):
-        """Perform image edges detection."""
+    def detect_edges(self, is_directional):
+        """
+        Perform image edges detection.
 
-        edge_dt = EdgeDetection(self)
+        :param is_directional: Defines whether detection is directional
+        :type is_directional: bool
+        """
+
+        if is_directional:
+            edge_dt = DirectionalEdgeDetection(self)
+        else:
+            edge_dt = EdgeDetection(self)
 
         if edge_dt.exec():
             self.img_data = edge_dt.img_data

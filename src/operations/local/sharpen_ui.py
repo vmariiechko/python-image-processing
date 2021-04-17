@@ -40,7 +40,7 @@ class SharpenUI(OperationUI, LocalUI):
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/masks/sharpen1.png"), QIcon.Normal, QIcon.Off)
         self.rbtn_mask1.setIcon(icon)
-        self.rbtn_mask1.setIconSize(QSize(123, 85))
+        self.rbtn_mask1.setIconSize(QSize(135, 100))
         self.rbtn_mask1.setChecked(True)
         self.rbtn_mask1.setObjectName("rbtn_mask1")
 
@@ -48,14 +48,14 @@ class SharpenUI(OperationUI, LocalUI):
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/masks/sharpen2.png"), QIcon.Normal, QIcon.Off)
         self.rbtn_mask2.setIcon(icon)
-        self.rbtn_mask2.setIconSize(QSize(123, 85))
+        self.rbtn_mask2.setIconSize(QSize(135, 100))
         self.rbtn_mask2.setObjectName("rbtn_mask2")
 
         self.rbtn_mask3 = QRadioButton(sharpen)
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/masks/sharpen3.png"), QIcon.Normal, QIcon.Off)
         self.rbtn_mask3.setIcon(icon)
-        self.rbtn_mask3.setIconSize(QSize(123, 85))
+        self.rbtn_mask3.setIconSize(QSize(135, 100))
         self.rbtn_mask3.setObjectName("rbtn_mask3")
 
         self.layout_masks.addWidget(self.rbtn_mask1)
