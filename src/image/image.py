@@ -11,6 +11,17 @@ from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sh
 class Image:
     """The Image class represents the image."""
 
+    # Map operations name to their dialog windows
+    DIALOG_OPERATIONS = {
+        "normalize": Normalize,
+        "threshold": Threshold,
+        "posterize": Posterize,
+        "smooth": Smooth,
+        "edge_dt": EdgeDetection,
+        "edge_dt_dir": DirectionalEdgeDetection,
+        "sharpen": Sharpen,
+    }
+
     def __init__(self, img_data, path):
         """
         Create a new image.
@@ -149,14 +160,6 @@ class Image:
 
         self.histogram_graphical.create_histogram_plot(self.calc_histogram())
 
-    def normalize_histogram(self):
-        """Perform histogram normalization."""
-
-        normalize = Normalize(self)
-
-        if normalize.exec():
-            self.img_data = normalize.img_data
-
     def equalize_histogram(self):
         """
         Perform histogram equalization:
@@ -187,53 +190,20 @@ class Image:
         lut = [self.color_depth - i - 1 for i in range(self.color_depth)]
         self.__apply_lut(lut)
 
-    def threshold(self):
-        """Perform image thresholding."""
-
-        threshold = Threshold(self)
-
-        if threshold.exec():
-            self.img_data = threshold.img_data
-
-    def posterize(self):
-        """Perform image posterization."""
-
-        posterize = Posterize(self)
-
-        if posterize.exec():
-            self.img_data = posterize.img_data
-
-    def smooth(self):
-        """Perform image smoothing."""
-
-        smooth = Smooth(self)
-
-        if smooth.exec():
-            self.img_data = smooth.img_data
-
-    def detect_edges(self, is_directional):
+    def run_dialog_operation(self, operation):
         """
-        Perform image edges detection.
+        Execute specified dialog operation.
 
-        :param is_directional: Defines whether detection is directional
-        :type is_directional: bool
+        All possible operations listed in :attr:`DIALOG_OPERATIONS`
+
+        :param operation: The operation to execute
+        :type operation: str
         """
 
-        if is_directional:
-            edge_dt = DirectionalEdgeDetection(self)
-        else:
-            edge_dt = EdgeDetection(self)
+        dialog_operation = self.DIALOG_OPERATIONS[operation](self)
 
-        if edge_dt.exec():
-            self.img_data = edge_dt.img_data
-
-    def sharpen(self):
-        """Perform linear image sharpen."""
-
-        sharpen = Sharpen(self)
-
-        if sharpen.exec():
-            self.img_data = sharpen.img_data
+        if dialog_operation.exec():
+            self.img_data = dialog_operation.img_data
 
 
 class ImageWindow(QMdiSubWindow):

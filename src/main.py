@@ -17,17 +17,21 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.setAcceptDrops(True)
 
         self.action_open.triggered.connect(self.open_image)
+
+        # Analyze actions
         self.action_histogram.triggered.connect(self.show_histogram)
         self.action_profile.triggered.connect(self.show_intensity_profile)
-        self.action_normalize.triggered.connect(lambda: self.run_histogram_operation("normalization"))
-        self.action_equalize.triggered.connect(lambda: self.run_histogram_operation("equalization"))
-        self.action_negation.triggered.connect(lambda: self.run_point_operation("negation"))
-        self.action_threshold.triggered.connect(lambda: self.run_point_operation("threshold"))
-        self.action_posterize.triggered.connect(lambda: self.run_point_operation("posterize"))
-        self.action_smooth.triggered.connect(lambda: self.run_local_operation("smooth"))
-        self.action_edge_dt_dir.triggered.connect(lambda: self.run_local_operation("edge_dt_dir"))
-        self.action_edge_dt_nondir.triggered.connect(lambda: self.run_local_operation("edge_dt_nondir"))
-        self.action_sharpen.triggered.connect(lambda: self.run_local_operation("sharpen"))
+
+        # Operation actions
+        self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
+        self.action_equalize.triggered.connect(lambda: self.run_operation("equalize"))
+        self.action_negation.triggered.connect(lambda: self.run_operation("negation"))
+        self.action_threshold.triggered.connect(lambda: self.run_operation("threshold"))
+        self.action_posterize.triggered.connect(lambda: self.run_operation("posterize"))
+        self.action_smooth.triggered.connect(lambda: self.run_operation("smooth"))
+        self.action_edge_dt_nondir.triggered.connect(lambda: self.run_operation("edge_dt"))
+        self.action_edge_dt_dir.triggered.connect(lambda: self.run_operation("edge_dt_dir"))
+        self.action_sharpen.triggered.connect(lambda: self.run_operation("sharpen"))
 
         self.images = dict()
 
@@ -126,11 +130,14 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.central_mdi_area.addSubWindow(image.img_window.intensity_profile)
         image.img_window.intensity_profile.show()
 
-    def run_histogram_operation(self, operation):
+    def run_operation(self, operation):
         """
-        Execute specified histogram operation.
+        Execute specified image operation.
 
-        :param operation: The histogram operation, can be "normalization" or "equalization"
+        The operation can be "equalize", "negation" and other dialog
+        operations defined in :attr:`image.Image.DIALOG_OPERATIONS`.
+
+        :param operation: The operations to execute
         :type operation: str
         """
 
@@ -139,73 +146,24 @@ class MainWindow(QMainWindow, MainWindowUI):
         if not image:
             return
 
-        if not image.is_grayscale() or image.color_depth > 256:
+        is_colored = not image.is_grayscale()
+
+        if operation in ("threshold", "posterize") and is_colored:
+            QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
+                                                         "Please, select a grayscale image.")
+            return
+
+        elif operation in ("normalize", "equalize") and (is_colored or image.color_depth > 256):
             QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
                                                      "The image must be grayscale, 8 bits per pixel")
             return
 
-        if operation == "normalization":
-            image.normalize_histogram()
-        elif operation == "equalization":
+        if operation == "equalize":
             image.equalize_histogram()
-
-        image.update()
-
-    def run_point_operation(self, operation):
-        """
-        Execute specified point operation.
-
-        :param operation: The point operation, can be "negation", "threshold", "posterize"
-        :type operation: str
-        """
-
-        image = self.__get_selected_image()
-
-        if not image:
-            return
-
-        if operation == "negation":
+        elif operation == "negation":
             image.negation()
-        elif operation == "threshold":
-
-            if not image.is_grayscale():
-                QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
-                                                             "Please, select a grayscale image.")
-                return
-
-            image.threshold()
-        elif operation == "posterize":
-
-            if not image.is_grayscale():
-                QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
-                                                             "Please, select a grayscale image.")
-                return
-
-            image.posterize()
-
-        image.update()
-
-    def run_local_operation(self, operation):
-        """
-        Execute specified local operation.
-
-        :param operation: The local operation, can be "smooth", "edge_dt"
-        :type operation: str
-        """
-
-        image = self.__get_selected_image()
-
-        if not image:
-            return
-
-        if operation == "smooth":
-            image.smooth()
-        elif operation == "edge_dt_dir":
-            image.detect_edges(is_directional=True)
-        elif operation == "edge_dt_nondir":
-            image.detect_edges(is_directional=False)
-        elif operation == "sharpen":
-            image.sharpen()
+        else:
+            image.run_dialog_operation(operation)
 
         image.update()
 
