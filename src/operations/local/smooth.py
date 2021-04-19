@@ -1,4 +1,4 @@
-from cv2 import blur, GaussianBlur
+from cv2 import blur, GaussianBlur, medianBlur
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 
@@ -28,11 +28,11 @@ class Smooth(QDialog, Operation, SmoothUI):
         self.img_data = parent.img_data.copy()
         self.current_img_data = None
 
-        self.cb_smooth_type.activated[str].connect(self.update_img_preview)
+        self.cb_smooth_type.activated[str].connect(self.update_form)
         self.cb_border_type.activated[str].connect(self.update_img_preview)
         self.sb_kernel_size.valueChanged.connect(self.update_img_preview)
 
-        self.update_img_preview()
+        self.update_form()
 
     def __retranslate_ui(self):
         """Set the text and titles of the widgets."""
@@ -45,11 +45,21 @@ class Smooth(QDialog, Operation, SmoothUI):
         self.label_kernel_size.setText(_translate(_window_title, "Kernel size:"))
         self.label_border_type.setText(_translate(_window_title, "Border type:"))
 
+    def update_form(self):
+        """Update the border type access, which isn't available for Median Blur."""
+
+        if self.cb_smooth_type.currentText() == "Median Blur":
+            self.cb_border_type.setEnabled(False)
+        else:
+            self.cb_border_type.setEnabled(True)
+
+        self.update_img_preview()
+
     def calc_smooth(self, smooth, border, ksize):
         """
         Calculate the smoothing of the selected type.
 
-        :param smooth: The smooth type to calculate, can be "Blur" or "Gaussian Blur"
+        :param smooth: The smooth type to calculate, can be "Blur", "Gaussian Blur" or "Median Blur"
         :type smooth: str
         :param border: The border type for smoothing, defined in BORDER_TYPES
         :type border: str
@@ -61,14 +71,16 @@ class Smooth(QDialog, Operation, SmoothUI):
 
         border_type = BORDER_TYPES[border]
 
+        if ksize % 2 == 0:
+            ksize -= 1
+            self.sb_kernel_size.setValue(ksize)
+
         if smooth == "Blur":
             img_data = blur(self.img_data, (ksize, ksize), borderType=border_type)
-        else:
-            if ksize % 2 == 0:
-                ksize -= 1
-                self.sb_kernel_size.setValue(ksize)
-
+        elif smooth == "Gaussian Blur":
             img_data = GaussianBlur(self.img_data, (ksize, ksize), 0, borderType=border_type)
+        else:
+            img_data = medianBlur(self.img_data, ksize)
 
         return img_data
 

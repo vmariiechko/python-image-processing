@@ -27,7 +27,7 @@ class SmoothUI(OperationUI, LocalUI):
         self.label_smooth_type.setObjectName("label_kernel_size")
 
         self.cb_smooth_type = QComboBox(smooth)
-        self.cb_smooth_type.addItems(["Blur", "Gaussian Blur"])
+        self.cb_smooth_type.addItems(["Blur", "Gaussian Blur", "Median Blur"])
         self.cb_smooth_type.setObjectName("cb_border_type")
 
         self.layout_form.addRow(self.label_smooth_type, self.cb_smooth_type)

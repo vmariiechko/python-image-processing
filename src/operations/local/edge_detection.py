@@ -42,17 +42,13 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         self.sb_low_threshold.setValue(self.color_depth // 2.55)
         self.sb_high_threshold.setValue(self.color_depth // 1.275)
 
-        self.cb_edge_dt_type.activated[str].connect(self.update_img_preview)
         self.cb_edge_dt_type.activated[str].connect(self.update_form)
         self.cb_border_type.activated[str].connect(self.update_img_preview)
 
         self.sb_kernel_size.valueChanged.connect(self.update_img_preview)
-        self.sb_low_threshold.valueChanged.connect(self.update_img_preview)
         self.sb_low_threshold.valueChanged.connect(self.validate_low_value)
-        self.sb_high_threshold.valueChanged.connect(self.update_img_preview)
         self.sb_high_threshold.valueChanged.connect(self.validate_high_value)
 
-        self.update_img_preview()
         self.update_form()
 
     def __retranslate_ui(self):
@@ -72,15 +68,21 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         """Filter threshold range to be valid for the lower value."""
 
         low_threshold = self.sb_low_threshold.value()
+
         if low_threshold >= self.sb_high_threshold.value():
             self.sb_high_threshold.setValue(low_threshold + 1)
+
+        self.update_img_preview()
 
     def validate_high_value(self):
         """Filter threshold range to be valid for the upper value."""
 
         high_threshold = self.sb_high_threshold.value()
+
         if high_threshold <= self.sb_low_threshold.value():
             self.sb_low_threshold.setValue(high_threshold - 1)
+
+        self.update_img_preview()
 
     def update_form(self):
         """
@@ -100,6 +102,8 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
             self.sb_high_threshold.setEnabled(False)
             self.sb_kernel_size.setEnabled(True)
             self.cb_border_type.setEnabled(True)
+
+        self.update_img_preview()
 
     def calc_edges(self, edge_type, border, ksize, threshold):
         """

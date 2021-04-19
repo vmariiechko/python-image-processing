@@ -42,7 +42,7 @@ class Convolve(QDialog, Operation, ConvolveUI):
 
     def update_kernel_value(self, index, value):
         """
-        Update kernel values whenever is changed.
+        Update kernel values whenever changed.
 
         :param index: The index of kernel cell. Can be (1, 2)
         :type index: tuple[int]
