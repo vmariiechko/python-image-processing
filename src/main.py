@@ -49,6 +49,18 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                                           "Bitmap (*.bmp)")
         return file_path
 
+    def __add_img_window(self, image):
+        """
+        Add a new image to the sub-window.
+
+        :param image: The image to add
+        :type image: :class:`image.Image`
+        """
+
+        self.images[image.img_window] = image
+        self.central_mdi_area.addSubWindow(image.img_window)
+        image.img_window.show()
+
     def __get_selected_image(self):
         """
         Find an active image window.
@@ -94,10 +106,7 @@ class MainWindow(QMainWindow, MainWindowUI):
             img_data = imread(file_path, -1)
 
         image = Image(img_data, file_path)
-
-        self.images[image.img_window] = image
-        self.central_mdi_area.addSubWindow(image.img_window)
-        image.img_window.show()
+        self.__add_img_window(image)
 
     def show_histogram(self):
         """Create a graphical representation of the histogram and show it in the sub-window."""

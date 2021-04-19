@@ -27,9 +27,9 @@ class Image:
         """
         Create a new image.
 
-        :param img_data: The image data. Taken from cv2.imread
+        :param img_data: The image data.
         :type img_data: :class:`numpy.ndarray`
-        :param path: The path to the image
+        :param path: The path to the image or its name
         :type path: str
         """
 
@@ -106,7 +106,7 @@ class Image:
         """Update image graphical elements such as image window, histogram, etc."""
 
         self.__update_color_depth()
-        self.img_window.update_window(self.img_data)
+        self.img_window.set_img_data(self.img_data)
 
         if self.histogram_graphical.window_is_opened:
             self.create_hist_window()
@@ -217,21 +217,21 @@ class ImageWindow(QMdiSubWindow):
         Create an empty :class:`intensity_profile.IntensityProfile` object.
         Load image to window. Set icon and window size.
 
-        :param img_data: The image data. Taken from cv2.imread
+        :param img_data: The image data.
         :type img_data: :class:`numpy.ndarray`
-        :param path: The path to the image
+        :param path: The path to the image or its name
         :type path: str
         """
 
         super().__init__(parent)
 
-        self.img_data = img_data
+        self._img_data = img_data
         self.intensity_profile = IntensityProfile()
         self.img_name = path.split("/")[-1]
 
         self.image_label = QLabel()
-        self.pixmap = QPixmap(path)
-        self.image_label.setPixmap(self.pixmap.copy())
+        self.pixmap = None
+        self.update_window()
 
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/picture.png"), QIcon.Normal, QIcon.Off)
@@ -263,35 +263,35 @@ class ImageWindow(QMdiSubWindow):
         if point.y() < 0:
             point.setY(0)
 
-        img_width = self.img_data.shape[1] - 1
+        img_width = self._img_data.shape[1] - 1
         if point.x() > img_width:
             point.setX(img_width)
 
-        img_height = self.img_data.shape[0] - 1
+        img_height = self._img_data.shape[0] - 1
         if point.y() > img_height:
             point.setY(img_height)
 
         return point
 
-    def update_window(self, img_data):
+    def set_img_data(self, img_data):
+        self._img_data = img_data
+        self.update_window()
+
+    def update_window(self):
         """
         Update image sub-window.
 
-        Convert new image data to :class:`PyQt5.QtGui.QImage`.
-        Reload the image to the the sub-window.
-
-        :param img_data: The changed image data
-        :type img_data: :class:`ndarray`
+        Convert image data to :class:`PyQt5.QtGui.QImage`.
+        Load the image to the the sub-window.
         """
 
-        self.img_data = img_data
-        height, width = img_data.shape[:2]
+        height, width = self._img_data.shape[:2]
 
-        if len(img_data.shape) == 2:
-            pixel_bytes = img_data.dtype.itemsize
-            img = QImage(self.img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
+        if len(self._img_data.shape) == 2:
+            pixel_bytes = self._img_data.dtype.itemsize
+            img = QImage(self._img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
-            img = QImage(self.img_data, width, height, 3*width, QImage.Format_BGR888)
+            img = QImage(self._img_data, width, height, 3*width, QImage.Format_BGR888)
 
         self.pixmap = QPixmap(img)
         self.image_label.setPixmap(self.pixmap.copy())
@@ -341,4 +341,4 @@ class ImageWindow(QMdiSubWindow):
     def create_profile(self):
         """Create intensity profile window."""
 
-        self.intensity_profile.create_profile(self.points, self.img_data, self.img_name)
+        self.intensity_profile.create_profile(self.points, self._img_data, self.img_name)
