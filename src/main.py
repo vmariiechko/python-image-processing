@@ -32,6 +32,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_edge_dt_nondir.triggered.connect(lambda: self.run_operation("edge_dt"))
         self.action_edge_dt_dir.triggered.connect(lambda: self.run_operation("edge_dt_dir"))
         self.action_sharpen.triggered.connect(lambda: self.run_operation("sharpen"))
+        self.action_convolve.triggered.connect(lambda: self.run_operation("convolve"))
 
         self.images = dict()
 

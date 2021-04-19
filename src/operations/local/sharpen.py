@@ -1,7 +1,7 @@
-from cv2 import filter2D, normalize, NORM_MINMAX, CV_8U
+from cv2 import filter2D, normalize, NORM_MINMAX
+from numpy import array, abs
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
-from numpy import array, abs
 
 from src.constants import BORDER_TYPES
 from ..operation import Operation
@@ -68,7 +68,7 @@ class Sharpen(QDialog, Operation, SharpenUI):
         else:
             mask = array([[1, -2, 1], [-2, 5, -2], [1, -2, 1]])
 
-        return filter2D(self.img_data, CV_8U, mask, borderType=border_type)
+        return filter2D(self.img_data, -1, mask, borderType=border_type)
 
     def update_img_preview(self):
         """

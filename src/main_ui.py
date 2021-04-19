@@ -92,6 +92,9 @@ class MainWindowUI:
         self.action_sharpen = QAction(main_window)
         self.action_sharpen.setObjectName("action_sharpen")
 
+        self.action_convolve = QAction(main_window)
+        self.action_convolve.setObjectName("action_convolve")
+
         self.menu_file.addAction(self.action_open)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
@@ -104,6 +107,7 @@ class MainWindowUI:
         self.menu_edge_detection.addAction(self.action_edge_dt_nondir)
         self.menu_local_operations.addAction(self.action_smooth)
         self.menu_local_operations.addAction(self.action_sharpen)
+        self.menu_local_operations.addAction(self.action_convolve)
 
         self.menu_local_operations.addAction(self.menu_edge_detection.menuAction())
         self.menu_process.addAction(self.menu_histogram.menuAction())
@@ -148,3 +152,4 @@ class MainWindowUI:
         self.action_edge_dt_dir.setText(_translate(_window_title, "Directional"))
         self.action_edge_dt_nondir.setText(_translate(_window_title, "Non-directional"))
         self.action_sharpen.setText(_translate(_window_title, "Sharpen"))
+        self.action_convolve.setText(_translate(_window_title, "Convolve"))

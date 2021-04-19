@@ -1,8 +1,8 @@
 from cv2 import (Sobel, Laplacian, Canny, CV_64F, normalize,
-                 NORM_MINMAX, add, CV_8U, filter2D)
+                 NORM_MINMAX, add, filter2D)
+from numpy import array, abs
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
-from numpy import array, abs
 
 from src.constants import BORDER_TYPES
 from ..operation import Operation
@@ -32,7 +32,7 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         self.img_data = parent.img_data.copy()
         self.current_img_data = None
 
-        # Convert to uint8 data type, Canny method operates only on CV_8U
+        # Convertion, Canny method operates only on uint8 data type
         if self.img_data.dtype.itemsize > 1:
             self.img_data = normalize(abs(self.img_data), None, 0, 255, NORM_MINMAX, dtype=0)
             self.color_depth = 256
@@ -227,7 +227,7 @@ class DirectionalEdgeDetection(QDialog, Operation, DirectionalEdgeDetectionUI):
         border_type = BORDER_TYPES[border]
         direction_mask = self.DIRECTION_MASKS[direction]
 
-        return filter2D(self.img_data, CV_8U, direction_mask, borderType=border_type)
+        return filter2D(self.img_data, -1, direction_mask, borderType=border_type)
 
     def update_img_preview(self):
         """

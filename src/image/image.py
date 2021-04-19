@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
 from operations.point import Normalize, Posterize, Threshold
-from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen
+from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve
 
 
 class Image:
@@ -20,6 +20,7 @@ class Image:
         "edge_dt": EdgeDetection,
         "edge_dt_dir": DirectionalEdgeDetection,
         "sharpen": Sharpen,
+        "convolve": Convolve,
     }
 
     def __init__(self, img_data, path):
