@@ -33,6 +33,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_edge_dt_dir.triggered.connect(lambda: self.run_operation("edge_dt_dir"))
         self.action_sharpen.triggered.connect(lambda: self.run_operation("sharpen"))
         self.action_convolve.triggered.connect(lambda: self.run_operation("convolve"))
+        self.action_image_calculator.triggered.connect(self.image_calculator)
 
         self.images = dict()
 
@@ -49,7 +50,7 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                                           "Bitmap (*.bmp)")
         return file_path
 
-    def __add_img_window(self, image):
+    def __add_image_window(self, image):
         """
         Add a new image to the sub-window.
 
@@ -59,6 +60,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         self.images[image.img_window] = image
         self.central_mdi_area.addSubWindow(image.img_window)
+        image.img_window.closed.connect(lambda img=image: self.__remove_image(img))
         image.img_window.show()
 
     def __get_selected_image(self):
@@ -86,6 +88,16 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         return image
 
+    def __remove_image(self, image):
+        """
+        Remove closed image from :attr:`images`.
+
+        :param image: The image to remove
+        :type image: :class:`image.Image`
+        """
+
+        self.images = {window: img for window, img in self.images.items() if img != image}
+
     def open_image(self, file_path=None):
         """Create :class:`image.Image` object of chosen image and show it in the sub-window."""
 
@@ -106,7 +118,7 @@ class MainWindow(QMainWindow, MainWindowUI):
             img_data = imread(file_path, -1)
 
         image = Image(img_data, file_path)
-        self.__add_img_window(image)
+        self.__add_image_window(image)
 
     def show_histogram(self):
         """Create a graphical representation of the histogram and show it in the sub-window."""
@@ -176,6 +188,12 @@ class MainWindow(QMainWindow, MainWindowUI):
             image.run_dialog_operation(operation)
 
         image.update()
+
+    def image_calculator(self):
+        Image.calculator(self.images.values())
+        # img_data, img_name = Image.calculator(self.images.values())
+        # image = Image(img_data, img_name)
+        # self.__add_image_window(image)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasImage:

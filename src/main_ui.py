@@ -80,6 +80,9 @@ class MainWindowUI:
         self.action_posterize = QAction(main_window)
         self.action_posterize.setObjectName("action_posterize")
 
+        self.action_image_calculator = QAction(main_window)
+        self.action_image_calculator.setObjectName("action_image_calculator")
+
         self.action_smooth = QAction(main_window)
         self.action_smooth.setObjectName("action_smooth")
 
@@ -103,6 +106,7 @@ class MainWindowUI:
         self.menu_point_operations.addAction(self.action_negation)
         self.menu_point_operations.addAction(self.action_threshold)
         self.menu_point_operations.addAction(self.action_posterize)
+        self.menu_point_operations.addAction(self.action_image_calculator)
         self.menu_edge_detection.addAction(self.action_edge_dt_dir)
         self.menu_edge_detection.addAction(self.action_edge_dt_nondir)
         self.menu_local_operations.addAction(self.action_smooth)
@@ -148,6 +152,7 @@ class MainWindowUI:
         self.action_negation.setText(_translate(_window_title, "Negation"))
         self.action_threshold.setText(_translate(_window_title, "Threshold"))
         self.action_posterize.setText(_translate(_window_title, "Posterize"))
+        self.action_image_calculator.setText(_translate(_window_title, "Image Calculator"))
         self.action_smooth.setText(_translate(_window_title, "Smooth"))
         self.action_edge_dt_dir.setText(_translate(_window_title, "Directional"))
         self.action_edge_dt_nondir.setText(_translate(_window_title, "Non-directional"))

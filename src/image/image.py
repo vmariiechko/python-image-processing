@@ -1,10 +1,11 @@
+from cv2 import cvtColor, COLOR_BGRA2BGR, error
 from PyQt5.QtWidgets import QMdiSubWindow, QLabel
-from PyQt5.QtCore import Qt, QPoint, QEvent
+from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
-from operations.point import Normalize, Posterize, Threshold
+from operations.point import Normalize, Posterize, Threshold, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve
 
 
@@ -33,6 +34,15 @@ class Image:
         :type path: str
         """
 
+        # Convert only BGRA image to BGR
+        try:
+            if img_data.shape[2] == 4:
+                img_data = cvtColor(img_data, COLOR_BGRA2BGR)
+        except LookupError:
+            pass
+        except error:
+            pass
+
         self.img_data = img_data
         self.img_window = ImageWindow(img_data, path)
         self.img_name = path.split("/")[-1]
@@ -41,6 +51,8 @@ class Image:
         self.__update_color_depth()
 
     def __update_color_depth(self):
+        """Calculate color depth of image pixel."""
+
         self.color_depth = 2**(8 * self.img_data.dtype.itemsize)
 
     def __calc_single_histogram(self):
@@ -206,9 +218,19 @@ class Image:
         if dialog_operation.exec():
             self.img_data = dialog_operation.img_data
 
+    @staticmethod
+    def calculator(images):
+        images = {img.img_name: img.img_data for img in images}
+        image_calculator = ImageCalculator(images)
+
+        if image_calculator.exec():
+            pass    # todo
+
 
 class ImageWindow(QMdiSubWindow):
     """The ImageWindow class implements image visualization in sub-window."""
+
+    closed = pyqtSignal()
 
     def __init__(self, img_data, path, parent=None):
         """
@@ -274,6 +296,13 @@ class ImageWindow(QMdiSubWindow):
         return point
 
     def set_img_data(self, img_data):
+        """
+        Set an image data and update the image window
+
+        :param img_data: The image data to set
+        :type img_data: :class:`numpy.ndarray`
+        """
+
         self._img_data = img_data
         self.update_window()
 
@@ -295,6 +324,11 @@ class ImageWindow(QMdiSubWindow):
 
         self.pixmap = QPixmap(img)
         self.image_label.setPixmap(self.pixmap.copy())
+
+    def create_profile(self):
+        """Create intensity profile window."""
+
+        self.intensity_profile.create_profile(self.points, self._img_data, self.img_name)
 
     def eventFilter(self, obj, event):
         """
@@ -338,7 +372,8 @@ class ImageWindow(QMdiSubWindow):
 
         return super(ImageWindow, self).eventFilter(obj, event)
 
-    def create_profile(self):
-        """Create intensity profile window."""
+    def closeEvent(self, event):
+        """Filter the close event to emit signal :attr:`closed`."""
 
-        self.intensity_profile.create_profile(self.points, self._img_data, self.img_name)
+        super(ImageWindow, self).closeEvent(event)
+        self.closed.emit()
