@@ -91,7 +91,7 @@ class Posterize(QDialog, Operation, PosterizeUI):
         Update image preview window.
 
         - Calculate image posterization based on slider value.
-        - Reload image preview using the base :class:`operation.Operation` method
+        - Reload image preview using the base :class:`operation.Operation` method.
         """
 
         bins_num = self.bins_slider.value()

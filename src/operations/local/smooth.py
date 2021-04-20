@@ -88,8 +88,8 @@ class Smooth(QDialog, Operation, SmoothUI):
         """
         Update image preview window.
 
-        - Calculate image smoothing based on kernel size, smooth and border type
-        - Reload image preview using the base :class:`operation.Operation` method
+        - Calculate image smoothing based on kernel size, smooth and border type.
+        - Reload image preview using the base :class:`operation.Operation` method.
         """
 
         smooth_type = self.cb_smooth_type.currentText()

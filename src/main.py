@@ -177,7 +177,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         elif operation in ("normalize", "equalize") and (is_colored or image.color_depth > 256):
             QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
-                                                     "The image must be grayscale, 8 bits per pixel")
+                                                     "The image must be grayscale, 8 bits per pixel.")
             return
 
         if operation == "equalize":
@@ -190,10 +190,18 @@ class MainWindow(QMainWindow, MainWindowUI):
         image.update()
 
     def image_calculator(self):
-        Image.calculator(self.images.values())
-        # img_data, img_name = Image.calculator(self.images.values())
-        # image = Image(img_data, img_name)
-        # self.__add_image_window(image)
+        """Perform one of the double-argument point operations between two images."""
+
+        if len(self.images) < 1:
+            QMessageBox.warning(self, "There is no uploaded image", "Please, open an image using\n"
+                                                                    "'File->Open' or drag & drop action.")
+            return
+
+        new_image = Image.calculator(self.images.values())
+
+        if new_image:
+            image = Image(*new_image)
+            self.__add_image_window(image)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasImage:

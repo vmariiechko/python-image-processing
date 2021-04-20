@@ -220,11 +220,20 @@ class Image:
 
     @staticmethod
     def calculator(images):
-        images = {img.img_name: img.img_data for img in images}
-        image_calculator = ImageCalculator(images)
+        """
+        Open calculator dialog window to perform double-argument point operation.
 
-        if image_calculator.exec():
-            pass    # todo
+        :param images: The list of objects :class:`Image` to perform calculation
+        :type images: list
+        :return: The new image data and its name, tuple(img_data, img_name)
+        :rtype: tuple or None
+        """
+
+        images = {img.img_name: img.img_data for img in images}
+        calculator = ImageCalculator(images)
+
+        if calculator.exec():
+            return calculator.img_data, calculator.img_name
 
 
 class ImageWindow(QMdiSubWindow):

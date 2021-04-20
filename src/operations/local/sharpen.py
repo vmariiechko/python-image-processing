@@ -74,8 +74,8 @@ class Sharpen(QDialog, Operation, SharpenUI):
         """
         Update image preview window.
 
-        - Calculate image sharpen
-        - Reload image preview using the base :class:`operation.Operation` method
+        - Calculate image sharpen.
+        - Reload image preview using the base :class:`operation.Operation` method.
         """
 
         border = self.cb_border_type.currentText()
