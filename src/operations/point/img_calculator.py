@@ -1,4 +1,4 @@
-from cv2 import add, subtract, resize, bitwise_and, bitwise_or, bitwise_xor
+from cv2 import add, subtract, addWeighted, resize, bitwise_and, bitwise_or, bitwise_xor
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
@@ -43,13 +43,19 @@ class ImageCalculator(QDialog, ImageCalculatorUI):
         self.cb_image1.addItems(img_names)
         self.cb_image2.addItems(img_names)
 
-        self.cb_image1.activated[str].connect(self.update_calculation)
+        self.cb_image1.activated[str].connect(self.update_gamma_range)
         self.cb_image2.activated[str].connect(self.update_calculation)
-        self.cb_operation.activated[str].connect(self.update_calculation)
-        self.rbtn_resize1.clicked.connect(self.validate_rbtns)
-        self.rbtn_resize2.clicked.connect(self.validate_rbtns)
+        self.cb_operation.activated[str].connect(self.update_form)
 
-        self.update_calculation()
+        self.sb_weight1.valueChanged.connect(self.update_calculation)
+        self.sb_weight2.valueChanged.connect(self.update_calculation)
+        self.sb_gamma.valueChanged.connect(self.update_calculation)
+
+        self.rbtn_resize1.clicked.connect(self.update_rbtns)
+        self.rbtn_resize2.clicked.connect(self.update_rbtns)
+
+        self.update_form()
+        self.update_gamma_range()
 
     def __retranslate_ui(self):
         """Set the text and titles of the widgets."""
@@ -60,9 +66,40 @@ class ImageCalculator(QDialog, ImageCalculatorUI):
         self.setWindowTitle(_window_title)
         self.label_image1.setText(_translate(_window_title, "Image 1:"))
         self.label_image2.setText(_translate(_window_title, "Image 2:"))
+        self.label_weight1.setText(_translate(_window_title, "<div>Weight &alpha;:</div>"))
+        self.label_weight2.setText(_translate(_window_title, "<div>Weight &beta;:</div>"))
         self.label_operation.setText(_translate(_window_title, "Operation:"))
+        self.label_gamma.setText(_translate(_window_title, "<div>Gamma &gamma;:</div>"))
 
-    def validate_rbtns(self):
+    def update_gamma_range(self):
+        """Validate the gamma spin box to be in the color depth range of the first image."""
+
+        img_data = self.images[self.cb_image1.currentText()]
+        img_depth = 2 ** (8 * img_data.dtype.itemsize)
+
+        self.sb_gamma.setMinimum(-img_depth + 1)
+        self.sb_gamma.setMaximum(img_depth - 1)
+
+        self.update_calculation()
+
+    def update_form(self):
+        """
+        Update the image weights and gamma form access,
+        which is available only for Blend operation.
+        """
+
+        if self.cb_operation.currentText() == "Blend":
+            self.sb_weight1.setEnabled(True)
+            self.sb_weight2.setEnabled(True)
+            self.sb_gamma.setEnabled(True)
+        else:
+            self.sb_weight1.setEnabled(False)
+            self.sb_weight2.setEnabled(False)
+            self.sb_gamma.setEnabled(False)
+
+        self.update_calculation()
+
+    def update_rbtns(self):
         """Validate only one radio button to be checked."""
 
         if self.rbtn_resize1 == self.sender():
@@ -129,9 +166,16 @@ class ImageCalculator(QDialog, ImageCalculatorUI):
         :rtype: class:`numpy.ndarray`
         """
 
-        operation = self.OPERATIONS[operation_name]
+        if operation_name == "Blend":
+            weight1 = self.sb_weight1.value()
+            weight2 = self.sb_weight2.value()
+            gamma = self.sb_gamma.value()
+            img_data = addWeighted(img1_data, weight1, img2_data, weight2, gamma)
+        else:
+            operation = self.OPERATIONS[operation_name]
+            img_data = operation(img1_data, img2_data)
 
-        return operation(img1_data, img2_data)
+        return img_data
 
     def update_calculation(self):
         """
