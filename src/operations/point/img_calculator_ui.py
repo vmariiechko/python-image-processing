@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QComboBox, QFormLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QComboBox, QRadioButton, QFormLayout
 from PyQt5.QtCore import Qt, QMetaObject
 
 from ..operation_ui import OperationUI
@@ -36,7 +36,7 @@ class ImageCalculatorUI(OperationUI):
         self.label_operation.setObjectName("label_operation")
 
         self.cb_operation = QComboBox(img_calculator)
-        self.cb_operation.addItems(["Add", "Substract"])
+        self.cb_operation.addItems(["Add", "Subtract"])
         self.cb_operation.setObjectName("cb_operation")
 
         self.label_image2 = QLabel(img_calculator)
@@ -45,9 +45,19 @@ class ImageCalculatorUI(OperationUI):
         self.cb_image2 = QComboBox(img_calculator)
         self.cb_image2.setObjectName("cb_image2")
 
+        self.rbtn_resize1 = QRadioButton("Resize Image 1")
+        self.rbtn_resize1.setAutoExclusive(False)
+        self.rbtn_resize1.setObjectName("rbtn_resize1")
+
+        self.rbtn_resize2 = QRadioButton("Resize Image 2")
+        self.rbtn_resize2.setAutoExclusive(False)
+        self.rbtn_resize2.setObjectName("rbtn_resize2")
+
         self.layout_form.addRow(self.label_image1, self.cb_image1)
+        self.layout_form.addRow(None, self.rbtn_resize1)
         self.layout_form.addRow(self.label_operation, self.cb_operation)
         self.layout_form.addRow(self.label_image2, self.cb_image2)
+        self.layout_form.addRow(None, self.rbtn_resize2)
 
         self.form = QWidget(img_calculator)
         self.form.setLayout(self.layout_form)
