@@ -107,6 +107,7 @@ class MainWindow(QMainWindow, MainWindowUI):
             if not file_path:
                 return
 
+        # Try to open .bmp image using own implementation
         if file_path.split(".")[-1] == "bmp":
             with open(file_path, "rb") as file:
                 try:
@@ -115,9 +116,11 @@ class MainWindow(QMainWindow, MainWindowUI):
                 except AssertionError:
                     img_data = imread(file_path, -1)
         else:
+            # Open image using opencv function
             img_data = imread(file_path, -1)
 
-        image = Image(img_data, file_path)
+        img_name = file_path.split("/")[-1]
+        image = Image(img_data, img_name)
         self.__add_image_window(image)
 
     def show_histogram(self):

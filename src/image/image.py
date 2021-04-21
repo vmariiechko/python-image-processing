@@ -24,17 +24,17 @@ class Image:
         "convolve": Convolve,
     }
 
-    def __init__(self, img_data, path):
+    def __init__(self, img_data, img_name):
         """
         Create a new image.
 
         :param img_data: The image data.
         :type img_data: :class:`numpy.ndarray`
-        :param path: The path to the image or its name
-        :type path: str
+        :param img_name: The name for an image
+        :type img_name: str
         """
 
-        # Convert only BGRA image to BGR
+        # Convert BGRA image to BGR
         try:
             if img_data.shape[2] == 4:
                 img_data = cvtColor(img_data, COLOR_BGRA2BGR)
@@ -44,8 +44,8 @@ class Image:
             pass
 
         self.img_data = img_data
-        self.img_window = ImageWindow(img_data, path)
-        self.img_name = path.split("/")[-1]
+        self.img_window = ImageWindow(img_data, img_name)
+        self.img_name = img_name
         self.histogram_graphical = HistGraphical(self.img_name)
 
         self.__update_color_depth()
@@ -241,7 +241,7 @@ class ImageWindow(QMdiSubWindow):
 
     closed = pyqtSignal()
 
-    def __init__(self, img_data, path, parent=None):
+    def __init__(self, img_data, img_name, parent=None):
         """
         Create a new image sub-window.
 
@@ -250,15 +250,15 @@ class ImageWindow(QMdiSubWindow):
 
         :param img_data: The image data.
         :type img_data: :class:`numpy.ndarray`
-        :param path: The path to the image or its name
-        :type path: str
+        :param img_name: The name of an image
+        :type img_name: str
         """
 
         super().__init__(parent)
 
         self._img_data = img_data
         self.intensity_profile = IntensityProfile()
-        self.img_name = path.split("/")[-1]
+        self.img_name = img_name
 
         self.image_label = QLabel()
         self.pixmap = None

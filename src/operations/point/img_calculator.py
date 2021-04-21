@@ -1,4 +1,4 @@
-from cv2 import add, subtract, resize
+from cv2 import add, subtract, resize, bitwise_and, bitwise_or, bitwise_xor
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
@@ -13,7 +13,10 @@ class ImageCalculator(QDialog, ImageCalculatorUI):
 
     OPERATIONS = {
         "Add": add,
-        "Subtract": subtract
+        "Subtract": subtract,
+        "AND": bitwise_and,
+        "OR": bitwise_or,
+        "XOR": bitwise_xor,
     }
 
     def __init__(self, images):

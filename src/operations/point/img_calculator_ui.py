@@ -36,7 +36,7 @@ class ImageCalculatorUI(OperationUI):
         self.label_operation.setObjectName("label_operation")
 
         self.cb_operation = QComboBox(img_calculator)
-        self.cb_operation.addItems(["Add", "Subtract"])
+        self.cb_operation.addItems(["Add", "Subtract", "AND", "OR", "XOR"])
         self.cb_operation.setObjectName("cb_operation")
 
         self.label_image2 = QLabel(img_calculator)
