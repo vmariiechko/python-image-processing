@@ -1,6 +1,7 @@
+from numpy import array
 from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout, QSpinBox
 from PyQt5.QtCore import Qt, QMetaObject
-from numpy import array
+from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
 from .local_ui import LocalUI
@@ -24,6 +25,10 @@ class ConvolveUI(OperationUI, LocalUI):
         self.local_ui(self)
         convolve.setObjectName("convolve")
         self.kernel_values = array([[1] * 3, [1] * 3, [1] * 3])
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/matrix.png"), QIcon.Normal, QIcon.Off)
+        convolve.setWindowIcon(icon)
 
         self.label_kernel_size.setVisible(False)
         self.sb_kernel_size.setVisible(False)

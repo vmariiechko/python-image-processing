@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QLabel, QSpinBox, QComboBox
 from PyQt5.QtCore import Qt, QMetaObject
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
 from .local_ui import LocalUI
@@ -23,6 +23,10 @@ class EdgeDetectionUI(OperationUI, LocalUI):
         self.operation_ui(self)
         self.local_ui(self)
         edge_dt.setObjectName("edge_dt")
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/nondirectional.png"), QIcon.Normal, QIcon.Off)
+        edge_dt.setWindowIcon(icon)
 
         self.label_edge_dt_type = QLabel(edge_dt)
         self.label_edge_dt_type.setObjectName("label_edge_dt_type")
@@ -76,6 +80,10 @@ class DirectionalEdgeDetectionUI(OperationUI, LocalUI):
         self.operation_ui(self)
         self.local_ui(self)
         edge_dt_dir.setObjectName("edge_dt_dir")
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/directions.png"), QIcon.Normal, QIcon.Off)
+        edge_dt_dir.setWindowIcon(icon)
 
         self.label_kernel_size.setVisible(False)
         self.sb_kernel_size.setVisible(False)

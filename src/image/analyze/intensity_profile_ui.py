@@ -21,7 +21,7 @@ class IntensityProfileUI:
         """
 
         icon = QIcon()
-        icon.addPixmap(QPixmap("icons/histogram.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/profile.png"), QIcon.Normal, QIcon.Off)
         profile.setWindowIcon(icon)
 
         self.profile_canvas = MplCanvas(profile)

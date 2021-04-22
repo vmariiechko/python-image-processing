@@ -24,6 +24,10 @@ class SharpenUI(OperationUI, LocalUI):
         self.local_ui(self)
         sharpen.setObjectName("sharpen")
 
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/sharpener.png"), QIcon.Normal, QIcon.Off)
+        sharpen.setWindowIcon(icon)
+
         self.label_kernel_size.setVisible(False)
         self.sb_kernel_size.setVisible(False)
 

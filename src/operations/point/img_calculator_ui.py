@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QSpinBox, QDoubleSpinBox,
                              QRadioButton, QHBoxLayout, QVBoxLayout, QFormLayout)
 from PyQt5.QtCore import Qt, QMetaObject
+from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
 
@@ -21,6 +22,10 @@ class ImageCalculatorUI(OperationUI):
 
         self.operation_ui(self)
         img_calculator.setObjectName("img_calculator")
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/image_calculator.png"), QIcon.Normal, QIcon.Off)
+        img_calculator.setWindowIcon(icon)
 
         # =========== First image form ===========
         self.label_image1 = QLabel(img_calculator)

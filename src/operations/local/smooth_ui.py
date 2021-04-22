@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QLabel, QComboBox
 from PyQt5.QtCore import QMetaObject
+from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
 from .local_ui import LocalUI
@@ -22,6 +23,10 @@ class SmoothUI(OperationUI, LocalUI):
         self.operation_ui(self)
         self.local_ui(self)
         smooth.setObjectName("smooth")
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/smooth.png"), QIcon.Normal, QIcon.Off)
+        smooth.setWindowIcon(icon)
 
         self.label_smooth_type = QLabel(smooth)
         self.label_smooth_type.setObjectName("label_kernel_size")
