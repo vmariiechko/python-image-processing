@@ -16,13 +16,17 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.init_ui(self)
         self.setAcceptDrops(True)
 
+        # File menu actions
         self.action_open.triggered.connect(self.open_image)
 
-        # Analyze actions
+        # Image menu actions
+        self.action_rename.triggered.connect(self.rename_title)
+
+        # Analyze menu actions
         self.action_histogram.triggered.connect(self.show_histogram)
         self.action_profile.triggered.connect(self.show_intensity_profile)
 
-        # Operation actions
+        # Operation menu actions
         self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
         self.action_equalize.triggered.connect(lambda: self.run_operation("equalize"))
         self.action_negation.triggered.connect(lambda: self.run_operation("negation"))
@@ -122,6 +126,16 @@ class MainWindow(QMainWindow, MainWindowUI):
         img_name = file_path.split("/")[-1]
         image = Image(img_data, img_name)
         self.__add_image_window(image)
+
+    def rename_title(self):
+        """Change the image name and title."""
+
+        image = self.__get_selected_image()
+
+        if not image:
+            return
+
+        image.rename()
 
     def show_histogram(self):
         """Create a graphical representation of the histogram and show it in the sub-window."""

@@ -7,23 +7,29 @@ from .intensity_profile_ui import IntensityProfileUI
 class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
     """The IntensityProfile class implements a graphical representation of the profile line."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, title, *args, **kwargs):
         """Create class instance and set :attr:`window_is_closed` to ``True``."""
 
         super(IntensityProfile, self).__init__(*args, **kwargs)
         self.window_is_closed = True
+        self._title = title
 
-    def __retranslate_ui(self, img_name):
-        """
-        Set the text and titles of the widgets.
-
-        :param img_name: The name of the image
-        :type img_name: str
-        """
+    def __retranslate_ui(self):
+        """Set the text title of the widgets."""
 
         _translate = QCoreApplication.translate
 
-        self.setWindowTitle("Profile plot of " + img_name)
+        self.setWindowTitle("Profile plot of " + self._title)
+
+    def set_title(self, title):
+        """
+        Set the intensity profile window title.
+
+        :param title: The new title
+        """
+
+        self._title = title
+        self.setWindowTitle("Profile plot of " + title)
 
     def __calc_line_points(self, p1, p2):
         """
@@ -61,7 +67,7 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
 
         self.line_points.append([x2, y2])
 
-    def create_profile(self, points, img_data, img_name):
+    def create_profile(self, points, img_data):
         """
         Create intensity profile window.
 
@@ -77,8 +83,6 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
         :type points: list[:class:`.PyQt5.QtCore.QPoint`, :class:`.PyQt5.QtCore.QPoint`]
         :param img_data: The image data. Taken from cv2.imread
         :type img_data: :class:`numpy.ndarray`
-        :param img_name: The name of the image
-        :type img_name: str
         """
 
         if self.window_is_closed:
@@ -98,7 +102,7 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
         self.profile_canvas.axes.set_ylabel("Gray Value")
         self.profile_canvas.draw()
 
-        self.__retranslate_ui(img_name)
+        self.__retranslate_ui()
 
     def closeEvent(self, event):
         """Mark close event by setting :attr:`window_is_closed` to ``True``."""

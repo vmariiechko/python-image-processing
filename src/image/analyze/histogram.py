@@ -7,20 +7,20 @@ from .histogram_ui import HistGraphicalUI, HistListUI
 class HistGraphical(QMdiSubWindow, HistGraphicalUI):
     """The HistGraphical class implements a graphical representation of the image histogram."""
 
-    def __init__(self, img_name, *args, **kwargs):
+    def __init__(self, title, *args, **kwargs):
         """Create a new histogram graphical representation and :class:`HistList` instance."""
 
         super(HistGraphical, self).__init__(*args, **kwargs)
 
-        self.histogram_list = HistList(img_name)
-        self.img_name = img_name
+        self.histogram_list = HistList(title)
+        self._title = title
         self.window_is_opened = False
 
     def __retranslate_ui(self):
         """Set the text and titles of the widgets."""
 
         _translate = QCoreApplication.translate
-        _window_title = "Histogram plot of " + self.img_name
+        _window_title = "Histogram plot of " + self._title
 
         self.setWindowTitle(_window_title)
         self.btn_list.setText(_translate(_window_title, "List"))
@@ -28,6 +28,17 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
         self.btn_green.setText(_translate(_window_title, "Green"))
         self.btn_blue.setText(_translate(_window_title, "Blue"))
         self.btn_rgb.setText(_translate(_window_title, "R + G + B"))
+
+    def set_title(self, title):
+        """
+        Set the histogram graphical window title.
+
+        :param title: The new title
+        """
+
+        self._title = title
+        self.histogram_list.set_title(title)
+        self.setWindowTitle("Histogram plot of " + title)
 
     def __show_all_channels(self, hist):
         """
@@ -147,11 +158,23 @@ class HistGraphical(QMdiSubWindow, HistGraphicalUI):
 class HistList(QMdiSubWindow, HistListUI):
     """The HistList class implements a list representation of the image histogram."""
 
-    def __init__(self, img_name, *args, **kwargs):
+    def __init__(self, title, *args, **kwargs):
         """Create a new histogram list representation."""
 
         super(HistList, self).__init__(*args, **kwargs)
-        self.img_name = img_name
+
+        self._title = title
+        self.setWindowTitle("Histogram list of " + title)
+
+    def set_title(self, title):
+        """
+        Set the histogram list window title.
+
+        :param title: The new title
+        """
+
+        self._title = title
+        self.setWindowTitle("Histogram list of " + title)
 
     def create_histogram_list(self, hist):
         """
@@ -166,8 +189,6 @@ class HistList(QMdiSubWindow, HistListUI):
         :param hist: The histogram data of the image without specifying channel
         :type hist: list[int]
         """
-
-        self.setWindowTitle("Histogram list of " + self.img_name)
 
         self.init_ui(self, len(hist))
 

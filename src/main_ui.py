@@ -36,6 +36,9 @@ class MainWindowUI:
         self.menu_file = QMenu(self.menu_bar)
         self.menu_file.setObjectName("menu_file")
 
+        self.menu_image = QMenu(self.menu_bar)
+        self.menu_image.setObjectName("menu_image")
+
         self.menu_analyze = QMenu(self.menu_bar)
         self.menu_analyze.setObjectName("menu_analyze")
 
@@ -73,6 +76,9 @@ class MainWindowUI:
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/open.png"), QIcon.Normal, QIcon.Off)
         self.action_open.setIcon(icon)
+
+        self.action_rename = QAction(main_window)
+        self.action_rename.setObjectName("action_rename")
 
         self.action_histogram = QAction(main_window)
         self.action_histogram.setObjectName("action_histogram")
@@ -153,6 +159,7 @@ class MainWindowUI:
         self.action_convolve.setIcon(icon)
 
         self.menu_file.addAction(self.action_open)
+        self.menu_image.addAction(self.action_rename)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
         self.menu_histogram.addAction(self.action_normalize)
@@ -172,6 +179,7 @@ class MainWindowUI:
         self.menu_process.addAction(self.menu_point_operations.menuAction())
         self.menu_process.addAction(self.menu_local_operations.menuAction())
         self.menu_bar.addAction(self.menu_file.menuAction())
+        self.menu_bar.addAction(self.menu_image.menuAction())
         self.menu_bar.addAction(self.menu_analyze.menuAction())
         self.menu_bar.addAction(self.menu_process.menuAction())
 
@@ -191,6 +199,7 @@ class MainWindowUI:
 
         main_window.setWindowTitle(_translate(_window_title, "APO Image Processing"))
         self.menu_file.setTitle(_translate(_window_title, "File"))
+        self.menu_image.setTitle(_translate(_window_title, "Image"))
         self.menu_analyze.setTitle(_translate(_window_title, "Analyze"))
         self.menu_process.setTitle(_translate(_window_title, "Process"))
         self.menu_histogram.setTitle(_translate(_window_title, "Histogram"))
@@ -199,6 +208,7 @@ class MainWindowUI:
         self.menu_edge_detection.setTitle(_translate(_window_title, "Edge Detection"))
 
         self.action_open.setText(_translate(_window_title, "Open"))
+        self.action_rename.setText(_translate(_window_title, "Rename"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
         self.action_normalize.setText(_translate(_window_title, "Normalization"))

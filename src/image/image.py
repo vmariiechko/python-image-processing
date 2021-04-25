@@ -5,6 +5,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
+from .rename import Rename
 from operations.point import Normalize, Posterize, Threshold, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve
 
@@ -46,7 +47,7 @@ class Image:
         self.img_data = img_data
         self.img_window = ImageWindow(img_data, img_name)
         self.img_name = img_name
-        self.histogram_graphical = HistGraphical(self.img_name)
+        self.histogram_graphical = HistGraphical(img_name)
 
         self.__update_color_depth()
 
@@ -54,6 +55,18 @@ class Image:
         """Calculate color depth of image pixel."""
 
         self.color_depth = 2**(8 * self.img_data.dtype.itemsize)
+
+    def __update_img_name(self, img_name):
+        """
+        Update an image name.
+
+        :param img_name: The new image name
+        :type img_name: str
+        """
+
+        self.img_name = img_name
+        self.histogram_graphical.set_title(img_name)
+        self.img_window.set_title(img_name)
 
     def __calc_single_histogram(self):
         """
@@ -203,6 +216,14 @@ class Image:
         lut = [self.color_depth - i - 1 for i in range(self.color_depth)]
         self.__apply_lut(lut)
 
+    def rename(self):
+        """Open rename dialog window to change the image name."""
+
+        dialog_rename = Rename(self.img_name)
+
+        if dialog_rename.exec():
+            self.__update_img_name(dialog_rename.new_name)
+
     def run_dialog_operation(self, operation):
         """
         Execute specified dialog operation.
@@ -257,8 +278,8 @@ class ImageWindow(QMdiSubWindow):
         super().__init__(parent)
 
         self._img_data = img_data
-        self.intensity_profile = IntensityProfile()
-        self.img_name = img_name
+        self.intensity_profile = IntensityProfile(img_name)
+        self._title = img_name
 
         self.image_label = QLabel()
         self.pixmap = None
@@ -270,7 +291,7 @@ class ImageWindow(QMdiSubWindow):
         self.setFixedSize(self.pixmap.width() + 15, self.pixmap.height() + 35)
         self.setWindowFlags(Qt.WindowMinimizeButtonHint)
         self.setWidget(self.image_label)
-        self.setWindowTitle(self.img_name)
+        self.setWindowTitle(self._title)
         self.setWindowIcon(icon)
 
         self.points = [QPoint(0, 0), QPoint(0, 0)]
@@ -315,6 +336,17 @@ class ImageWindow(QMdiSubWindow):
         self._img_data = img_data
         self.update_window()
 
+    def set_title(self, title):
+        """
+        Set an image window title.
+
+        :param title: The new title
+        """
+
+        self._title = title
+        self.intensity_profile.set_title(title)
+        self.setWindowTitle(title)
+
     def update_window(self):
         """
         Update image sub-window.
@@ -337,7 +369,7 @@ class ImageWindow(QMdiSubWindow):
     def create_profile(self):
         """Create intensity profile window."""
 
-        self.intensity_profile.create_profile(self.points, self._img_data, self.img_name)
+        self.intensity_profile.create_profile(self.points, self._img_data)
 
     def eventFilter(self, obj, event):
         """
