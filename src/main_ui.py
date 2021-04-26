@@ -77,11 +77,23 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/open.png"), QIcon.Normal, QIcon.Off)
         self.action_open.setIcon(icon)
 
+        self.action_exit = QAction(main_window)
+        self.action_exit.setObjectName("action_exit")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/exit.png"), QIcon.Normal, QIcon.Off)
+        self.action_exit.setIcon(icon)
+
         self.action_rename = QAction(main_window)
         self.action_rename.setObjectName("action_rename")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/rename.png"), QIcon.Normal, QIcon.Off)
+        self.action_rename.setIcon(icon)
 
         self.action_duplicate = QAction(main_window)
         self.action_duplicate.setObjectName("action_duplicate")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/duplicate.png"), QIcon.Normal, QIcon.Off)
+        self.action_duplicate.setIcon(icon)
 
         self.action_histogram = QAction(main_window)
         self.action_histogram.setObjectName("action_histogram")
@@ -162,6 +174,7 @@ class MainWindowUI:
         self.action_convolve.setIcon(icon)
 
         self.menu_file.addAction(self.action_open)
+        self.menu_file.addAction(self.action_exit)
         self.menu_image.addAction(self.action_rename)
         self.menu_image.addAction(self.action_duplicate)
         self.menu_analyze.addAction(self.action_histogram)
@@ -212,6 +225,7 @@ class MainWindowUI:
         self.menu_edge_detection.setTitle(_translate(_window_title, "Edge Detection"))
 
         self.action_open.setText(_translate(_window_title, "Open"))
+        self.action_exit.setText(_translate(_window_title, "Exit"))
         self.action_rename.setText(_translate(_window_title, "Rename"))
         self.action_duplicate.setText(_translate(_window_title, "Duplicate"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))

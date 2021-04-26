@@ -18,6 +18,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         # File menu actions
         self.action_open.triggered.connect(self.open_image)
+        self.action_exit.triggered.connect(self.close)
 
         # Image menu actions
         self.action_rename.triggered.connect(self.rename_title)
