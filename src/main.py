@@ -21,6 +21,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         # Image menu actions
         self.action_rename.triggered.connect(self.rename_title)
+        self.action_duplicate.triggered.connect(self.duplicate)
 
         # Analyze menu actions
         self.action_histogram.triggered.connect(self.show_histogram)
@@ -136,6 +137,18 @@ class MainWindow(QMainWindow, MainWindowUI):
             return
 
         image.rename()
+
+    def duplicate(self):
+        """Create an image duplicate."""
+
+        image = self.__get_selected_image()
+
+        if not image:
+            return
+
+        image_copy = Image(image.img_data, "copy_" + image.img_name)
+        image_copy.rename()
+        self.__add_image_window(image_copy)
 
     def show_histogram(self):
         """Create a graphical representation of the histogram and show it in the sub-window."""

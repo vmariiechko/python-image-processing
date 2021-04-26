@@ -24,6 +24,7 @@ class RenameUI:
         self.label_title.setObjectName("label_title")
 
         self.edit_title = QLineEdit()
+        self.edit_title.setMaxLength(50)
         self.edit_title.setObjectName("edit_title")
 
         self.button_box = QDialogButtonBox(rename)
