@@ -1,4 +1,4 @@
-from cv2 import imread
+from cv2 import imread, imwrite
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 
@@ -18,6 +18,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         # File menu actions
         self.action_open.triggered.connect(self.open_image)
+        self.action_save.triggered.connect(self.save_image)
         self.action_exit.triggered.connect(self.close)
 
         # Image menu actions
@@ -52,8 +53,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
 
         file_path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
-                                                                          "Image files (*.jpg, *.png, *.tif);;"
-                                                                          "Bitmap (*.bmp)")
+                                                                          "Bitmap (*.bmp);;"
+                                                                          "Image files (*.jpg *.png *.tif)")
         return file_path
 
     def __add_image_window(self, image):
@@ -129,6 +130,24 @@ class MainWindow(QMainWindow, MainWindowUI):
         image = Image(img_data, img_name)
         self.__add_image_window(image)
 
+    def save_image(self):
+        """Save the file using a file dialog."""
+
+        image = self.__get_selected_image()
+
+        if not image:
+            return
+
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save file", image.img_name,
+                                                   "All Files (*);;"
+                                                   "Bitmap (*.bmp);;"
+                                                   "Image files (*.jpg *.png *.tif)")
+
+        if not file_path:
+            return
+
+        imwrite(file_path, image.img_data)
+
     def rename_title(self):
         """Change the image name and title."""
 
@@ -140,7 +159,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         image.rename()
 
     def duplicate(self):
-        """Create an image duplicate."""
+        """Create the image duplicate."""
 
         image = self.__get_selected_image()
 

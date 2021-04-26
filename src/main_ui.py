@@ -77,6 +77,12 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/open.png"), QIcon.Normal, QIcon.Off)
         self.action_open.setIcon(icon)
 
+        self.action_save = QAction(main_window)
+        self.action_save.setObjectName("action_save")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/save.png"), QIcon.Normal, QIcon.Off)
+        self.action_save.setIcon(icon)
+
         self.action_exit = QAction(main_window)
         self.action_exit.setObjectName("action_exit")
         icon = QIcon()
@@ -174,6 +180,7 @@ class MainWindowUI:
         self.action_convolve.setIcon(icon)
 
         self.menu_file.addAction(self.action_open)
+        self.menu_file.addAction(self.action_save)
         self.menu_file.addAction(self.action_exit)
         self.menu_image.addAction(self.action_rename)
         self.menu_image.addAction(self.action_duplicate)
@@ -225,6 +232,7 @@ class MainWindowUI:
         self.menu_edge_detection.setTitle(_translate(_window_title, "Edge Detection"))
 
         self.action_open.setText(_translate(_window_title, "Open"))
+        self.action_save.setText(_translate(_window_title, "Save"))
         self.action_exit.setText(_translate(_window_title, "Exit"))
         self.action_rename.setText(_translate(_window_title, "Rename"))
         self.action_duplicate.setText(_translate(_window_title, "Duplicate"))
