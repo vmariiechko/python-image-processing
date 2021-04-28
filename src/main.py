@@ -9,6 +9,8 @@ from image import Image, ImageBmp
 class MainWindow(QMainWindow, MainWindowUI):
     """The MainWindow class represents the main window and its behavior."""
 
+    SUPPORTED_FILE_EXTENSIONS = ["bmp", "jpeg", "jpg", "png", "tiff", "tif"]
+
     def __init__(self, parent=None):
         """Create a new main window."""
 
@@ -54,7 +56,11 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         file_path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
                                                                           "Bitmap (*.bmp);;"
-                                                                          "Image files (*.jpg *.png *.tif)")
+                                                                          "JPEG files (*.jpeg *.jpg);;"
+                                                                          "Portable Network Graphics (*.png);;"
+                                                                          "TIFF files (*.tiff *.tif);;"
+                                                                          "Supported files (*.bmp *.jpeg *.jpg "
+                                                                          "*.png *.tiff *.tif);;")
         return file_path
 
     def __add_image_window(self, image):
@@ -114,8 +120,13 @@ class MainWindow(QMainWindow, MainWindowUI):
             if not file_path:
                 return
 
+        file_extension = file_path.split(".")[-1]
+        if file_extension not in self.SUPPORTED_FILE_EXTENSIONS:
+            QMessageBox.warning(self, "Not supported extension", "The opened file has unsupported extension")
+            return
+
         # Try to open .bmp image using own implementation
-        if file_path.split(".")[-1] == "bmp":
+        if file_extension == "bmp":
             with open(file_path, "rb") as file:
                 try:
                     img_bmp = ImageBmp(file.read())
@@ -140,7 +151,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         file_path, _ = QFileDialog.getSaveFileName(self, "Save file", image.img_name,
                                                    "All Files (*);;"
-                                                   "Bitmap (*.bmp);;"
+                                                   "Bitmap (*.bmp *.dib);;"
                                                    "Image files (*.jpg *.png *.tif)")
 
         if not file_path:

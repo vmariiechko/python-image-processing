@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
-from .rename import Rename
+from .modify import Rename
 from operations.point import Normalize, Posterize, Threshold, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve
 

@@ -138,10 +138,10 @@ class ImageCalculator(QDialog, ImageCalculatorUI):
         # Validate the number of channels
         if len(img1_data.shape) == 3 and len(img2_data.shape) == 3:
             if img1_data.shape[2] != img2_data.shape[2]:
-                return False, "The image number of channels differs"
+                return False, "The number of channels differs"
         else:
             if len(img1_data.shape) != 2 or len(img2_data.shape) != 2:
-                return False, "The image number of channels differs"
+                return False, "The number of channels differs"
 
         # Validate color depth
         if img1_data.dtype.itemsize != img2_data.dtype.itemsize:
