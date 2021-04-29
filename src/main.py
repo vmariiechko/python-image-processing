@@ -42,6 +42,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_edge_dt_dir.triggered.connect(lambda: self.run_operation("edge_dt_dir"))
         self.action_sharpen.triggered.connect(lambda: self.run_operation("sharpen"))
         self.action_convolve.triggered.connect(lambda: self.run_operation("convolve"))
+        self.action_gray_morphology.triggered.connect(lambda: self.run_operation("morphology"))
         self.action_image_calculator.triggered.connect(self.image_calculator)
 
         self.images = dict()
@@ -230,6 +231,8 @@ class MainWindow(QMainWindow, MainWindowUI):
             return
 
         is_colored = not image.is_grayscale()
+
+        # TODO Add morphology operation validation for image to be binary
 
         if operation in ("threshold", "posterize") and is_colored:
             QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"

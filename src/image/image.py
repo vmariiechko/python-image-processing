@@ -7,7 +7,7 @@ from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
 from .modify import Rename
 from operations.point import Normalize, Posterize, Threshold, ImageCalculator
-from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve
+from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
 
 
 class Image:
@@ -23,6 +23,7 @@ class Image:
         "edge_dt_dir": DirectionalEdgeDetection,
         "sharpen": Sharpen,
         "convolve": Convolve,
+        "morphology": Morphology,
     }
 
     def __init__(self, img_data, img_name):

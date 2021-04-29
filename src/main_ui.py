@@ -179,6 +179,9 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/matrix.png"), QIcon.Normal, QIcon.Off)
         self.action_convolve.setIcon(icon)
 
+        self.action_gray_morphology = QAction(main_window)
+        self.action_gray_morphology.setObjectName("action_gray_morphology")
+
         self.menu_file.addAction(self.action_open)
         self.menu_file.addAction(self.action_save)
         self.menu_file.addAction(self.action_exit)
@@ -197,6 +200,7 @@ class MainWindowUI:
         self.menu_local_operations.addAction(self.action_smooth)
         self.menu_local_operations.addAction(self.action_sharpen)
         self.menu_local_operations.addAction(self.action_convolve)
+        self.menu_local_operations.addAction(self.action_gray_morphology)
 
         self.menu_local_operations.addAction(self.menu_edge_detection.menuAction())
         self.menu_process.addAction(self.menu_histogram.menuAction())
@@ -249,3 +253,4 @@ class MainWindowUI:
         self.action_edge_dt_nondir.setText(_translate(_window_title, "Non-directional"))
         self.action_sharpen.setText(_translate(_window_title, "Sharpen"))
         self.action_convolve.setText(_translate(_window_title, "Convolve"))
+        self.action_gray_morphology.setText(_translate(_window_title, "Gray Morphology"))
