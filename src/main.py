@@ -239,7 +239,7 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                          "Please, select a grayscale image.")
             return
 
-        elif operation in ("normalize", "equalize") and (is_colored or image.color_depth > 256):
+        elif operation in ("normalize", "equalize", "morphology") and (is_colored or image.color_depth > 256):
             QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
                                                      "The image must be grayscale, 8 bits per pixel.")
             return

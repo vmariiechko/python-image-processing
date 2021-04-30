@@ -1,8 +1,9 @@
-from PyQt5.QtWidgets import QLabel, QComboBox, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QComboBox, QSpinBox, QHBoxLayout
 from PyQt5.QtCore import Qt, QMetaObject
 
 from ..operation_ui import OperationUI
 from .local_ui import LocalUI
+from image.analyze import MplCanvas
 
 
 class MorphologyUI(OperationUI, LocalUI):
@@ -23,27 +24,49 @@ class MorphologyUI(OperationUI, LocalUI):
         self.local_ui(self)
         morphology.setObjectName("morphology")
 
-        self.label_operator = QLabel(morphology)
-        self.label_operator.setObjectName("label_operator")
+        self.label_operation = QLabel(morphology)
+        self.label_operation.setObjectName("label_operation")
 
-        self.cb_operator = QComboBox(morphology)
-        self.cb_operator.addItems(["Erode", "Dilate", "Open", "Close"])
-        self.cb_operator.setObjectName("cb_operator")
+        self.cb_operation = QComboBox(morphology)
+        self.cb_operation.addItems(["Erode", "Dilate", "Open", "Close", "Top Hat", "Black Hat"])
+        self.cb_operation.setObjectName("cb_operation")
 
-        self.label_structure_element = QLabel(morphology)
-        self.label_structure_element.setObjectName("label_structure_element")
+        self.label_struct_element_shape = QLabel(morphology)
+        self.label_struct_element_shape.setObjectName("label_struct_element_shape")
 
-        self.cb_structure_element = QComboBox(morphology)
-        self.cb_structure_element.addItems(["Diamond", "Rectangle"])
-        self.cb_structure_element.setObjectName("cb_structure_element")
+        self.cb_struct_element_shape = QComboBox(morphology)
+        self.cb_struct_element_shape.addItems(["Diamond", "Rectangle", "Ellipse", "Cross"])
+        self.cb_struct_element_shape.setObjectName("cb_struct_element_shape")
 
-        self.layout_form.addRow(self.label_operator, self.cb_operator)
-        self.layout_form.addRow(self.label_structure_element, self.cb_structure_element)
+        self.label_iterations = QLabel(morphology)
+        self.label_iterations.setObjectName("label_iterations")
+
+        self.sb_iterations = QSpinBox(morphology)
+        self.sb_iterations.setMinimum(1)
+        self.sb_iterations.setMaximum(10)
+        self.sb_iterations.setObjectName("sb_iterations")
+
+        self.layout_form.addRow(self.label_operation, self.cb_operation)
+        self.layout_form.addRow(self.label_struct_element_shape, self.cb_struct_element_shape)
         self.layout_form.addRow(self.label_kernel_size, self.sb_kernel_size)
+        self.layout_form.addRow(self.label_iterations, self.sb_iterations)
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
 
+        self.layout_preview = QHBoxLayout()
+        self.layout_preview.setObjectName("layout_preview")
+
+        self.hist_canvas = MplCanvas(morphology, width=7)
+        self.hist_canvas.setObjectName("hist_canvas")
+
+        self.layout_preview.addWidget(self.label_image)
+        self.layout_preview.addWidget(self.hist_canvas)
+
+        self.preview_widget = QWidget(morphology)
+        self.preview_widget.setObjectName("preview_widget")
+        self.preview_widget.setLayout(self.layout_preview)
+
         self.layout.addWidget(self.form)
-        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 
         morphology.setLayout(self.layout)
