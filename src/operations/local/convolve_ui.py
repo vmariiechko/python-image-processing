@@ -1,5 +1,5 @@
 from numpy import array
-from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout, QSpinBox
+from PyQt5.QtWidgets import QWidget, QLabel, QSpinBox, QRadioButton, QHBoxLayout, QVBoxLayout
 from PyQt5.QtCore import Qt, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
@@ -24,7 +24,8 @@ class ConvolveUI(OperationUI, LocalUI):
         self.operation_ui(self)
         self.local_ui(self)
         convolve.setObjectName("convolve")
-        self.kernel_values = array([[1] * 3, [1] * 3, [1] * 3])
+        self.kernel1_values = array([[1] * 3, [1] * 3, [1] * 3])
+        self.kernel2_values = array([[1] * 3, [1] * 3, [1] * 3])
 
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/matrix.png"), QIcon.Normal, QIcon.Off)
@@ -33,14 +34,57 @@ class ConvolveUI(OperationUI, LocalUI):
         self.label_kernel_size.setVisible(False)
         self.sb_kernel_size.setVisible(False)
 
+        self.label_two_stage_convolve = QLabel(convolve)
+        self.label_two_stage_convolve.setObjectName("label_two_stage_convolve")
+
+        self.rbtn_two_stage_convolve = QRadioButton()
+        self.rbtn_two_stage_convolve.setObjectName("rbtn_two_stage_convolve")
+
+        self.layout_form.addRow(self.label_two_stage_convolve, self.rbtn_two_stage_convolve)
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
 
         self.label_kernel = QLabel(convolve)
         self.label_kernel.setAlignment(Qt.AlignCenter)
         self.label_kernel.setObjectName("label_kernel")
 
-        self.layout_grid = QVBoxLayout(convolve)
-        self.layout_grid.setObjectName("layout_grid")
+        self.layout_kernels = QHBoxLayout()
+        self.layout_kernels.setObjectName("layout_kernels")
+
+        self.layout_grid1 = self.create_layout_grid(convolve, True)
+        self.layout_grid2 = self.create_layout_grid(convolve, False)
+
+        self.grids = [QWidget(), QWidget()]
+        self.grids[0].setLayout(self.layout_grid1)
+        self.grids[1].setLayout(self.layout_grid2)
+        self.grids[1].setVisible(False)
+
+        self.layout_kernels.addWidget(self.grids[0])
+        self.layout_kernels.addWidget(self.grids[1])
+
+        self.widget_kernels = QWidget(convolve)
+        self.widget_kernels.setObjectName("widget_kernels")
+        self.widget_kernels.setLayout(self.layout_kernels)
+
+        self.layout.addWidget(self.form)
+        self.layout.addWidget(self.label_kernel)
+        self.layout.addWidget(self.widget_kernels)
+        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.button_box)
+
+        convolve.setLayout(self.layout)
+        QMetaObject.connectSlotsByName(convolve)
+
+    def create_layout_grid(self, convolve, first_kernel):
+        """
+        Create layout grid 3x3 of spin boxes to input kernel values.
+
+        :param convolve: The dialog convolve window
+        :type convolve: :class:`convolve.Convolve`
+        :param first_kernel: The flag to indicate whether the layout is for first or second kernel
+        :return: bool
+        """
+
+        layout_grid = QVBoxLayout()
 
         for i in range(3):
             layout_column = QHBoxLayout()
@@ -51,26 +95,19 @@ class ConvolveUI(OperationUI, LocalUI):
                 sb_kernel_cell.setMaximum(100)
                 sb_kernel_cell.setAlignment(Qt.AlignCenter)
 
-                sb_kernel_cell.setValue(self.kernel_values[i][j])
+                if first_kernel:
+                    sb_kernel_cell.setValue(self.kernel1_values[i][j])
+                else:
+                    sb_kernel_cell.setValue(self.kernel2_values[i][j])
+
                 sb_kernel_cell.valueChanged.connect(
-                    lambda value, index=(i, j): convolve.update_kernel_value(index, value)
+                    lambda value, index=(i, j), first=first_kernel: convolve.update_kernel_value(index, value, first)
                 )
 
                 layout_column.addWidget(sb_kernel_cell)
 
             widget = QWidget()
             widget.setLayout(layout_column)
-            self.layout_grid.addWidget(widget)
+            layout_grid.addWidget(widget)
 
-        self.grid = QWidget()
-        self.grid.setLayout(self.layout_grid)
-        self.grid.setObjectName("grid")
-
-        self.layout.addWidget(self.form)
-        self.layout.addWidget(self.label_kernel)
-        self.layout.addWidget(self.grid)
-        self.layout.addWidget(self.label_image)
-        self.layout.addWidget(self.button_box)
-
-        convolve.setLayout(self.layout)
-        QMetaObject.connectSlotsByName(convolve)
+        return layout_grid
