@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QComboBox, QSpinBox, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QComboBox, QRadioButton, QSpinBox, QHBoxLayout
 from PyQt5.QtCore import Qt, QMetaObject
 
 from ..operation_ui import OperationUI
@@ -28,7 +28,7 @@ class MorphologyUI(OperationUI, LocalUI):
         self.label_operation.setObjectName("label_operation")
 
         self.cb_operation = QComboBox(morphology)
-        self.cb_operation.addItems(["Erode", "Dilate", "Open", "Close", "Top Hat", "Black Hat"])
+        self.cb_operation.addItems(["Erode", "Dilate", "Open", "Close", "Top Hat", "Black Hat", "Skeletonize"])
         self.cb_operation.setObjectName("cb_operation")
 
         self.label_struct_element_shape = QLabel(morphology)
@@ -46,11 +46,19 @@ class MorphologyUI(OperationUI, LocalUI):
         self.sb_iterations.setMaximum(10)
         self.sb_iterations.setObjectName("sb_iterations")
 
+        self.label_hist = QLabel(morphology)
+        self.label_hist.setObjectName("label_hist")
+
+        self.rbtn_show_hist = QRadioButton()
+        self.rbtn_show_hist.setChecked(True)
+        self.rbtn_show_hist.setObjectName("rbtn_show_hist")
+
         self.layout_form.addRow(self.label_operation, self.cb_operation)
         self.layout_form.addRow(self.label_struct_element_shape, self.cb_struct_element_shape)
         self.layout_form.addRow(self.label_kernel_size, self.sb_kernel_size)
         self.layout_form.addRow(self.label_iterations, self.sb_iterations)
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
+        self.layout_form.addRow(self.label_hist, self.rbtn_show_hist)
 
         self.layout_preview = QHBoxLayout()
         self.layout_preview.setObjectName("layout_preview")

@@ -1,7 +1,7 @@
-from cv2 import getStructuringElement, morphologyEx
-from numpy import uint8, add, r_
+from cv2 import subtract, bitwise_or, getStructuringElement, morphologyEx, countNonZero
+from numpy import zeros, uint8, add, r_
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QSize
 
 from src.constants import BORDER_TYPES, MORPH_SHAPES, MORPH_OPERATIONS
 from ..operation import Operation
@@ -35,8 +35,10 @@ class Morphology(QDialog, Operation, MorphologyUI):
         self.cb_operation.activated[str].connect(self.update_img_preview)
         self.cb_border_type.activated[str].connect(self.update_img_preview)
         self.cb_struct_element_shape.activated[str].connect(self.update_structuring_element)
+
         self.sb_kernel_size.valueChanged.connect(self.update_structuring_element)
         self.sb_iterations.valueChanged.connect(self.update_img_preview)
+        self.rbtn_show_hist.clicked.connect(self.update_hist)
 
         self.update_structuring_element()
 
@@ -52,6 +54,17 @@ class Morphology(QDialog, Operation, MorphologyUI):
         self.label_kernel_size.setText(_translate(_window_title, "Kernel size:"))
         self.label_iterations.setText(_translate(_window_title, "Iterations:"))
         self.label_border_type.setText(_translate(_window_title, "Border type:"))
+        self.label_hist.setText(_translate(_window_title, "Show histogram:"))
+
+    def update_hist(self):
+        """Update histogram canvas visibility whenever :attr:`rbtn_show_hist` clicked."""
+
+        if self.rbtn_show_hist.isChecked():
+            self.hist_canvas.setVisible(True)
+            self.resize(self.layout.sizeHint() + QSize(self.hist_canvas.size().width(), 0))
+        else:
+            self.hist_canvas.setVisible(False)
+            self.resize(self.layout.sizeHint() - QSize(self.hist_canvas.size().width(), 0))
 
     def update_structuring_element(self):
         """Update structuring element whenever shape or kernel size changed."""
@@ -64,11 +77,40 @@ class Morphology(QDialog, Operation, MorphologyUI):
             self.sb_kernel_size.setValue(ksize)
 
         if shape == "Diamond":
-            self.structuring_element = uint8(add.outer(*[r_[:ksize, ksize:-1:-1]]*2) >= ksize)
+            self.structuring_element = uint8(add.outer(*[r_[:ksize, ksize:-1:-1]] * 2) >= ksize)
         else:
             self.structuring_element = getStructuringElement(MORPH_SHAPES[shape], (ksize, ksize))
 
         self.update_img_preview()
+
+    def calc_skeletonize(self, border):
+        """
+        Calculate skeletonization of the image
+
+        :param border: The border type for convolution, defined in BORDER_TYPES
+        :type border: str
+        :return: The new skeletonized image data
+        :rtype: class:`numpy.ndarray`
+        """
+
+        border_type = BORDER_TYPES[border]
+        img_data = self.img_data.copy()
+
+        skeleton = zeros(img_data.shape, uint8)
+
+        while True:
+            opened = morphologyEx(img_data, MORPH_OPERATIONS["Open"],
+                                  self.structuring_element, borderType=border_type)
+            diff = subtract(img_data, opened)
+            eroded = morphologyEx(img_data, MORPH_OPERATIONS["Erode"],
+                                  self.structuring_element, borderType=border_type)
+            skeleton = bitwise_or(skeleton, diff)
+            img_data = eroded.copy()
+
+            if countNonZero(img_data) == 0:
+                break
+
+        return skeleton
 
     def calc_morphology(self, operation_name, border, iterations):
         """
@@ -101,7 +143,12 @@ class Morphology(QDialog, Operation, MorphologyUI):
         border_type = self.cb_border_type.currentText()
         iterations = self.sb_iterations.value()
 
-        self.current_img_data = self.calc_morphology(operation_name, border_type, iterations)
+        if operation_name == "Skeletonize":
+            self.sb_iterations.setEnabled(False)
+            self.current_img_data = self.calc_skeletonize(border_type)
+        else:
+            self.sb_iterations.setEnabled(True)
+            self.current_img_data = self.calc_morphology(operation_name, border_type, iterations)
 
         self.hist_canvas.axes.clear()
         self.hist_canvas.axes.hist(self.current_img_data.ravel(), 256, [0, 256])
