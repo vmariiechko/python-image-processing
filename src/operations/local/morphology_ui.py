@@ -28,7 +28,8 @@ class MorphologyUI(OperationUI, LocalUI):
         self.label_operation.setObjectName("label_operation")
 
         self.cb_operation = QComboBox(morphology)
-        self.cb_operation.addItems(["Erode", "Dilate", "Open", "Close", "Top Hat", "Black Hat", "Skeletonize"])
+        self.cb_operation.addItems(["Erode", "Dilate", "Open", "Close", "Top Hat", "Black Hat",
+                                    "Skeletonize", "Edge Detection"])
         self.cb_operation.setObjectName("cb_operation")
 
         self.label_struct_element_shape = QLabel(morphology)

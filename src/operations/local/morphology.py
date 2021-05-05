@@ -50,7 +50,7 @@ class Morphology(QDialog, Operation, MorphologyUI):
 
         self.setWindowTitle(_window_title)
         self.label_operation.setText(_translate(_window_title, "Operation:"))
-        self.label_struct_element_shape.setText(_translate(_window_title, "Shape of structuring element:"))
+        self.label_struct_element_shape.setText(_translate(_window_title, "Shape of \nstructuring element:"))
         self.label_kernel_size.setText(_translate(_window_title, "Kernel size:"))
         self.label_iterations.setText(_translate(_window_title, "Iterations:"))
         self.label_border_type.setText(_translate(_window_title, "Border type:"))
@@ -87,7 +87,7 @@ class Morphology(QDialog, Operation, MorphologyUI):
         """
         Calculate skeletonization of the image
 
-        :param border: The border type for convolution, defined in BORDER_TYPES
+        :param border: The border type for morphology, defined in BORDER_TYPES
         :type border: str
         :return: The new skeletonized image data
         :rtype: class:`numpy.ndarray`
@@ -112,6 +112,25 @@ class Morphology(QDialog, Operation, MorphologyUI):
 
         return skeleton
 
+    def calc_edges(self, border):
+        """
+        Calculate edges based on morphological dilate and erode operations
+
+        :param border: The border type for morphology, defined in BORDER_TYPES
+        :type border: str
+        :return: The new image data with detected edges
+        :rtype: class:`numpy.ndarray`
+        """
+
+        border_type = BORDER_TYPES[border]
+
+        dilated = morphologyEx(self.img_data, MORPH_OPERATIONS["Dilate"],
+                               self.structuring_element, borderType=border_type)
+        eroded = morphologyEx(self.img_data, MORPH_OPERATIONS["Erode"],
+                              self.structuring_element, borderType=border_type)
+
+        return dilated - eroded
+
     def calc_morphology(self, operation_name, border, iterations):
         """
         Calculate morphological transformation based on structuring element,
@@ -119,7 +138,7 @@ class Morphology(QDialog, Operation, MorphologyUI):
 
         :param operation_name: The type of morphological operation
         :type operation_name: str
-        :param border: The border type for convolution, defined in BORDER_TYPES
+        :param border: The border type for morphology, defined in BORDER_TYPES
         :type border: str
         :param iterations: The number of times to execute operation
         :type iterations: str
@@ -146,6 +165,9 @@ class Morphology(QDialog, Operation, MorphologyUI):
         if operation_name == "Skeletonize":
             self.sb_iterations.setEnabled(False)
             self.current_img_data = self.calc_skeletonize(border_type)
+        elif operation_name == "Edge Detection":
+            self.sb_iterations.setEnabled(False)
+            self.current_img_data = self.calc_edges(border_type)
         else:
             self.sb_iterations.setEnabled(True)
             self.current_img_data = self.calc_morphology(operation_name, border_type, iterations)
