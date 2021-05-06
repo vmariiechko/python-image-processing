@@ -181,6 +181,9 @@ class MainWindowUI:
 
         self.action_gray_morphology = QAction(main_window)
         self.action_gray_morphology.setObjectName("action_gray_morphology")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/padlocks.png"), QIcon.Normal, QIcon.Off)
+        self.action_gray_morphology.setIcon(icon)
 
         self.menu_file.addAction(self.action_open)
         self.menu_file.addAction(self.action_save)

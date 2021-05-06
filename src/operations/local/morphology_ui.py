@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QComboBox, QRadioButton, QSpinBox, QHBoxLayout
 from PyQt5.QtCore import Qt, QMetaObject
+from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
 from .local_ui import LocalUI
@@ -19,6 +20,10 @@ class MorphologyUI(OperationUI, LocalUI):
         :param morphology: The dialog morphology window
         :type morphology: :class:`morphology.Morphology`
         """
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/padlocks.png"), QIcon.Normal, QIcon.Off)
+        morphology.setWindowIcon(icon)
 
         self.operation_ui(self)
         self.local_ui(self)
