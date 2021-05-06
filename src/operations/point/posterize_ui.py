@@ -32,6 +32,7 @@ class PosterizeUI(OperationUI):
 
         self.bins_slider = QSlider(posterize)
         self.bins_slider.setOrientation(Qt.Horizontal)
+        self.bins_slider.setPageStep(0)
         self.bins_slider.setObjectName("bins_slider")
 
         self.layout.addWidget(self.label_bins_num)

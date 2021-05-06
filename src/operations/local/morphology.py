@@ -1,4 +1,4 @@
-from cv2 import subtract, bitwise_or, getStructuringElement, morphologyEx, countNonZero
+from cv2 import subtract, bitwise_or, getStructuringElement, morphologyEx, countNonZero, threshold
 from numpy import zeros, uint8, add, r_
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication, QSize
@@ -83,7 +83,7 @@ class Morphology(QDialog, Operation, MorphologyUI):
         """
 
         border_type = BORDER_TYPES[border]
-        img_data = self.img_data.copy()
+        _, img_data = threshold(self.img_data, 127, 255, 0)
 
         skeleton = zeros(img_data.shape, uint8)
 

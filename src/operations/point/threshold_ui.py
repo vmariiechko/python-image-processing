@@ -49,6 +49,7 @@ class ThresholdUI(OperationUI):
 
         self.threshold_slider = QSlider(threshold)
         self.threshold_slider.setOrientation(Qt.Horizontal)
+        self.threshold_slider.setPageStep(0)
         self.threshold_slider.setObjectName("threshold_slider")
 
         self.layout.addWidget(self.label_thresh_value)

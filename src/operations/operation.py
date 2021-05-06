@@ -27,9 +27,13 @@ class Operation:
         pixmap = QPixmap(image)
         self.label_image.setPixmap(pixmap)
 
-        self.hist_canvas.axes.clear()
-        self.hist_canvas.axes.hist(img_data.ravel(), 256, [0, 256])
-        self.hist_canvas.draw()
+        # Prevent from calculating histogram for images with color depth higher than 8-bit
+        if img_data.dtype.itemsize > 1:
+            self.rbtn_show_hist.setEnabled(False)
+        else:
+            self.hist_canvas.axes.clear()
+            self.hist_canvas.axes.hist(img_data.ravel(), 256, [0, 256])
+            self.hist_canvas.draw()
 
     def update_hist(self):
         """Update histogram canvas visibility whenever :attr:`rbtn_show_hist` clicked."""
@@ -40,6 +44,7 @@ class Operation:
         else:
             self.hist_canvas.setVisible(False)
             self.resize(self.layout.sizeHint() - QSize(self.hist_canvas.size().width(), 0))
+            self.adjustSize()
 
     def accept_changes(self):
         """Accept changed image data to the original one."""

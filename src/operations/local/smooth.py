@@ -51,8 +51,14 @@ class Smooth(QDialog, Operation, SmoothUI):
 
         if self.cb_smooth_type.currentText() == "Median Blur":
             self.cb_border_type.setEnabled(False)
+
+            # image with color depth higher than 8-bit can't have kernel size higher than 4
+            if self.img_data.dtype.itemsize > 1:
+                self.sb_kernel_size.setValue(3)
+                self.sb_kernel_size.setEnabled(False)
         else:
             self.cb_border_type.setEnabled(True)
+            self.sb_kernel_size.setEnabled(True)
 
         self.update_img_preview()
 
