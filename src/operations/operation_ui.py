@@ -1,5 +1,8 @@
-from PyQt5.QtWidgets import QLabel, QVBoxLayout, QDialogButtonBox
+from PyQt5.QtWidgets import (QWidget, QLabel, QVBoxLayout, QRadioButton,
+                             QHBoxLayout, QDialogButtonBox, QSizePolicy)
 from PyQt5.QtCore import Qt
+
+from image.analyze import MplCanvas
 
 
 class OperationUI:
@@ -15,9 +18,36 @@ class OperationUI:
         :param child_ui: The operation UI class
         """
 
+        self.layout_show_hist = QHBoxLayout(child_ui)
+        self.layout_show_hist.setObjectName("layout_show_hist")
+
+        self.rbtn_show_hist = QRadioButton("Show histogram")
+        self.rbtn_show_hist.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.rbtn_show_hist.setObjectName("rbtn_show_hist")
+
+        self.layout_show_hist.addWidget(self.rbtn_show_hist)
+
+        self.show_hist_widget = QWidget(child_ui)
+        self.show_hist_widget.setObjectName("show_hist_widget")
+        self.show_hist_widget.setLayout(self.layout_show_hist)
+
+        self.layout_preview = QHBoxLayout(child_ui)
+        self.layout_preview.setObjectName("layout_preview")
+
         self.label_image = QLabel(child_ui)
         self.label_image.setAlignment(Qt.AlignCenter)
         self.label_image.setObjectName("label_image")
+
+        self.hist_canvas = MplCanvas(child_ui, width=6)
+        self.hist_canvas.setObjectName("hist_canvas")
+        self.hist_canvas.setVisible(False)
+
+        self.layout_preview.addWidget(self.label_image)
+        self.layout_preview.addWidget(self.hist_canvas)
+
+        self.preview_widget = QWidget(child_ui)
+        self.preview_widget.setObjectName("preview_widget")
+        self.preview_widget.setLayout(self.layout_preview)
 
         self.button_box = QDialogButtonBox(child_ui)
         self.button_box.setOrientation(Qt.Horizontal)

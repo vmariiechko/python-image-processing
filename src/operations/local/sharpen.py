@@ -36,6 +36,7 @@ class Sharpen(QDialog, Operation, SharpenUI):
         self.rbtn_mask1.clicked.connect(self.update_img_preview)
         self.rbtn_mask2.clicked.connect(self.update_img_preview)
         self.rbtn_mask3.clicked.connect(self.update_img_preview)
+        self.rbtn_show_hist.clicked.connect(self.update_hist)
 
         self.update_img_preview()
 

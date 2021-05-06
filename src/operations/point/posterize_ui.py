@@ -36,7 +36,8 @@ class PosterizeUI(OperationUI):
 
         self.layout.addWidget(self.label_bins_num)
         self.layout.addWidget(self.bins_slider)
-        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.show_hist_widget)
+        self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 
         posterize.setLayout(self.layout)

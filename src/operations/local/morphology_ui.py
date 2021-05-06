@@ -47,34 +47,14 @@ class MorphologyUI(OperationUI, LocalUI):
         self.sb_iterations.setMaximum(10)
         self.sb_iterations.setObjectName("sb_iterations")
 
-        self.label_hist = QLabel(morphology)
-        self.label_hist.setObjectName("label_hist")
-
-        self.rbtn_show_hist = QRadioButton()
-        self.rbtn_show_hist.setChecked(True)
-        self.rbtn_show_hist.setObjectName("rbtn_show_hist")
-
         self.layout_form.addRow(self.label_operation, self.cb_operation)
         self.layout_form.addRow(self.label_struct_element_shape, self.cb_struct_element_shape)
         self.layout_form.addRow(self.label_kernel_size, self.sb_kernel_size)
         self.layout_form.addRow(self.label_iterations, self.sb_iterations)
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
-        self.layout_form.addRow(self.label_hist, self.rbtn_show_hist)
-
-        self.layout_preview = QHBoxLayout()
-        self.layout_preview.setObjectName("layout_preview")
-
-        self.hist_canvas = MplCanvas(morphology, width=7)
-        self.hist_canvas.setObjectName("hist_canvas")
-
-        self.layout_preview.addWidget(self.label_image)
-        self.layout_preview.addWidget(self.hist_canvas)
-
-        self.preview_widget = QWidget(morphology)
-        self.preview_widget.setObjectName("preview_widget")
-        self.preview_widget.setLayout(self.layout_preview)
 
         self.layout.addWidget(self.form)
+        self.layout.addWidget(self.show_hist_widget)
         self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 

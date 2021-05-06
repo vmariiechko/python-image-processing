@@ -61,14 +61,15 @@ class ConvolveUI(OperationUI, LocalUI):
         self.layout_kernels.addWidget(self.grids[0])
         self.layout_kernels.addWidget(self.grids[1])
 
-        self.widget_kernels = QWidget(convolve)
-        self.widget_kernels.setObjectName("widget_kernels")
-        self.widget_kernels.setLayout(self.layout_kernels)
+        self.kernels_widget = QWidget(convolve)
+        self.kernels_widget.setObjectName("kernels_widget")
+        self.kernels_widget.setLayout(self.layout_kernels)
 
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_kernel)
-        self.layout.addWidget(self.widget_kernels)
-        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.kernels_widget)
+        self.layout.addWidget(self.show_hist_widget)
+        self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 
         convolve.setLayout(self.layout)

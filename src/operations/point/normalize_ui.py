@@ -30,6 +30,8 @@ class NormalizeUI(OperationUI):
         icon.addPixmap(QPixmap("icons/normalize.png"), QIcon.Normal, QIcon.Off)
         normalize.setWindowIcon(icon)
 
+        self.rbtn_show_hist.setVisible(False)
+
         self.label_txt = QLabel(normalize)
         self.label_txt.setObjectName("label_txt")
         self.label_txt.setAlignment(Qt.AlignCenter)

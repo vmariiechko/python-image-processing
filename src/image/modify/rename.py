@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QLineEdit, QDialogButtonBox, QFormLayout, QWidget
 from PyQt5.QtCore import Qt, QMetaObject, QCoreApplication
+from PyQt5.QtGui import QIcon, QPixmap
 
 
 class RenameUI:
@@ -15,6 +16,10 @@ class RenameUI:
         :param rename: The dialog rename window
         :type rename: :class:`rename.Rename`
         """
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/rename.png"), QIcon.Normal, QIcon.Off)
+        rename.setWindowIcon(icon)
 
         self.form_layout = QFormLayout()
         self.form_layout.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)

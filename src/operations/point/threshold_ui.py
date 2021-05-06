@@ -30,8 +30,8 @@ class ThresholdUI(OperationUI):
         self.label_thresh_value.setObjectName("label_thresh_value")
         self.label_thresh_value.setAlignment(Qt.AlignCenter)
 
-        self.layout_rbtn = QHBoxLayout()
-        self.layout_rbtn.setObjectName("layout_rbtn")
+        self.layout_rbtns = QHBoxLayout()
+        self.layout_rbtns.setObjectName("layout_rbtns")
 
         self.rbtn_thresh_binary = QRadioButton("Threshold Binary")
         self.rbtn_thresh_binary.setObjectName("rbtn_thresh_binary")
@@ -41,11 +41,11 @@ class ThresholdUI(OperationUI):
         self.rbtn_thresh_zero = QRadioButton("Threshold Zero")
         self.rbtn_thresh_zero.setObjectName("rbtn_thresh_zero")
 
-        self.layout_rbtn.addWidget(self.rbtn_thresh_binary)
-        self.layout_rbtn.addWidget(self.rbtn_thresh_zero)
+        self.layout_rbtns.addWidget(self.rbtn_thresh_binary)
+        self.layout_rbtns.addWidget(self.rbtn_thresh_zero)
 
         self.rbtn_group = QWidget(threshold)
-        self.rbtn_group.setLayout(self.layout_rbtn)
+        self.rbtn_group.setLayout(self.layout_rbtns)
 
         self.threshold_slider = QSlider(threshold)
         self.threshold_slider.setOrientation(Qt.Horizontal)
@@ -54,7 +54,8 @@ class ThresholdUI(OperationUI):
         self.layout.addWidget(self.label_thresh_value)
         self.layout.addWidget(self.rbtn_group)
         self.layout.addWidget(self.threshold_slider)
-        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.show_hist_widget)
+        self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 
         threshold.setLayout(self.layout)

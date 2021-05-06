@@ -27,6 +27,8 @@ class ImageCalculatorUI(OperationUI):
         icon.addPixmap(QPixmap("icons/image_calculator.png"), QIcon.Normal, QIcon.Off)
         img_calculator.setWindowIcon(icon)
 
+        self.rbtn_show_hist.setVisible(False)
+
         # =========== First image form ===========
         self.label_image1 = QLabel(img_calculator)
         self.label_image1.setObjectName("label_image1")

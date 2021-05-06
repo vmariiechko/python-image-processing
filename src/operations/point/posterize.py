@@ -32,6 +32,7 @@ class Posterize(QDialog, Operation, PosterizeUI):
 
         self.bins_slider.valueChanged.connect(self.update_bins_value)
         self.bins_slider.sliderReleased.connect(self.update_img_preview)
+        self.rbtn_show_hist.clicked.connect(self.update_hist)
 
         self.update_bins_value()
         self.update_img_preview()

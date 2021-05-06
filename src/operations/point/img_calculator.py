@@ -4,7 +4,6 @@ from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QImage, QPixmap
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
-from ..operation import Operation
 from .img_calculator_ui import ImageCalculatorUI
 
 

@@ -40,7 +40,8 @@ class SmoothUI(OperationUI, LocalUI):
         self.layout_form.addRow(self.label_border_type, self.cb_border_type)
 
         self.layout.addWidget(self.form)
-        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.show_hist_widget)
+        self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 
         smooth.setLayout(self.layout)

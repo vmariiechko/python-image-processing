@@ -31,6 +31,7 @@ class Smooth(QDialog, Operation, SmoothUI):
         self.cb_smooth_type.activated[str].connect(self.update_form)
         self.cb_border_type.activated[str].connect(self.update_img_preview)
         self.sb_kernel_size.valueChanged.connect(self.update_img_preview)
+        self.rbtn_show_hist.clicked.connect(self.update_hist)
 
         self.update_form()
 

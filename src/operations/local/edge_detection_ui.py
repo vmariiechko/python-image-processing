@@ -28,6 +28,8 @@ class EdgeDetectionUI(OperationUI, LocalUI):
         icon.addPixmap(QPixmap("icons/nondirectional.png"), QIcon.Normal, QIcon.Off)
         edge_dt.setWindowIcon(icon)
 
+        self.rbtn_show_hist.setVisible(False)
+
         self.label_edge_dt_type = QLabel(edge_dt)
         self.label_edge_dt_type.setObjectName("label_edge_dt_type")
 
@@ -84,6 +86,8 @@ class DirectionalEdgeDetectionUI(OperationUI, LocalUI):
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/directions.png"), QIcon.Normal, QIcon.Off)
         edge_dt_dir.setWindowIcon(icon)
+
+        self.rbtn_show_hist.setVisible(False)
 
         self.label_kernel_size.setVisible(False)
         self.sb_kernel_size.setVisible(False)

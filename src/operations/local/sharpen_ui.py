@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QRadioButton
+from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QRadioButton, QSizePolicy
 from PyQt5.QtCore import Qt, QSize, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
@@ -40,7 +40,10 @@ class SharpenUI(OperationUI, LocalUI):
         self.label_masks.setAlignment(Qt.AlignCenter)
         self.label_masks.setObjectName("label_masks")
 
+        size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
         self.rbtn_mask1 = QRadioButton(sharpen)
+        self.rbtn_mask1.setSizePolicy(size_policy)
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/masks/sharpen1.png"), QIcon.Normal, QIcon.Off)
         self.rbtn_mask1.setIcon(icon)
@@ -49,6 +52,7 @@ class SharpenUI(OperationUI, LocalUI):
         self.rbtn_mask1.setObjectName("rbtn_mask1")
 
         self.rbtn_mask2 = QRadioButton(sharpen)
+        self.rbtn_mask2.setSizePolicy(size_policy)
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/masks/sharpen2.png"), QIcon.Normal, QIcon.Off)
         self.rbtn_mask2.setIcon(icon)
@@ -56,6 +60,7 @@ class SharpenUI(OperationUI, LocalUI):
         self.rbtn_mask2.setObjectName("rbtn_mask2")
 
         self.rbtn_mask3 = QRadioButton(sharpen)
+        self.rbtn_mask3.setSizePolicy(size_policy)
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/masks/sharpen3.png"), QIcon.Normal, QIcon.Off)
         self.rbtn_mask3.setIcon(icon)
@@ -72,7 +77,8 @@ class SharpenUI(OperationUI, LocalUI):
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_masks)
         self.layout.addWidget(self.masks)
-        self.layout.addWidget(self.label_image)
+        self.layout.addWidget(self.show_hist_widget)
+        self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
 
         sharpen.setLayout(self.layout)

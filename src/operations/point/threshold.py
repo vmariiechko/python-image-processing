@@ -31,6 +31,7 @@ class Threshold(QDialog, Operation, ThresholdUI):
 
         self.rbtn_thresh_binary.clicked.connect(self.update_img_preview)
         self.rbtn_thresh_zero.clicked.connect(self.update_img_preview)
+        self.rbtn_show_hist.clicked.connect(self.update_hist)
         self.threshold_slider.valueChanged.connect(self.update_thresh_value)
         self.threshold_slider.sliderReleased.connect(self.update_img_preview)
 

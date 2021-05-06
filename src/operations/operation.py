@@ -1,4 +1,5 @@
 from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtCore import QSize
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 
@@ -25,6 +26,20 @@ class Operation:
 
         pixmap = QPixmap(image)
         self.label_image.setPixmap(pixmap)
+
+        self.hist_canvas.axes.clear()
+        self.hist_canvas.axes.hist(img_data.ravel(), 256, [0, 256])
+        self.hist_canvas.draw()
+
+    def update_hist(self):
+        """Update histogram canvas visibility whenever :attr:`rbtn_show_hist` clicked."""
+
+        if self.rbtn_show_hist.isChecked():
+            self.hist_canvas.setVisible(True)
+            self.resize(self.layout.sizeHint() + QSize(self.hist_canvas.size().width(), 0))
+        else:
+            self.hist_canvas.setVisible(False)
+            self.resize(self.layout.sizeHint() - QSize(self.hist_canvas.size().width(), 0))
 
     def accept_changes(self):
         """Accept changed image data to the original one."""

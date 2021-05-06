@@ -54,17 +54,6 @@ class Morphology(QDialog, Operation, MorphologyUI):
         self.label_kernel_size.setText(_translate(_window_title, "Kernel size:"))
         self.label_iterations.setText(_translate(_window_title, "Iterations:"))
         self.label_border_type.setText(_translate(_window_title, "Border type:"))
-        self.label_hist.setText(_translate(_window_title, "Show histogram:"))
-
-    def update_hist(self):
-        """Update histogram canvas visibility whenever :attr:`rbtn_show_hist` clicked."""
-
-        if self.rbtn_show_hist.isChecked():
-            self.hist_canvas.setVisible(True)
-            self.resize(self.layout.sizeHint() + QSize(self.hist_canvas.size().width(), 0))
-        else:
-            self.hist_canvas.setVisible(False)
-            self.resize(self.layout.sizeHint() - QSize(self.hist_canvas.size().width(), 0))
 
     def update_structuring_element(self):
         """Update structuring element whenever shape or kernel size changed."""
@@ -171,9 +160,5 @@ class Morphology(QDialog, Operation, MorphologyUI):
         else:
             self.sb_iterations.setEnabled(True)
             self.current_img_data = self.calc_morphology(operation_name, border_type, iterations)
-
-        self.hist_canvas.axes.clear()
-        self.hist_canvas.axes.hist(self.current_img_data.ravel(), 256, [0, 256])
-        self.hist_canvas.draw()
 
         super().update_img_preview()
