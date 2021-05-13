@@ -6,8 +6,9 @@ from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
 from .analyze import HistGraphical, IntensityProfile
 from .modify import Rename
-from operations.point import Normalize, Posterize, Threshold, ImageCalculator
+from operations.point import Normalize, Posterize, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
+from operations.segmentation import Segmentation
 
 
 class Image:
@@ -16,7 +17,7 @@ class Image:
     # Map operations name to their dialog windows
     DIALOG_OPERATIONS = {
         "normalize": Normalize,
-        "threshold": Threshold,
+        "segmentation": Segmentation,
         "posterize": Posterize,
         "smooth": Smooth,
         "edge_dt": EdgeDetection,

@@ -35,7 +35,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
         self.action_equalize.triggered.connect(lambda: self.run_operation("equalize"))
         self.action_negation.triggered.connect(lambda: self.run_operation("negation"))
-        self.action_threshold.triggered.connect(lambda: self.run_operation("threshold"))
+        self.action_segmentation.triggered.connect(lambda: self.run_operation("segmentation"))
         self.action_posterize.triggered.connect(lambda: self.run_operation("posterize"))
         self.action_smooth.triggered.connect(lambda: self.run_operation("smooth"))
         self.action_edge_dt_nondir.triggered.connect(lambda: self.run_operation("edge_dt"))
@@ -232,9 +232,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         is_colored = not image.is_grayscale()
 
-        # TODO Add morphology operation validation for image to be binary
-
-        if operation in ("threshold", "posterize") and is_colored:
+        if operation in ("segmentation", "posterize") and is_colored:
             QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
                                                          "Please, select a grayscale image.")
             return
