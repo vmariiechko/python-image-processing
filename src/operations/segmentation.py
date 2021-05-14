@@ -1,4 +1,7 @@
-from cv2 import threshold, adaptiveThreshold, THRESH_BINARY, ADAPTIVE_THRESH_MEAN_C, ADAPTIVE_THRESH_GAUSSIAN_C
+from cv2 import (threshold, adaptiveThreshold, THRESH_BINARY, THRESH_OTSU,
+                 ADAPTIVE_THRESH_MEAN_C, ADAPTIVE_THRESH_GAUSSIAN_C,
+                 normalize, NORM_MINMAX)
+from numpy import abs
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 
@@ -50,16 +53,26 @@ class Segmentation(QDialog, Operation, SegmentationUI):
         self.label_slider_txt.setText(_translate(_window_title, "Threshold value:"))
 
     def update_form(self):
-        """Update the slider minimum value and slider text based on segmentation type."""
+        """Update the slider behavior and slider text based on segmentation type."""
 
         segmentation_type = self.cb_segmentation_type.currentText()
 
         if segmentation_type in ("Threshold Binary", "Threshold Zero"):
             self.label_slider_txt.setText("Threshold value:")
+            self.segmentation_slider.setEnabled(True)
             self.segmentation_slider.setMinimum(0)
+            self.segmentation_slider.setMaximum(self.color_depth - 1)
+            self.segmentation_slider.setProperty("value", self.color_depth // 2 - 1)
         elif segmentation_type in ("Adaptive Mean Threshold", "Adaptive Gaussian Threshold"):
             self.label_slider_txt.setText("Block size:")
+            self.segmentation_slider.setEnabled(True)
             self.segmentation_slider.setMinimum(3)
+            self.segmentation_slider.setMaximum(255)
+            self.segmentation_slider.setProperty("value", 127)
+        elif segmentation_type == "Threshold Otsu Method":
+            self.label_slider_txt.setText("Threshold value:")
+            self.segmentation_slider.setEnabled(False)
+            self.segmentation_slider.setMaximum(self.color_depth - 1)
 
         self.update_img_preview()
 
@@ -125,9 +138,25 @@ class Segmentation(QDialog, Operation, SegmentationUI):
             block_size -= 1
             self.segmentation_slider.setProperty("value", block_size)
 
+        # Convertion, adaptive threshold operates only on uint8 data type
+        if self.img_data.dtype.itemsize > 1:
+            img_data = normalize(abs(self.img_data), None, 0, 255, NORM_MINMAX, dtype=0)
+        else:
+            img_data = self.img_data
+
         adaptive_method = ADAPTIVE_THRESH_MEAN_C if method == "Mean" else ADAPTIVE_THRESH_GAUSSIAN_C
 
-        return adaptiveThreshold(self.img_data, 255, adaptive_method, THRESH_BINARY, block_size, 5)
+        return adaptiveThreshold(img_data, 255, adaptive_method, THRESH_BINARY, block_size, 5)
+
+    def calc_theshold_otsu(self):
+        """Calculate Otsu's thresholding."""
+
+        thresh_value, img_data = threshold(self.img_data, 0, self.color_depth-1, THRESH_BINARY + THRESH_OTSU)
+
+        self.label_slider_value.setText(str(int(thresh_value)))
+        self.segmentation_slider.setProperty("value", thresh_value)
+
+        return img_data
 
     def update_slider_value(self):
         """Update :attr:`label_slider_value` whenever is changed."""
@@ -153,6 +182,8 @@ class Segmentation(QDialog, Operation, SegmentationUI):
             img_data = self.calc_adaptive_thresh("Mean", slider_value)
         elif segmentation_type == "Adaptive Gaussian Threshold":
             img_data = self.calc_adaptive_thresh("Gaussian", slider_value)
+        elif segmentation_type == "Threshold Otsu Method":
+            img_data = self.calc_theshold_otsu()
 
         self.current_img_data = img_data
         super().update_img_preview()

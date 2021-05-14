@@ -44,7 +44,7 @@ class SegmentationUI(OperationUI):
 
         self.cb_segmentation_type = QComboBox(segmentation)
         self.cb_segmentation_type.addItems(["Threshold Binary", "Threshold Zero", "Adaptive Mean Threshold",
-                                            "Adaptive Gaussian Threshold"])
+                                            "Adaptive Gaussian Threshold", "Threshold Otsu Method"])
         self.cb_segmentation_type.setObjectName("cb_segmentation_type")
 
         self.layout_form.addRow(self.label_slider_txt, self.label_slider_value)
