@@ -31,34 +31,35 @@ class SegmentationUI(OperationUI):
         self.layout_form.setFormAlignment(Qt.AlignCenter)
         self.layout_form.setObjectName("layout_form")
 
-        self.label_thresh_txt = QLabel(segmentation)
-        self.label_thresh_txt.setObjectName("label_thresh_txt")
-        self.label_thresh_txt.setAlignment(Qt.AlignCenter)
+        self.label_slider_txt = QLabel(segmentation)
+        self.label_slider_txt.setObjectName("label_slider_txt")
+        self.label_slider_txt.setAlignment(Qt.AlignCenter)
 
-        self.label_thresh_value = QLabel(segmentation)
-        self.label_thresh_value.setObjectName("label_thresh_value")
-        self.label_thresh_value.setAlignment(Qt.AlignCenter)
+        self.label_slider_value = QLabel(segmentation)
+        self.label_slider_value.setObjectName("label_slider_value")
+        self.label_slider_value.setAlignment(Qt.AlignCenter)
 
         self.label_segmentation_type = QLabel(segmentation)
         self.label_segmentation_type.setObjectName("label_segmentation_type")
 
         self.cb_segmentation_type = QComboBox(segmentation)
-        self.cb_segmentation_type.addItems(["Threshold Binary", "Threshold Zero"])
+        self.cb_segmentation_type.addItems(["Threshold Binary", "Threshold Zero", "Adaptive Mean Threshold",
+                                            "Adaptive Gaussian Threshold"])
         self.cb_segmentation_type.setObjectName("cb_segmentation_type")
 
-        self.layout_form.addRow(self.label_thresh_txt, self.label_thresh_value)
+        self.layout_form.addRow(self.label_slider_txt, self.label_slider_value)
         self.layout_form.addRow(self.label_segmentation_type, self.cb_segmentation_type)
 
         self.form = QWidget(segmentation)
         self.form.setLayout(self.layout_form)
 
-        self.threshold_slider = QSlider(segmentation)
-        self.threshold_slider.setOrientation(Qt.Horizontal)
-        self.threshold_slider.setPageStep(0)
-        self.threshold_slider.setObjectName("threshold_slider")
+        self.segmentation_slider = QSlider(segmentation)
+        self.segmentation_slider.setOrientation(Qt.Horizontal)
+        self.segmentation_slider.setPageStep(0)
+        self.segmentation_slider.setObjectName("segmentation_slider")
 
         self.layout.addWidget(self.form)
-        self.layout.addWidget(self.threshold_slider)
+        self.layout.addWidget(self.segmentation_slider)
         self.layout.addWidget(self.show_hist_widget)
         self.layout.addWidget(self.preview_widget)
         self.layout.addWidget(self.button_box)
