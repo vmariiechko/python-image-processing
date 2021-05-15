@@ -1,9 +1,24 @@
+from functools import wraps
+
 from cv2 import imread, imwrite
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 
 from main_ui import MainWindowUI
-from image import Image, ImageBmp
+from image import Image, ImageWindow, ImageBmp
+
+
+def validate_active_image(method):
+    """The decorator to validate the active image to be not `None`."""
+
+    @wraps(method)
+    def wrapper(self, *args):
+        if not self.active_image:
+            QMessageBox.warning(self, "There is no uploaded image", "Please, open an image using\n"
+                                                                    "'File->Open' or drag & drop action.")
+            return
+        method(self, *args)
+    return wrapper
 
 
 class MainWindow(QMainWindow, MainWindowUI):
@@ -46,7 +61,10 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_threshold.triggered.connect(lambda: self.run_operation("threshold"))
         self.action_watershed.triggered.connect(lambda: self.run_operation("watershed"))
 
+        self.central_mdi_area.subWindowActivated.connect(self.__update_active_image)
+
         self.images = dict()
+        self.active_image = None
 
     def __browse_file(self):
         """
@@ -78,30 +96,23 @@ class MainWindow(QMainWindow, MainWindowUI):
         image.img_window.closed.connect(lambda img=image: self.__remove_image(img))
         image.img_window.show()
 
-    def __get_selected_image(self):
+    def __update_active_image(self, sub_window):
         """
-        Find an active image window.
+        Find a selected image and set it as active.
 
-        If there's no window selected or the active window isn't an image,
-        then show a warning message window.
-
-        :return: The :class:`image.Image` object of selected window
-        :rtype: :class:`image.Image`
+        :param sub_window: The active sub-window, the sender of the signal
         """
 
-        img_window = self.central_mdi_area.activeSubWindow()
+        if isinstance(sub_window, ImageWindow):
+            self.active_image = self.images.get(sub_window)
 
-        if not img_window:
-            QMessageBox.warning(self, "Window isn't selected", "Please, select an image window.")
-            return None
+    def __activate_last_image(self):
+        """Change activated image to the last uploaded."""
 
-        image = self.images.get(img_window)
-
-        if not image:
-            QMessageBox.warning(self, "Isn't image", "Please, select an image window.")
-            return None
-
-        return image
+        try:
+            self.active_image = list(self.images.values())[-1]
+        except IndexError:
+            self.active_image = None
 
     def __remove_image(self, image):
         """
@@ -112,6 +123,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
 
         self.images = {window: img for window, img in self.images.items() if img != image}
+        self.activate_last_image()
 
     def open_image(self, file_path=None):
         """Create :class:`image.Image` object of chosen image and show it in the sub-window."""
@@ -143,15 +155,11 @@ class MainWindow(QMainWindow, MainWindowUI):
         image = Image(img_data, img_name)
         self.__add_image_window(image)
 
-    def save_image(self):
+    @validate_active_image
+    def save_image(self, *args):
         """Save the file using a file dialog."""
 
-        image = self.__get_selected_image()
-
-        if not image:
-            return
-
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save file", image.img_name,
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save file", self.active_image.img_name,
                                                    "All Files (*);;"
                                                    "Bitmap (*.bmp *.dib);;"
                                                    "Image files (*.jpg *.png *.tif)")
@@ -159,62 +167,47 @@ class MainWindow(QMainWindow, MainWindowUI):
         if not file_path:
             return
 
-        imwrite(file_path, image.img_data)
+        imwrite(file_path, self.active_image.img_data)
 
-    def rename_title(self):
+    @validate_active_image
+    def rename_title(self, *args):
         """Change the image name and title."""
 
-        image = self.__get_selected_image()
+        self.active_image.rename()
 
-        if not image:
-            return
-
-        image.rename()
-
-    def duplicate(self):
+    @validate_active_image
+    def duplicate(self, *args):
         """Create the image duplicate."""
 
-        image = self.__get_selected_image()
-
-        if not image:
-            return
-
-        image_copy = Image(image.img_data, "copy_" + image.img_name)
+        image_copy = Image(self.active_image.img_data, "copy_" + self.active_image.img_name)
         image_copy.rename()
         self.__add_image_window(image_copy)
 
-    def show_histogram(self):
+    @validate_active_image
+    def show_histogram(self, *args):
         """Create a graphical representation of the histogram and show it in the sub-window."""
 
-        image = self.__get_selected_image()
-
-        if not image:
-            return
-
-        if image.color_depth > 256:
+        if self.active_image.color_depth > 256:
             QMessageBox.warning(self, "Too high", "The size of the image item is too high.\n"
                                                   "Convert the image to 8 bits per pixel.")
             return
 
-        image.create_hist_window()
+        self.active_image.create_hist_window()
 
-        self.central_mdi_area.addSubWindow(image.histogram_graphical)
-        self.central_mdi_area.addSubWindow(image.histogram_graphical.histogram_list)
-        image.histogram_graphical.show()
+        self.central_mdi_area.addSubWindow(self.active_image.histogram_graphical)
+        self.central_mdi_area.addSubWindow(self.active_image.histogram_graphical.histogram_list)
+        self.active_image.histogram_graphical.show()
 
-    def show_intensity_profile(self):
+    @validate_active_image
+    def show_intensity_profile(self, *args):
         """Create intensity profile of drawn line and show it in the sub-window."""
 
-        image = self.__get_selected_image()
+        self.active_image.img_window.create_profile()
 
-        if not image:
-            return
+        self.central_mdi_area.addSubWindow(self.active_image.img_window.intensity_profile)
+        self.active_image.img_window.intensity_profile.show()
 
-        image.img_window.create_profile()
-
-        self.central_mdi_area.addSubWindow(image.img_window.intensity_profile)
-        image.img_window.intensity_profile.show()
-
+    @validate_active_image
     def run_operation(self, operation):
         """
         Execute specified image operation.
@@ -226,12 +219,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         :type operation: str
         """
 
-        image = self.__get_selected_image()
-
-        if not image:
-            return
-
-        is_colored = not image.is_grayscale()
+        is_colored = not self.active_image.is_grayscale()
 
         if operation == "watershed" and not is_colored:
             QMessageBox.warning(self, "Isn't colored", "Selected image has one channel.\n"
@@ -243,27 +231,24 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                          "Please, select a grayscale image.")
             return
 
-        elif operation in ("normalize", "equalize", "morphology") and (is_colored or image.color_depth > 256):
+        elif operation in ("normalize", "equalize", "morphology") \
+                and (is_colored or self.active_image.color_depth > 256):
             QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
                                                      "The image must be grayscale, 8 bits per pixel.")
             return
 
         if operation == "equalize":
-            image.equalize_histogram()
+            self.active_image.equalize_histogram()
         elif operation == "negation":
-            image.negation()
+            self.active_image.negation()
         else:
-            image.run_dialog_operation(operation)
+            self.active_image.run_dialog_operation(operation)
 
-        image.update()
+        self.active_image.update()
 
-    def image_calculator(self):
+    @validate_active_image
+    def image_calculator(self, *args):
         """Perform one of the double-argument point operations between two images."""
-
-        if len(self.images) < 1:
-            QMessageBox.warning(self, "There is no uploaded image", "Please, open an image using\n"
-                                                                    "'File->Open' or drag & drop action.")
-            return
 
         new_image = Image.calculator(self.images.values())
 
