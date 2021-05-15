@@ -8,7 +8,7 @@ from .analyze import HistGraphical, IntensityProfile
 from .modify import Rename
 from operations.point import Normalize, Posterize, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
-from operations.segmentation import Segmentation
+from operations.segmentation import Threshold
 
 
 class Image:
@@ -17,7 +17,7 @@ class Image:
     # Map operations name to their dialog windows
     DIALOG_OPERATIONS = {
         "normalize": Normalize,
-        "segmentation": Segmentation,
+        "threshold": Threshold,
         "posterize": Posterize,
         "smooth": Smooth,
         "edge_dt": EdgeDetection,
