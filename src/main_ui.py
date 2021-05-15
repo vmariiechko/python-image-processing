@@ -1,6 +1,8 @@
-from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction
+from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction, QActionGroup
 from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
 from PyQt5.QtGui import QIcon, QPixmap
+
+from src.constants import IMAGE_TYPES
 
 
 class MainWindowUI:
@@ -44,6 +46,9 @@ class MainWindowUI:
 
         self.menu_process = QMenu(self.menu_bar)
         self.menu_process.setObjectName("menu_process")
+
+        self.menu_type = QMenu(self.menu_bar)
+        self.menu_type.setObjectName("menu_type")
 
         self.menu_histogram = QMenu(self.menu_bar)
         self.menu_histogram.setObjectName("menu_histogram")
@@ -197,10 +202,23 @@ class MainWindowUI:
         self.action_watershed = QAction(main_window)
         self.action_watershed.setObjectName("action_watershed")
 
+        self.group_image_type = QActionGroup(self.menu_type)
+        self.group_image_type.setObjectName("group_image_type")
+
+        for img_type in IMAGE_TYPES:
+            action = QAction(img_type, self.menu_type, checkable=True)
+            self.menu_type.addAction(action)
+            self.group_image_type.addAction(action)
+
+        self.group_image_type.setExclusive(True)
+
         self.menu_file.addAction(self.action_open)
         self.menu_file.addAction(self.action_save)
         self.menu_file.addAction(self.action_cascade)
         self.menu_file.addAction(self.action_exit)
+
+        self.menu_image.addAction(self.menu_type.menuAction())
+
         self.menu_image.addAction(self.action_rename)
         self.menu_image.addAction(self.action_duplicate)
         self.menu_analyze.addAction(self.action_histogram)
@@ -248,6 +266,7 @@ class MainWindowUI:
         self.menu_image.setTitle(_translate(_window_title, "Image"))
         self.menu_analyze.setTitle(_translate(_window_title, "Analyze"))
         self.menu_process.setTitle(_translate(_window_title, "Process"))
+        self.menu_type.setTitle(_translate(_window_title, "Type"))
         self.menu_histogram.setTitle(_translate(_window_title, "Histogram"))
         self.menu_point_operations.setTitle(_translate(_window_title, "Point Operations"))
         self.menu_local_operations.setTitle(_translate(_window_title, "Local Operations"))

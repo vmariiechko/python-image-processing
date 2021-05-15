@@ -42,6 +42,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         # Image menu actions
         self.action_rename.triggered.connect(self.rename_title)
         self.action_duplicate.triggered.connect(self.duplicate)
+        self.group_image_type.triggered.connect(self.set_image_type)
 
         # Analyze menu actions
         self.action_histogram.triggered.connect(self.show_histogram)
@@ -106,6 +107,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         if isinstance(sub_window, ImageWindow):
             self.active_image = self.images.get(sub_window)
+            self.set_image_type(None)
 
     def __activate_last_image(self):
         """Change activated image to the last uploaded."""
@@ -183,6 +185,29 @@ class MainWindow(QMainWindow, MainWindowUI):
         image_copy = Image(self.active_image.img_data, "copy_" + self.active_image.img_name)
         image_copy.rename()
         self.__add_image_window(image_copy)
+
+    @validate_active_image
+    def set_image_type(self, action):
+        """
+        Set the image type for selected image.
+
+        If :param:`action` is `None`,
+        check action for the active current image type.
+        Otherwise, set a specified image type.
+
+        :param action: The action-sender with type text
+        """
+
+        if not action:
+            actions = self.group_image_type.actions()
+            if self.active_image.is_grayscale():
+                actions[0].setChecked(True)
+            else:
+                actions[1].setChecked(True)
+            return
+
+        self.active_image.change_type(action.text())
+        self.active_image.update()
 
     @validate_active_image
     def show_histogram(self, *args):

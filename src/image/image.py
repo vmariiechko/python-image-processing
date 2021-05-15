@@ -1,9 +1,9 @@
-from cv2 import cvtColor, COLOR_BGRA2BGR, error
+from cv2 import cvtColor, error
 from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
-from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT
+from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, COLOR_CONVERSION_CODES
 from .analyze import HistGraphical, IntensityProfile
 from .modify import Rename
 from operations.point import Normalize, Posterize, ImageCalculator
@@ -41,7 +41,7 @@ class Image:
         # Convert BGRA image to BGR
         try:
             if img_data.shape[2] == 4:
-                img_data = cvtColor(img_data, COLOR_BGRA2BGR)
+                img_data = cvtColor(img_data, COLOR_CONVERSION_CODES["BGRA2BGR"])
         except LookupError:
             pass
         except error:
@@ -149,6 +149,23 @@ class Image:
         """
 
         return len(self.img_data.shape) == 2
+
+    def change_type(self, img_type):
+        """
+        Change image data type.
+
+        :param img_type: The new type
+        :type img_type: str
+        """
+
+        is_grayscale = self.is_grayscale()
+
+        # Current and given image types are the same
+        if (is_grayscale and img_type == "8-bit") \
+                or (not is_grayscale and img_type == "BGR-Color"):
+            return
+
+        self.img_data = cvtColor(self.img_data, COLOR_CONVERSION_CODES[img_type])
 
     def calc_histogram(self):
         """

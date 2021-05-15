@@ -1,8 +1,22 @@
-from cv2 import (BORDER_ISOLATED, BORDER_REFLECT, BORDER_REPLICATE,
+from cv2 import (COLOR_BGR2GRAY, COLOR_GRAY2BGR, COLOR_BGRA2BGR,
+                 BORDER_ISOLATED, BORDER_REFLECT, BORDER_REPLICATE,
                  MORPH_RECT, MORPH_ELLIPSE, MORPH_CROSS,
                  MORPH_ERODE, MORPH_DILATE,
                  MORPH_OPEN, MORPH_CLOSE, MORPH_TOPHAT, MORPH_BLACKHAT)
 from PyQt5.QtGui import QImage
+
+# List of available image types for conversion
+IMAGE_TYPES = [
+    "8-bit",
+    "BGR-Color",
+]
+
+# Map image types to conversion codes
+COLOR_CONVERSION_CODES = {
+    "8-bit": COLOR_BGR2GRAY,
+    "BGR-Color": COLOR_GRAY2BGR,
+    "BGRA2BGR": COLOR_BGRA2BGR,
+}
 
 # Map amout of bytes per one pixel to QImage black&white image format
 BYTES_PER_PIXEL_2_BW_FORMAT = {
