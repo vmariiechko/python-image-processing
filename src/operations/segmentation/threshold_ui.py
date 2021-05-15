@@ -1,11 +1,12 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QSlider, QComboBox, QFormLayout
+from PyQt5.QtWidgets import QLabel, QSlider, QComboBox
 from PyQt5.QtCore import Qt, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
-from src.operations.operation_ui import OperationUI
+from ..operation_ui import OperationUI
+from ..form_ui import FormUI
 
 
-class ThresholdUI(OperationUI):
+class ThresholdUI(OperationUI, FormUI):
     """Build UI for :class:`threshold.Threshold`."""
 
     def init_ui(self, threshold):
@@ -20,24 +21,18 @@ class ThresholdUI(OperationUI):
         """
 
         self.operation_ui(self)
+        self.form_ui(self)
         threshold.setObjectName("threshold")
 
         icon = QIcon()
         icon.addPixmap(QPixmap("icons/threshold.png"), QIcon.Normal, QIcon.Off)
         threshold.setWindowIcon(icon)
 
-        self.layout_form = QFormLayout(threshold)
-        self.layout_form.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
-        self.layout_form.setFormAlignment(Qt.AlignCenter)
-        self.layout_form.setObjectName("layout_form")
-
         self.label_slider_txt = QLabel(threshold)
         self.label_slider_txt.setObjectName("label_slider_txt")
-        self.label_slider_txt.setAlignment(Qt.AlignCenter)
 
         self.label_slider_value = QLabel(threshold)
         self.label_slider_value.setObjectName("label_slider_value")
-        self.label_slider_value.setAlignment(Qt.AlignCenter)
 
         self.label_threshold_type = QLabel(threshold)
         self.label_threshold_type.setObjectName("label_threshold_type")
@@ -49,9 +44,6 @@ class ThresholdUI(OperationUI):
 
         self.layout_form.addRow(self.label_slider_txt, self.label_slider_value)
         self.layout_form.addRow(self.label_threshold_type, self.cb_threshold_type)
-
-        self.form = QWidget(threshold)
-        self.form.setLayout(self.layout_form)
 
         self.threshold_slider = QSlider(threshold)
         self.threshold_slider.setOrientation(Qt.Horizontal)

@@ -1,8 +1,9 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QSpinBox, QComboBox, QFormLayout
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QLabel, QSpinBox, QComboBox
+
+from ..form_ui import FormUI
 
 
-class LocalUI:
+class LocalUI(FormUI):
     """The LocalUI class represents the base UI for local operation UI classes."""
 
     def local_ui(self, child_ui):
@@ -15,10 +16,7 @@ class LocalUI:
         :param child_ui: The local operation UI class
         """
 
-        self.layout_form = QFormLayout(child_ui)
-        self.layout_form.setFieldGrowthPolicy(QFormLayout.FieldsStayAtSizeHint)
-        self.layout_form.setFormAlignment(Qt.AlignCenter)
-        self.layout_form.setObjectName("layout_form")
+        self.form_ui(self)
 
         self.label_kernel_size = QLabel(child_ui)
         self.label_kernel_size.setObjectName("label_kernel_size")
@@ -35,6 +33,3 @@ class LocalUI:
         self.cb_border_type = QComboBox(child_ui)
         self.cb_border_type.addItems(["Isolated", "Reflect", "Replicate"])
         self.cb_border_type.setObjectName("cb_border_type")
-
-        self.form = QWidget(child_ui)
-        self.form.setLayout(self.layout_form)

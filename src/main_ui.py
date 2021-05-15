@@ -137,12 +137,6 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/negation.png"), QIcon.Normal, QIcon.Off)
         self.action_negation.setIcon(icon)
 
-        self.action_threshold = QAction(main_window)
-        self.action_threshold.setObjectName("action_threshold")
-        icon = QIcon()
-        icon.addPixmap(QPixmap("icons/threshold.png"), QIcon.Normal, QIcon.Off)
-        self.action_threshold.setIcon(icon)
-
         self.action_posterize = QAction(main_window)
         self.action_posterize.setObjectName("action_posterize")
         icon = QIcon()
@@ -191,6 +185,15 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/padlocks.png"), QIcon.Normal, QIcon.Off)
         self.action_gray_morphology.setIcon(icon)
 
+        self.action_threshold = QAction(main_window)
+        self.action_threshold.setObjectName("action_threshold")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/threshold.png"), QIcon.Normal, QIcon.Off)
+        self.action_threshold.setIcon(icon)
+
+        self.action_watershed = QAction(main_window)
+        self.action_watershed.setObjectName("action_watershed")
+
         self.menu_file.addAction(self.action_open)
         self.menu_file.addAction(self.action_save)
         self.menu_file.addAction(self.action_exit)
@@ -210,6 +213,7 @@ class MainWindowUI:
         self.menu_local_operations.addAction(self.action_convolve)
         self.menu_local_operations.addAction(self.action_gray_morphology)
         self.menu_segmentation.addAction(self.action_threshold)
+        self.menu_segmentation.addAction(self.action_watershed)
 
         self.menu_local_operations.addAction(self.menu_edge_detection.menuAction())
         self.menu_process.addAction(self.menu_histogram.menuAction())
@@ -256,7 +260,6 @@ class MainWindowUI:
         self.action_normalize.setText(_translate(_window_title, "Normalization"))
         self.action_equalize.setText(_translate(_window_title, "Equalization"))
         self.action_negation.setText(_translate(_window_title, "Negation"))
-        self.action_threshold.setText(_translate(_window_title, "Threshold"))
         self.action_posterize.setText(_translate(_window_title, "Posterize"))
         self.action_image_calculator.setText(_translate(_window_title, "Image Calculator"))
         self.action_smooth.setText(_translate(_window_title, "Smooth"))
@@ -265,3 +268,5 @@ class MainWindowUI:
         self.action_sharpen.setText(_translate(_window_title, "Sharpen"))
         self.action_convolve.setText(_translate(_window_title, "Convolve"))
         self.action_gray_morphology.setText(_translate(_window_title, "Gray Morphology"))
+        self.action_threshold.setText(_translate(_window_title, "Threshold"))
+        self.action_watershed.setText(_translate(_window_title, "Watershed"))

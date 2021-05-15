@@ -5,7 +5,7 @@ from numpy import abs
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication
 
-from src.operations.operation import Operation
+from ..operation import Operation
 from .threshold_ui import ThresholdUI
 
 

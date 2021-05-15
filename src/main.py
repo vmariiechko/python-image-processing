@@ -35,7 +35,6 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
         self.action_equalize.triggered.connect(lambda: self.run_operation("equalize"))
         self.action_negation.triggered.connect(lambda: self.run_operation("negation"))
-        self.action_threshold.triggered.connect(lambda: self.run_operation("threshold"))
         self.action_posterize.triggered.connect(lambda: self.run_operation("posterize"))
         self.action_smooth.triggered.connect(lambda: self.run_operation("smooth"))
         self.action_edge_dt_nondir.triggered.connect(lambda: self.run_operation("edge_dt"))
@@ -44,6 +43,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_convolve.triggered.connect(lambda: self.run_operation("convolve"))
         self.action_gray_morphology.triggered.connect(lambda: self.run_operation("morphology"))
         self.action_image_calculator.triggered.connect(self.image_calculator)
+        self.action_threshold.triggered.connect(lambda: self.run_operation("threshold"))
+        self.action_watershed.triggered.connect(lambda: self.run_operation("watershed"))
 
         self.images = dict()
 
@@ -232,7 +233,12 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         is_colored = not image.is_grayscale()
 
-        if operation in ("segmentation", "posterize") and is_colored:
+        if operation == "watershed" and not is_colored:
+            QMessageBox.warning(self, "Isn't colored", "Selected image has one channel.\n"
+                                                       "Please, select a color image.")
+            return
+
+        if operation in ("threshold", "segmentation", "posterize") and is_colored:
             QMessageBox.warning(self, "Isn't grayscale", "Selected image has more than one channel.\n"
                                                          "Please, select a grayscale image.")
             return
