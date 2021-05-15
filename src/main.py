@@ -36,6 +36,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         # File menu actions
         self.action_open.triggered.connect(self.open_image)
         self.action_save.triggered.connect(self.save_image)
+        self.action_cascade.triggered.connect(self.central_mdi_area.cascadeSubWindows)
         self.action_exit.triggered.connect(self.close)
 
         # Image menu actions
@@ -123,7 +124,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
 
         self.images = {window: img for window, img in self.images.items() if img != image}
-        self.activate_last_image()
+        self.__activate_last_image()
 
     def open_image(self, file_path=None):
         """Create :class:`image.Image` object of chosen image and show it in the sub-window."""

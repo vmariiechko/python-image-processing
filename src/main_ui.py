@@ -89,6 +89,9 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/save.png"), QIcon.Normal, QIcon.Off)
         self.action_save.setIcon(icon)
 
+        self.action_cascade = QAction(main_window)
+        self.action_cascade.setObjectName("action_cascade")
+
         self.action_exit = QAction(main_window)
         self.action_exit.setObjectName("action_exit")
         icon = QIcon()
@@ -196,6 +199,7 @@ class MainWindowUI:
 
         self.menu_file.addAction(self.action_open)
         self.menu_file.addAction(self.action_save)
+        self.menu_file.addAction(self.action_cascade)
         self.menu_file.addAction(self.action_exit)
         self.menu_image.addAction(self.action_rename)
         self.menu_image.addAction(self.action_duplicate)
@@ -252,6 +256,7 @@ class MainWindowUI:
 
         self.action_open.setText(_translate(_window_title, "Open"))
         self.action_save.setText(_translate(_window_title, "Save"))
+        self.action_cascade.setText(_translate(_window_title, "Cascade"))
         self.action_exit.setText(_translate(_window_title, "Exit"))
         self.action_rename.setText(_translate(_window_title, "Rename"))
         self.action_duplicate.setText(_translate(_window_title, "Duplicate"))
