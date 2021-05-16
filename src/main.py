@@ -114,6 +114,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         try:
             self.active_image = list(self.images.values())[-1]
+            self.set_image_type(None)
         except IndexError:
             self.active_image = None
 
@@ -198,15 +199,24 @@ class MainWindow(QMainWindow, MainWindowUI):
         :param action: The action-sender with type text
         """
 
+        is_grayscale = self.active_image.is_grayscale()
+
         if not action:
             actions = self.group_image_type.actions()
-            if self.active_image.is_grayscale():
+            if is_grayscale:
                 actions[0].setChecked(True)
             else:
                 actions[1].setChecked(True)
             return
 
-        self.active_image.change_type(action.text())
+        img_type = action.text()
+
+        # Current and given image types are the same
+        if (is_grayscale and img_type == "Grayscale") \
+                or (not is_grayscale and img_type == "BGR-Color"):
+            return
+
+        self.active_image.change_type(img_type)
         self.active_image.update()
 
     @validate_active_image

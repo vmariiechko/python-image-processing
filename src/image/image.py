@@ -1,4 +1,5 @@
-from cv2 import cvtColor, error
+from cv2 import normalize, cvtColor, error, NORM_MINMAX
+from numpy import abs
 from PyQt5.QtWidgets import QMdiSubWindow, QLabel
 from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
@@ -52,9 +53,9 @@ class Image:
         self.img_name = img_name
         self.histogram_graphical = HistGraphical(img_name)
 
-        self.__update_color_depth()
+        self.__calc_color_depth()
 
-    def __update_color_depth(self):
+    def __calc_color_depth(self):
         """Calculate color depth of image pixel."""
 
         self.color_depth = 2**(8 * self.img_data.dtype.itemsize)
@@ -133,7 +134,7 @@ class Image:
     def update(self):
         """Update image graphical elements such as image window, histogram, etc."""
 
-        self.__update_color_depth()
+        self.__calc_color_depth()
         self.img_window.set_img_data(self.img_data)
 
         if self.histogram_graphical.window_is_opened:
@@ -158,14 +159,14 @@ class Image:
         :type img_type: str
         """
 
-        is_grayscale = self.is_grayscale()
-
-        # Current and given image types are the same
-        if (is_grayscale and img_type == "8-bit") \
-                or (not is_grayscale and img_type == "BGR-Color"):
-            return
-
+        self.change_color_depth_2_uint8()
         self.img_data = cvtColor(self.img_data, COLOR_CONVERSION_CODES[img_type])
+
+    def change_color_depth_2_uint8(self):
+        """Convert image data type to CV_U8 in case it isn't CV_8U."""
+
+        if self.img_data.dtype.itemsize > 1:
+            self.img_data = normalize(abs(self.img_data), None, 0, 255, NORM_MINMAX, dtype=0)
 
     def calc_histogram(self):
         """

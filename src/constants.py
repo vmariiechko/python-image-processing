@@ -7,13 +7,13 @@ from PyQt5.QtGui import QImage
 
 # List of available image types for conversion
 IMAGE_TYPES = [
-    "8-bit",
+    "Grayscale",
     "BGR-Color",
 ]
 
 # Map image types to conversion codes
 COLOR_CONVERSION_CODES = {
-    "8-bit": COLOR_BGR2GRAY,
+    "Grayscale": COLOR_BGR2GRAY,
     "BGR-Color": COLOR_GRAY2BGR,
     "BGRA2BGR": COLOR_BGRA2BGR,
 }
