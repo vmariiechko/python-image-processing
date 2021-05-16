@@ -26,7 +26,7 @@ class Sharpen(QDialog, Operation, SharpenUI):
         self.init_ui(self)
         self.__retranslate_ui()
 
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         if self.img_data.dtype.itemsize > 1:

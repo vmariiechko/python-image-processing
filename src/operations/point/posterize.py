@@ -23,7 +23,7 @@ class Posterize(QDialog, Operation, PosterizeUI):
         self.setWindowTitle("Posterize")
 
         self.color_depth = parent.color_depth
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         self.bins_slider.setMinimum(2)

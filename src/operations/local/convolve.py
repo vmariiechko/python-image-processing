@@ -25,7 +25,7 @@ class Convolve(QDialog, Operation, ConvolveUI):
         self.init_ui(self)
         self.__retranslate_ui()
 
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         self.cb_border_type.activated[str].connect(self.update_img_preview)

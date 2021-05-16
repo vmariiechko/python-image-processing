@@ -29,7 +29,7 @@ class EdgeDetection(QDialog, Operation, EdgeDetectionUI):
         self.__retranslate_ui()
 
         self.color_depth = parent.color_depth
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         # Convertion, Canny method operates only on uint8 data type
@@ -194,7 +194,7 @@ class DirectionalEdgeDetection(QDialog, Operation, DirectionalEdgeDetectionUI):
         self.init_ui(self)
         self.__retranslate_ui()
 
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         if self.img_data.dtype.itemsize > 1:

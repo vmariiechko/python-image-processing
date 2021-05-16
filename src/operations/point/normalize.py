@@ -19,7 +19,7 @@ class Normalize(QDialog, Operation, NormalizeUI):
 
         self.color_depth = parent.color_depth
         self.original_hist = parent.calc_histogram()['b']
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         self.init_ui(self, [self.img_data.min(), self.img_data.max()])

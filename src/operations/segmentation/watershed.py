@@ -30,7 +30,7 @@ class Watershed(QDialog, Operation, WatershedUI):
         self.init_ui(self)
         self.__retranslate_ui()
 
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
 
         obj_count, self.preview = self.calc_watershed(self.img_data)

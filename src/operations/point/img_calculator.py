@@ -24,7 +24,7 @@ class ImageCalculator(QDialog, ImageCalculatorUI):
 
         Fill out combo boxes with image names from :param:`images`
 
-        :param images: The images to perform calculation, dict[img_name:img_data]
+        :param images: The images to perform calculation, dict[img_name:data]
         :type images: dict
         """
 

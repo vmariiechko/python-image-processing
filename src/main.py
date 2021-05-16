@@ -94,10 +94,10 @@ class MainWindow(QMainWindow, MainWindowUI):
         :type image: :class:`image.Image`
         """
 
-        self.images[image.img_window] = image
-        self.central_mdi_area.addSubWindow(image.img_window)
-        image.img_window.closed.connect(lambda img=image: self.__remove_image(img))
-        image.img_window.show()
+        self.images[image.subwindow] = image
+        self.central_mdi_area.addSubWindow(image.subwindow)
+        image.subwindow.closed.connect(lambda img=image: self.__remove_image(img))
+        image.subwindow.show()
 
     def __update_active_image(self, sub_window):
         """
@@ -166,7 +166,7 @@ class MainWindow(QMainWindow, MainWindowUI):
     def save_image(self, *args):
         """Save the file using a file dialog."""
 
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save file", self.active_image.img_name,
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save file", self.active_image.name,
                                                    "All Files (*);;"
                                                    "Bitmap (*.bmp *.dib);;"
                                                    "Image files (*.jpg *.png *.tif)")
@@ -174,7 +174,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         if not file_path:
             return
 
-        imwrite(file_path, self.active_image.img_data)
+        imwrite(file_path, self.active_image.data)
 
     @validate_active_image
     def rename_title(self, *args):
@@ -186,7 +186,7 @@ class MainWindow(QMainWindow, MainWindowUI):
     def duplicate(self, *args):
         """Create the image duplicate."""
 
-        image_copy = Image(self.active_image.img_data, "copy_" + self.active_image.img_name)
+        image_copy = Image(self.active_image.data, "copy_" + self.active_image.name)
         image_copy.rename()
         self.__add_image_window(image_copy)
 
@@ -238,7 +238,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         :param action: The action-sender with color depth text
         """
 
-        is_uint8 = self.active_image.img_data.dtype.itemsize == 1
+        is_uint8 = self.active_image.data.dtype.itemsize == 1
 
         if not action:
             self.action_color_depth_uint8.setChecked(is_uint8)
@@ -271,13 +271,13 @@ class MainWindow(QMainWindow, MainWindowUI):
     def show_intensity_profile(self, *args):
         """Create intensity profile of drawn line and show it in the sub-window."""
 
-        self.active_image.img_window.create_profile()
+        self.active_image.subwindow.create_profile()
 
         if not self.active_image.profile_subwindow_added:
-            self.central_mdi_area.addSubWindow(self.active_image.img_window.intensity_profile)
+            self.central_mdi_area.addSubWindow(self.active_image.subwindow.intensity_profile)
             self.active_image.profile_subwindow_added = True
 
-        self.active_image.img_window.intensity_profile.show()
+        self.active_image.subwindow.intensity_profile.show()
 
     @validate_active_image
     def run_operation(self, operation):
@@ -312,9 +312,9 @@ class MainWindow(QMainWindow, MainWindowUI):
         if operation == "equalize":
             self.active_image.equalize_histogram()
         elif operation == "negation":
-            self.active_image.negation()
+            self.active_image.calc_negation()
         else:
-            self.active_image.run_dialog_operation(operation)
+            self.active_image.run_operation_dialog(operation)
 
         self.active_image.update()
 
@@ -322,7 +322,7 @@ class MainWindow(QMainWindow, MainWindowUI):
     def image_calculator(self, *args):
         """Perform one of the double-argument point operations between two images."""
 
-        new_image = Image.calculator(self.images.values())
+        new_image = Image.run_calculator_dialog(self.images.values())
 
         if new_image:
             image = Image(*new_image)

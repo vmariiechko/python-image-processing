@@ -26,7 +26,7 @@ class Morphology(QDialog, Operation, MorphologyUI):
         self.init_ui(self)
         self.__retranslate_ui()
 
-        self.img_data = parent.img_data.copy()
+        self.img_data = parent.data.copy()
         self.current_img_data = None
         self.structuring_element = None
 

@@ -48,9 +48,9 @@ class Image:
         except error:
             pass
 
-        self.img_data = img_data
-        self.img_window = ImageWindow(img_data, img_name)
-        self.img_name = img_name
+        self.data = img_data
+        self.subwindow = ImageWindow(img_data, img_name)
+        self.name = img_name
         self.histogram_graphical = HistGraphical(img_name)
         self.histogram_subwindows_added = False
         self.profile_subwindow_added = False
@@ -60,9 +60,9 @@ class Image:
     def __calc_color_depth(self):
         """Calculate color depth of image pixel."""
 
-        self.color_depth = 2**(8 * self.img_data.dtype.itemsize)
+        self.color_depth = 2**(8 * self.data.dtype.itemsize)
 
-    def __update_img_name(self, img_name):
+    def __update_image_name(self, img_name):
         """
         Update an image name.
 
@@ -70,9 +70,9 @@ class Image:
         :type img_name: str
         """
 
-        self.img_name = img_name
+        self.name = img_name
         self.histogram_graphical.set_title(img_name)
-        self.img_window.set_title(img_name)
+        self.subwindow.set_title(img_name)
 
     def __calc_single_histogram(self):
         """
@@ -87,9 +87,9 @@ class Image:
 
         histogram = [0] * self.color_depth
 
-        for w in range(self.img_data.shape[0]):
-            for h in range(self.img_data.shape[1]):
-                pixel = self.img_data[w][h]
+        for w in range(self.data.shape[0]):
+            for h in range(self.data.shape[1]):
+                pixel = self.data[w][h]
                 histogram[pixel] += 1
 
         return {'b': histogram}
@@ -107,10 +107,10 @@ class Image:
 
         histogram_rgb = [[0] * self.color_depth, [0] * self.color_depth, [0] * self.color_depth]
 
-        for w in range(self.img_data.shape[0]):
-            for h in range(self.img_data.shape[1]):
-                for i in range(self.img_data.shape[2]):
-                    pixel = self.img_data[w][h][i]
+        for w in range(self.data.shape[0]):
+            for h in range(self.data.shape[1]):
+                for i in range(self.data.shape[2]):
+                    pixel = self.data[w][h][i]
                     histogram_rgb[i][pixel] += 1
 
         return {'b': histogram_rgb[0], 'g': histogram_rgb[1], 'r': histogram_rgb[2]}
@@ -124,20 +124,20 @@ class Image:
         """
 
         if self.is_grayscale():
-            for w in range(self.img_data.shape[0]):
-                for h in range(self.img_data.shape[1]):
-                    self.img_data[w][h] = lut[self.img_data[w][h]]
+            for w in range(self.data.shape[0]):
+                for h in range(self.data.shape[1]):
+                    self.data[w][h] = lut[self.data[w][h]]
         else:
-            for w in range(self.img_data.shape[0]):
-                for h in range(self.img_data.shape[1]):
-                    for i in range(self.img_data.shape[2]):
-                        self.img_data[w][h][i] = lut[self.img_data[w][h][i]]
+            for w in range(self.data.shape[0]):
+                for h in range(self.data.shape[1]):
+                    for i in range(self.data.shape[2]):
+                        self.data[w][h][i] = lut[self.data[w][h][i]]
 
     def update(self):
         """Update image graphical elements such as image window, histogram, etc."""
 
         self.__calc_color_depth()
-        self.img_window.set_img_data(self.img_data)
+        self.subwindow.set_img_data(self.data)
 
         if self.histogram_graphical.window_is_opened:
             self.create_hist_window()
@@ -151,7 +151,7 @@ class Image:
         :rtype: bool
         """
 
-        return len(self.img_data.shape) == 2
+        return len(self.data.shape) == 2
 
     def change_type(self, img_type):
         """
@@ -162,13 +162,13 @@ class Image:
         """
 
         self.change_color_depth_2_uint8()
-        self.img_data = cvtColor(self.img_data, COLOR_CONVERSION_CODES[img_type])
+        self.data = cvtColor(self.data, COLOR_CONVERSION_CODES[img_type])
 
     def change_color_depth_2_uint8(self):
         """Convert image data type to CV_U8 in case it isn't CV_8U."""
 
-        if self.img_data.dtype.itemsize > 1:
-            self.img_data = normalize(abs(self.img_data), None, 0, 255, NORM_MINMAX, dtype=0)
+        if self.data.dtype.itemsize > 1:
+            self.data = normalize(abs(self.data), None, 0, 255, NORM_MINMAX, dtype=0)
 
     def calc_histogram(self):
         """
@@ -190,19 +190,19 @@ class Image:
 
     def calc_cumulative_histogram(self):
         """
-        Calculate cumulative histogram, which equals to the empirical distribution of histogram.
+        Calculate cumulative histogram.
 
-        :return: The empirical distribution
+        :return: The cumulative histogram (empirical distribution)
         :rtype: list[int]
         """
 
         hist = self.calc_histogram()['b']
 
-        empirical_distr = [hist[0]]
+        cumulative_hist = [hist[0]]
         for i in hist[1:]:
-            empirical_distr.append(empirical_distr[-1] + i)
+            cumulative_hist.append(cumulative_hist[-1] + i)
 
-        return empirical_distr
+        return cumulative_hist
 
     def create_hist_window(self):
         """Create a histogram plot window of the image."""
@@ -233,7 +233,7 @@ class Image:
 
         self.__apply_lut(lut)
 
-    def negation(self):
+    def calc_negation(self):
         """Perform image negation."""
 
         lut = [self.color_depth - i - 1 for i in range(self.color_depth)]
@@ -242,14 +242,14 @@ class Image:
     def rename(self):
         """Open rename dialog window to change the image name."""
 
-        dialog_rename = Rename(self.img_name)
+        dialog_rename = Rename(self.name)
 
         if dialog_rename.exec():
-            self.__update_img_name(dialog_rename.new_name)
+            self.__update_image_name(dialog_rename.new_name)
 
-    def run_dialog_operation(self, operation):
+    def run_operation_dialog(self, operation):
         """
-        Execute specified dialog operation.
+        Execute specified operation dialog.
 
         All possible operations listed in :attr:`DIALOG_OPERATIONS`
 
@@ -257,23 +257,23 @@ class Image:
         :type operation: str
         """
 
-        dialog_operation = self.DIALOG_OPERATIONS[operation](self)
+        operation_dialog = self.DIALOG_OPERATIONS[operation](self)
 
-        if dialog_operation.exec():
-            self.img_data = dialog_operation.img_data
+        if operation_dialog.exec():
+            self.data = operation_dialog.img_data
 
     @staticmethod
-    def calculator(images):
+    def run_calculator_dialog(images):
         """
         Open calculator dialog window to perform double-argument point operation.
 
         :param images: The list of objects :class:`Image` to perform calculation
         :type images: list
-        :return: The new image data and its name, tuple(img_data, img_name)
+        :return: The new image data and its name, tuple(data, img_name)
         :rtype: tuple or None
         """
 
-        images = {img.img_name: img.img_data for img in images}
+        images = {img.name: img.data for img in images}
         calculator = ImageCalculator(images)
 
         if calculator.exec():
@@ -300,7 +300,7 @@ class ImageWindow(QMdiSubWindow):
 
         super().__init__(parent)
 
-        self._img_data = img_data
+        self._data = img_data
         self.intensity_profile = IntensityProfile(img_name)
         self._title = img_name
 
@@ -338,11 +338,11 @@ class ImageWindow(QMdiSubWindow):
         if point.y() < 0:
             point.setY(0)
 
-        img_width = self._img_data.shape[1] - 1
+        img_width = self._data.shape[1] - 1
         if point.x() > img_width:
             point.setX(img_width)
 
-        img_height = self._img_data.shape[0] - 1
+        img_height = self._data.shape[0] - 1
         if point.y() > img_height:
             point.setY(img_height)
 
@@ -356,7 +356,7 @@ class ImageWindow(QMdiSubWindow):
         :type img_data: :class:`numpy.ndarray`
         """
 
-        self._img_data = img_data
+        self._data = img_data
         self.update_window()
 
     def set_title(self, title):
@@ -378,21 +378,21 @@ class ImageWindow(QMdiSubWindow):
         Load the image to the the sub-window.
         """
 
-        height, width = self._img_data.shape[:2]
+        height, width = self._data.shape[:2]
 
-        if len(self._img_data.shape) == 2:
-            pixel_bytes = self._img_data.dtype.itemsize
-            img = QImage(self._img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
+        if len(self._data.shape) == 2:
+            pixel_bytes = self._data.dtype.itemsize
+            image = QImage(self._data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
-            img = QImage(self._img_data, width, height, 3*width, QImage.Format_BGR888)
+            image = QImage(self._data, width, height, 3 * width, QImage.Format_BGR888)
 
-        self.pixmap = QPixmap(img)
+        self.pixmap = QPixmap(image)
         self.image_label.setPixmap(self.pixmap.copy())
 
     def create_profile(self):
         """Create intensity profile window."""
 
-        self.intensity_profile.create_profile(self.points, self._img_data)
+        self.intensity_profile.create_profile(self.points, self._data)
 
     def eventFilter(self, obj, event):
         """
