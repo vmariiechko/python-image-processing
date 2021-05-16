@@ -43,6 +43,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_rename.triggered.connect(self.rename_title)
         self.action_duplicate.triggered.connect(self.duplicate)
         self.group_image_type.triggered.connect(self.set_image_type)
+        self.action_color_depth_uint8.triggered.connect(self.set_color_depth)
 
         # Analyze menu actions
         self.action_histogram.triggered.connect(self.show_histogram)
@@ -108,6 +109,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         if isinstance(sub_window, ImageWindow):
             self.active_image = self.images.get(sub_window)
             self.set_image_type(None)
+            self.set_color_depth(None)
 
     def __activate_last_image(self):
         """Change activated image to the last uploaded."""
@@ -115,6 +117,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         try:
             self.active_image = list(self.images.values())[-1]
             self.set_image_type(None)
+            self.set_color_depth(None)
         except IndexError:
             self.active_image = None
 
@@ -190,7 +193,7 @@ class MainWindow(QMainWindow, MainWindowUI):
     @validate_active_image
     def set_image_type(self, action):
         """
-        Set the image type for selected image.
+        Set the image type for the selected image.
 
         If :param:`action` is `None`,
         check action for the active current image type.
@@ -217,7 +220,34 @@ class MainWindow(QMainWindow, MainWindowUI):
             return
 
         self.active_image.change_type(img_type)
+        self.set_color_depth(None)
         self.active_image.update()
+
+    @validate_active_image
+    def set_color_depth(self, action):
+        """
+        Set the image color depth for the selected image.
+
+        It's possible to change color depth only to
+        8 bit per pixel from other bit lengths.
+
+        If :param:`action` is `None`,
+        check action for the active current image color depth.
+        Otherwise, set an 8 bit per pixel color depth.
+
+        :param action: The action-sender with color depth text
+        """
+
+        is_uint8 = self.active_image.img_data.dtype.itemsize == 1
+
+        if not action:
+            self.action_color_depth_uint8.setChecked(is_uint8)
+            return
+
+        if is_uint8:
+            return
+        else:
+            self.active_image.change_color_depth_2_uint8()
 
     @validate_active_image
     def show_histogram(self, *args):
