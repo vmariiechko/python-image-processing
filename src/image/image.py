@@ -52,6 +52,8 @@ class Image:
         self.img_window = ImageWindow(img_data, img_name)
         self.img_name = img_name
         self.histogram_graphical = HistGraphical(img_name)
+        self.histogram_subwindows_added = False
+        self.profile_subwindow_added = False
 
         self.__calc_color_depth()
 

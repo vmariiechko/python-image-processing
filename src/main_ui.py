@@ -213,7 +213,7 @@ class MainWindowUI:
         self.group_image_type.setExclusive(True)
 
         self.menu_type.addSeparator()
-        self.action_color_depth_uint8 = QAction("8 bit per pixel", self.menu_type, checkable=True)
+        self.action_color_depth_uint8 = QAction("8 bits per pixel", self.menu_type, checkable=True)
         self.menu_type.addAction(self.action_color_depth_uint8)
 
         self.menu_file.addAction(self.action_open)

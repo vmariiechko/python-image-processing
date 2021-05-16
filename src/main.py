@@ -260,8 +260,11 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         self.active_image.create_hist_window()
 
-        self.central_mdi_area.addSubWindow(self.active_image.histogram_graphical)
-        self.central_mdi_area.addSubWindow(self.active_image.histogram_graphical.histogram_list)
+        if not self.active_image.histogram_subwindows_added:
+            self.central_mdi_area.addSubWindow(self.active_image.histogram_graphical)
+            self.central_mdi_area.addSubWindow(self.active_image.histogram_graphical.histogram_list)
+            self.active_image.histogram_subwindows_added = True
+
         self.active_image.histogram_graphical.show()
 
     @validate_active_image
@@ -270,7 +273,10 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         self.active_image.img_window.create_profile()
 
-        self.central_mdi_area.addSubWindow(self.active_image.img_window.intensity_profile)
+        if not self.active_image.profile_subwindow_added:
+            self.central_mdi_area.addSubWindow(self.active_image.img_window.intensity_profile)
+            self.active_image.profile_subwindow_added = True
+
         self.active_image.img_window.intensity_profile.show()
 
     @validate_active_image
