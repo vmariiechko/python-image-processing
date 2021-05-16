@@ -307,15 +307,12 @@ class ImageWindow(QMdiSubWindow):
         self.image_label = QLabel()
         self.pixmap = None
         self.update_window()
-
-        icon = QIcon()
-        icon.addPixmap(QPixmap("icons/picture.png"), QIcon.Normal, QIcon.Off)
+        self.update_icon()
 
         self.setFixedSize(self.pixmap.width() + 15, self.pixmap.height() + 35)
         self.setWindowFlags(Qt.WindowMinimizeButtonHint)
         self.setWidget(self.image_label)
         self.setWindowTitle(self._title)
-        self.setWindowIcon(icon)
 
         self.points = [QPoint(0, 0), QPoint(0, 0)]
         self.drawing = False
@@ -348,6 +345,17 @@ class ImageWindow(QMdiSubWindow):
 
         return point
 
+    def _is_grayscale(self):
+        """
+        Check if the image is grayscale.
+
+        ``True`` if the image has one channel, otherwise ``False``.
+
+        :rtype: bool
+        """
+
+        return len(self._data.shape) == 2
+
     def set_img_data(self, img_data):
         """
         Set an image data and update the image window
@@ -358,6 +366,7 @@ class ImageWindow(QMdiSubWindow):
 
         self._data = img_data
         self.update_window()
+        self.update_icon()
 
     def set_title(self, title):
         """
@@ -380,7 +389,7 @@ class ImageWindow(QMdiSubWindow):
 
         height, width = self._data.shape[:2]
 
-        if len(self._data.shape) == 2:
+        if self._is_grayscale():
             pixel_bytes = self._data.dtype.itemsize
             image = QImage(self._data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
@@ -388,6 +397,21 @@ class ImageWindow(QMdiSubWindow):
 
         self.pixmap = QPixmap(image)
         self.image_label.setPixmap(self.pixmap.copy())
+
+    def update_icon(self):
+        """
+        Update icon for image window.
+
+        Grayscale image has grayscale picture, color image has color one.
+        """
+
+        icon = QIcon()
+        if self._is_grayscale():
+            icon.addPixmap(QPixmap("icons/picture_gray.png"), QIcon.Normal, QIcon.Off)
+        else:
+            icon.addPixmap(QPixmap("icons/picture_color.png"), QIcon.Normal, QIcon.Off)
+
+        self.setWindowIcon(icon)
 
     def create_profile(self):
         """Create intensity profile window."""

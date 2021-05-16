@@ -49,6 +49,9 @@ class MainWindowUI:
 
         self.menu_type = QMenu(self.menu_bar)
         self.menu_type.setObjectName("menu_type")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/picture_mix.png"), QIcon.Normal, QIcon.Off)
+        self.menu_type.setIcon(icon)
 
         self.menu_histogram = QMenu(self.menu_bar)
         self.menu_histogram.setObjectName("menu_histogram")
@@ -71,7 +74,7 @@ class MainWindowUI:
         self.menu_segmentation = QMenu(self.menu_bar)
         self.menu_segmentation.setObjectName("menu_segmentation")
         icon = QIcon()
-        icon.addPixmap(QPixmap("icons/threshold.png"), QIcon.Normal, QIcon.Off)
+        icon.addPixmap(QPixmap("icons/segmentation.png"), QIcon.Normal, QIcon.Off)
         self.menu_segmentation.setIcon(icon)
 
         self.menu_edge_detection = QMenu(main_window)
@@ -96,6 +99,9 @@ class MainWindowUI:
 
         self.action_cascade = QAction(main_window)
         self.action_cascade.setObjectName("action_cascade")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/cascade.png"), QIcon.Normal, QIcon.Off)
+        self.action_cascade.setIcon(icon)
 
         self.action_exit = QAction(main_window)
         self.action_exit.setObjectName("action_exit")
@@ -201,6 +207,9 @@ class MainWindowUI:
 
         self.action_watershed = QAction(main_window)
         self.action_watershed.setObjectName("action_watershed")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/watershed.png"), QIcon.Normal, QIcon.Off)
+        self.action_watershed.setIcon(icon)
 
         self.group_image_type = QActionGroup(self.menu_type)
         self.group_image_type.setObjectName("group_image_type")

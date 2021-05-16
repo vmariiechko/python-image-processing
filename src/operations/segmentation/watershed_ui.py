@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QLabel, QComboBox
 from PyQt5.QtCore import QMetaObject
+from PyQt5.QtGui import QIcon, QPixmap
 
 from ..operation_ui import OperationUI
 from ..form_ui import FormUI
@@ -22,6 +23,10 @@ class WatershedUI(OperationUI, FormUI):
         self.operation_ui(self)
         self.form_ui(self)
         watershed.setObjectName("watershed")
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/watershed.png"), QIcon.Normal, QIcon.Off)
+        watershed.setWindowIcon(icon)
 
         self.label_objects_count_txt = QLabel(watershed)
         self.label_objects_count_txt.setObjectName("label_objects_count_txt")
