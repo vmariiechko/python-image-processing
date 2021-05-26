@@ -1,0 +1,6 @@
+/*===== QMessageBox =====*/
+QMessageBox
+{
+    messagebox-warning-icon: url(./icons/warning.png);
+    messagebox-information-icon: url(./icons/info.png);
+}

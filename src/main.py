@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt
 
 from main_ui import MainWindowUI
 from image import Image, ImageWindow, ImageBmp
+from style_sheet import load_style_sheet
 
 
 def validate_active_image(method):
@@ -42,6 +43,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         # Image menu actions
         self.action_rename.triggered.connect(self.rename_title)
         self.action_duplicate.triggered.connect(self.duplicate)
+        self.action_image_info.triggered.connect(self.show_image_info)
         self.group_image_type.triggered.connect(self.set_image_type)
         self.action_color_depth_uint8.triggered.connect(self.set_color_depth)
 
@@ -250,6 +252,29 @@ class MainWindow(QMainWindow, MainWindowUI):
             self.active_image.change_color_depth_2_uint8()
 
     @validate_active_image
+    def show_image_info(self, *args):
+        """Show basic image information in the message box."""
+
+        bits_per_pixel = str(8 * self.active_image.data.dtype.itemsize)
+        bits_per_pixel += " (Grayscale)" if self.active_image.is_grayscale() else " (BGR)"
+        data = self.active_image.data
+
+        image_info = f"""
+                        <table>
+                            <tr><td>Title</td>          <td>{self.active_image.name}</td></tr>
+                            <tr><td>Width</td>          <td>{data.shape[0]}</td></tr>
+                            <tr><td>Height</td>         <td>{data.shape[1]}</td></tr>
+                            <tr><td>Bits per pixel</td> <td>{bits_per_pixel}</td></tr>
+                            <tr><td>Display range&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                        <td>0-{self.active_image.color_depth - 1}</td></tr>
+                            <tr><td>Min Value</td>      <td>{data.min()}</td></tr>
+                            <tr><td>Max Value</td>      <td>{data.max()}</td></tr>
+                        </table>
+                      """
+
+        QMessageBox.information(self, "Image Information", image_info)
+
+    @validate_active_image
     def show_histogram(self, *args):
         """Create a graphical representation of the histogram and show it in the sub-window."""
 
@@ -350,5 +375,6 @@ class MainWindow(QMainWindow, MainWindowUI):
 if __name__ == "__main__":
     app = QApplication([])
     main_window = MainWindow()
+    app.setStyleSheet((load_style_sheet()))
     main_window.show()
     app.exec_()

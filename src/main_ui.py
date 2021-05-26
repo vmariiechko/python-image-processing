@@ -121,6 +121,12 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/duplicate.png"), QIcon.Normal, QIcon.Off)
         self.action_duplicate.setIcon(icon)
 
+        self.action_image_info = QAction(main_window)
+        self.action_image_info.setObjectName("action_image_info")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/info.png"), QIcon.Normal, QIcon.Off)
+        self.action_image_info.setIcon(icon)
+
         self.action_histogram = QAction(main_window)
         self.action_histogram.setObjectName("action_histogram")
         icon = QIcon()
@@ -234,6 +240,7 @@ class MainWindowUI:
 
         self.menu_image.addAction(self.action_rename)
         self.menu_image.addAction(self.action_duplicate)
+        self.menu_image.addAction(self.action_image_info)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
         self.menu_histogram.addAction(self.action_normalize)
@@ -292,6 +299,7 @@ class MainWindowUI:
         self.action_exit.setText(_translate(_window_title, "Exit"))
         self.action_rename.setText(_translate(_window_title, "Rename"))
         self.action_duplicate.setText(_translate(_window_title, "Duplicate"))
+        self.action_image_info.setText(_translate(_window_title, "Info"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
         self.action_normalize.setText(_translate(_window_title, "Normalization"))
