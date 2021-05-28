@@ -35,7 +35,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.setAcceptDrops(True)
 
         # File menu actions
-        self.action_open.triggered.connect(self.open_image)
+        self.action_open.triggered.connect(self.open_images)
         self.action_save.triggered.connect(self.save_image)
         self.action_cascade.triggered.connect(self.central_mdi_area.cascadeSubWindows)
         self.action_exit.triggered.connect(self.close)
@@ -71,22 +71,22 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.images = dict()
         self.active_image = None
 
-    def __browse_file(self):
+    def __browse_files(self):
         """
-        Navigate to the file using a file dialog.
+        Navigate to the files using a file dialog.
 
-        :return: The path to the chosen file
-        :rtype: str
+        :return: The paths to the chosen files
+        :rtype: list[str]
         """
 
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All Files (*);;"
-                                                                          "Bitmap (*.bmp);;"
-                                                                          "JPEG files (*.jpeg *.jpg);;"
-                                                                          "Portable Network Graphics (*.png);;"
-                                                                          "TIFF files (*.tiff *.tif);;"
-                                                                          "Supported files (*.bmp *.jpeg *.jpg "
-                                                                          "*.png *.tiff *.tif);;")
-        return file_path
+        files_paths, _ = QFileDialog.getOpenFileNames(self, "Open file", "", "All Files (*);;"
+                                                                             "Bitmap (*.bmp);;"
+                                                                             "JPEG files (*.jpeg *.jpg);;"
+                                                                             "Portable Network Graphics (*.png);;"
+                                                                             "TIFF files (*.tiff *.tif);;"
+                                                                             "Supported files (*.bmp *.jpeg *.jpg "
+                                                                             "*.png *.tiff *.tif);;")
+        return files_paths
 
     def __add_image_window(self, image):
         """
@@ -134,14 +134,20 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.images = {window: img for window, img in self.images.items() if img != image}
         self.__activate_last_image()
 
-    def open_image(self, file_path=None):
-        """Create :class:`image.Image` object of chosen image and show it in the sub-window."""
+    def open_images(self, files_paths=None):
+        """Open images by their paths."""
 
-        if not file_path:
-            file_path = self.__browse_file()
+        if not files_paths:
+            files_paths = self.__browse_files()
 
-            if not file_path:
+            if not files_paths:
                 return
+
+        for file_path in files_paths:
+            self.open_image(file_path)
+
+    def open_image(self, file_path):
+        """Create :class:`image.Image` object of chosen image and show it in the sub-window."""
 
         file_extension = file_path.split(".")[-1]
         if file_extension not in self.SUPPORTED_FILE_EXTENSIONS:
@@ -368,8 +374,9 @@ class MainWindow(QMainWindow, MainWindowUI):
     def dropEvent(self, event):
         if event.mimeData().hasImage:
             event.setDropAction(Qt.CopyAction)
-            file_path = event.mimeData().urls()[0].toLocalFile()
-            self.open_image(file_path)
+            urls = event.mimeData().urls()
+            files_paths = [url.toLocalFile() for url in urls]
+            self.open_images(files_paths)
 
 
 if __name__ == "__main__":
