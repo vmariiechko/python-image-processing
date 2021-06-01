@@ -2,7 +2,9 @@ from cv2 import (COLOR_BGR2GRAY, COLOR_GRAY2BGR, COLOR_BGRA2BGR,
                  BORDER_ISOLATED, BORDER_REFLECT, BORDER_REPLICATE,
                  MORPH_RECT, MORPH_ELLIPSE, MORPH_CROSS,
                  MORPH_ERODE, MORPH_DILATE,
-                 MORPH_OPEN, MORPH_CLOSE, MORPH_TOPHAT, MORPH_BLACKHAT)
+                 MORPH_OPEN, MORPH_CLOSE, MORPH_TOPHAT, MORPH_BLACKHAT,
+                 RETR_EXTERNAL, RETR_LIST, RETR_CCOMP, RETR_TREE,
+                 CHAIN_APPROX_NONE, CHAIN_APPROX_SIMPLE, CHAIN_APPROX_TC89_L1, CHAIN_APPROX_TC89_KCOS)
 from PyQt5.QtGui import QImage
 
 # List of available image types for conversion
@@ -46,4 +48,20 @@ MORPH_OPERATIONS = {
     "Close": MORPH_CLOSE,
     "Top Hat": MORPH_TOPHAT,
     "Black Hat": MORPH_BLACKHAT,
+}
+
+# Map names of retrieval modes in finding contours to their number
+RETRIEVAL_MODES = {
+    "List": RETR_LIST,
+    "Two-level Hierarchy": RETR_CCOMP,
+    "External": RETR_EXTERNAL,
+    "Tree": RETR_TREE,
+}
+
+# Map names of contour approximation modes to their number
+APPROXIMATION_MODES = {
+    "None": CHAIN_APPROX_NONE,
+    "Simple": CHAIN_APPROX_SIMPLE,
+    "TC89 L1": CHAIN_APPROX_TC89_L1,
+    "TC89 KCOS": CHAIN_APPROX_TC89_KCOS,
 }

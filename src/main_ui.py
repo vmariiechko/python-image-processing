@@ -139,6 +139,12 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/profile.png"), QIcon.Normal, QIcon.Off)
         self.action_profile.setIcon(icon)
 
+        self.action_vector_properties = QAction(main_window)
+        self.action_vector_properties.setObjectName("action_vector_properties")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/analyze.png"), QIcon.Normal, QIcon.Off)
+        self.action_vector_properties.setIcon(icon)
+
         self.action_normalize = QAction(main_window)
         self.action_normalize.setObjectName("action_normalize")
         icon = QIcon()
@@ -243,6 +249,7 @@ class MainWindowUI:
         self.menu_image.addAction(self.action_image_info)
         self.menu_analyze.addAction(self.action_histogram)
         self.menu_analyze.addAction(self.action_profile)
+        self.menu_analyze.addAction(self.action_vector_properties)
         self.menu_histogram.addAction(self.action_normalize)
         self.menu_histogram.addAction(self.action_equalize)
         self.menu_point_operations.addAction(self.action_negation)
@@ -302,6 +309,7 @@ class MainWindowUI:
         self.action_image_info.setText(_translate(_window_title, "Info"))
         self.action_histogram.setText(_translate(_window_title, "Histogram"))
         self.action_profile.setText(_translate(_window_title, "Plot Profile"))
+        self.action_vector_properties.setText(_translate(_window_title, "Vector Properties"))
         self.action_normalize.setText(_translate(_window_title, "Normalization"))
         self.action_equalize.setText(_translate(_window_title, "Equalization"))
         self.action_negation.setText(_translate(_window_title, "Negation"))

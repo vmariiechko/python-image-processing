@@ -50,6 +50,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         # Analyze menu actions
         self.action_histogram.triggered.connect(self.show_histogram)
         self.action_profile.triggered.connect(self.show_intensity_profile)
+        self.action_vector_properties.triggered.connect(self.show_vector_properties)
 
         # Operation menu actions
         self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
@@ -309,6 +310,18 @@ class MainWindow(QMainWindow, MainWindowUI):
             self.active_image.profile_subwindow_added = True
 
         self.active_image.subwindow.intensity_profile.show()
+
+    @validate_active_image
+    def show_vector_properties(self, *args):
+        """Show image dialog for vector properties."""
+
+        is_colored = not self.active_image.is_grayscale()
+        if is_colored or self.active_image.color_depth > 256:
+            QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
+                                                     "The image must be grayscale, 8 bits per pixel.")
+            return
+
+        self.active_image.run_properties_dialod()
 
     @validate_active_image
     def run_operation(self, operation):
