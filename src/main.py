@@ -66,6 +66,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_image_calculator.triggered.connect(self.image_calculator)
         self.action_threshold.triggered.connect(lambda: self.run_operation("threshold"))
         self.action_watershed.triggered.connect(lambda: self.run_operation("watershed"))
+        self.action_svm_classification.triggered.connect(lambda: self.run_operation("SVM"))
 
         self.central_mdi_area.subWindowActivated.connect(self.__update_active_image)
 
@@ -347,7 +348,7 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                          "Please, select a grayscale image.")
             return
 
-        elif operation in ("normalize", "equalize", "morphology") \
+        elif operation in ("normalize", "equalize", "morphology", "SVM") \
                 and (is_colored or self.active_image.color_depth > 256):
             QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
                                                      "The image must be grayscale, 8 bits per pixel.")

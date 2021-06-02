@@ -223,6 +223,12 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/watershed.png"), QIcon.Normal, QIcon.Off)
         self.action_watershed.setIcon(icon)
 
+        self.action_svm_classification = QAction(main_window)
+        self.action_svm_classification.setObjectName("action_svm_classification")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/svm.png"), QIcon.Normal, QIcon.Off)
+        self.action_svm_classification.setIcon(icon)
+
         self.group_image_type = QActionGroup(self.menu_type)
         self.group_image_type.setObjectName("group_image_type")
 
@@ -269,6 +275,7 @@ class MainWindowUI:
         self.menu_process.addAction(self.menu_point_operations.menuAction())
         self.menu_process.addAction(self.menu_local_operations.menuAction())
         self.menu_process.addAction(self.menu_segmentation.menuAction())
+        self.menu_process.addAction(self.action_svm_classification)
         self.menu_bar.addAction(self.menu_file.menuAction())
         self.menu_bar.addAction(self.menu_image.menuAction())
         self.menu_bar.addAction(self.menu_analyze.menuAction())
@@ -323,3 +330,4 @@ class MainWindowUI:
         self.action_gray_morphology.setText(_translate(_window_title, "Gray Morphology"))
         self.action_threshold.setText(_translate(_window_title, "Threshold"))
         self.action_watershed.setText(_translate(_window_title, "Watershed"))
+        self.action_svm_classification.setText(_translate(_window_title, "SVM Classification"))

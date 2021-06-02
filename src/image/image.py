@@ -10,6 +10,7 @@ from .modify import Rename
 from operations.point import Normalize, Posterize, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
 from operations.segmentation import Threshold, Watershed
+from operations.classification import SVM
 
 
 class Image:
@@ -27,6 +28,7 @@ class Image:
         "morphology": Morphology,
         "threshold": Threshold,
         "watershed": Watershed,
+        "SVM": SVM,
     }
 
     def __init__(self, img_data, img_name):

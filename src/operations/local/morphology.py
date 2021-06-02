@@ -1,7 +1,7 @@
 from cv2 import subtract, bitwise_or, getStructuringElement, morphologyEx, countNonZero, threshold
 from numpy import zeros, uint8, add, r_
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QCoreApplication, QSize
+from PyQt5.QtCore import QCoreApplication
 
 from src.constants import BORDER_TYPES, MORPH_SHAPES, MORPH_OPERATIONS
 from ..operation import Operation
