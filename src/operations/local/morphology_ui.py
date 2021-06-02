@@ -21,13 +21,13 @@ class MorphologyUI(OperationUI, LocalUI):
         :type morphology: :class:`morphology.Morphology`
         """
 
-        icon = QIcon()
-        icon.addPixmap(QPixmap("icons/padlocks.png"), QIcon.Normal, QIcon.Off)
-        morphology.setWindowIcon(icon)
-
         self.operation_ui(self)
         self.local_ui(self)
         morphology.setObjectName("morphology")
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/padlocks.png"), QIcon.Normal, QIcon.Off)
+        morphology.setWindowIcon(icon)
 
         self.label_operation = QLabel(morphology)
         self.label_operation.setObjectName("label_operation")

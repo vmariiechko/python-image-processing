@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, COLOR_CONVERSION_CODES
-from .analyze import HistGraphical, IntensityProfile, VectorProperties
+from .analyze import HistGraphical, IntensityProfile, ObjectProperties
 from .modify import Rename
 from operations.point import Normalize, Posterize, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
@@ -250,9 +250,9 @@ class Image:
             self.__update_image_name(dialog_rename.new_name)
 
     def run_properties_dialod(self):
-        """Execute image dialog for vector properties."""
+        """Execute image dialog for object properties."""
 
-        dialog_properties = VectorProperties(self)
+        dialog_properties = ObjectProperties(self)
 
         if dialog_properties.exec():
             return

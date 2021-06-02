@@ -5,17 +5,17 @@ from cv2 import (findContours, cvtColor, drawContours, moments, contourArea, arc
 from numpy import sqrt, pi
 from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QSize
 
-from .vector_properties_ui import VectorPropertiesUI
+from .object_properties_ui import ObjectPropertiesUI
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, RETRIEVAL_MODES, APPROXIMATION_MODES
 
 
-class VectorProperties(QDialog, VectorPropertiesUI):
+class ObjectProperties(QDialog, ObjectPropertiesUI):
 
     def __init__(self, parent):
         """
-        Create a new dialog window to analyze vector properties.
+        Create a new dialog window to analyze object properties.
 
         Get image data from :param:`parent` and threshold it.
 
@@ -41,7 +41,7 @@ class VectorProperties(QDialog, VectorPropertiesUI):
         """Set the text and titles of the widgets."""
 
         _translate = QCoreApplication.translate
-        _window_title = "Vector Properties"
+        _window_title = "Object Properties"
 
         self.setWindowTitle(_window_title)
         self.label_method.setText(_translate(_window_title, "Approximation method:"))
@@ -65,11 +65,19 @@ class VectorProperties(QDialog, VectorPropertiesUI):
         obj_moments = {key.upper(): value for key, value in obj_moments.items()}
         return OrderedDict(sorted(obj_moments.items()))
 
+    def calc_division(self, dividend, divisor):
+        """Calculate division between two numbers."""
+
+        try:
+            return float(dividend) / divisor
+        except ZeroDivisionError:
+            return "Zero Division"
+
     def calc_properties(self):
         """
-        Calculate vector properties based on selected object contour.
+        Calculate object properties based on selected object contour.
 
-        Calculated vector properties:
+        Calculated object properties:
             - area;
             - perimeter;
             - aspect radio;
@@ -78,7 +86,7 @@ class VectorProperties(QDialog, VectorPropertiesUI):
             - equivalent diameter;
             - moments (up to the 3rd order).
 
-        :return: The vector properties
+        :return: The object properties
         :rtype: dict
         """
 
@@ -88,9 +96,9 @@ class VectorProperties(QDialog, VectorPropertiesUI):
         hull_area = contourArea(hull)
         rect_area = width * height
         perimeter = arcLength(self.selected_object, True)
-        aspect_ratio = float(width) / height
-        extent = float(area) / rect_area
-        solidity = float(area) / hull_area
+        aspect_ratio = self.calc_division(width, height)
+        extent = self.calc_division(area, rect_area)
+        solidity = self.calc_division(area, hull_area)
         equivalent_diameter = sqrt(4 * area / pi)
         obj_moments = self.calc_moments()
 
