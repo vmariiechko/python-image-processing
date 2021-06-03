@@ -11,6 +11,7 @@ from operations.point import Normalize, Posterize, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
 from operations.segmentation import Threshold, Watershed
 from operations.classification import SVM
+from panorama import ImagePanorama
 
 
 class Image:
@@ -288,6 +289,23 @@ class Image:
 
         if calculator.exec():
             return calculator.img_data, calculator.img_name
+
+    @staticmethod
+    def run_panorama_dialog(images):
+        """
+        Open panorama dialog window to perform image stitching.
+
+        :param images: The list of objects :class:`Image` to perform stitching
+        :type images: list
+        :return: The new image data and its name, tuple(data, img_name)
+        :rtype: tuple or None
+        """
+
+        images = {img.name: img.data for img in images}
+        panorama = ImagePanorama(images.copy())
+
+        if panorama.exec():
+            return panorama.pano_data, panorama.pano_name
 
 
 class ImageWindow(QMdiSubWindow):

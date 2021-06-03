@@ -52,6 +52,9 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.action_profile.triggered.connect(self.show_intensity_profile)
         self.action_object_properties.triggered.connect(self.show_object_properties)
 
+        # Panorama
+        self.action_panorama.triggered.connect(self.image_panorama)
+
         # Operation menu actions
         self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
         self.action_equalize.triggered.connect(lambda: self.run_operation("equalize"))
@@ -371,6 +374,16 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         if new_image:
             image = Image(*new_image)
+            self.__add_image_window(image)
+
+    @validate_active_image
+    def image_panorama(self, *args):
+        """Perform stitching for chosen images."""
+
+        pano_image = Image.run_panorama_dialog(self.images.values())
+
+        if pano_image:
+            image = Image(*pano_image)
             self.__add_image_window(image)
 
     def dragEnterEvent(self, event):
