@@ -1,11 +1,12 @@
 from imutils import grab_contours
 from cv2 import (Stitcher_create, cvtColor, threshold, copyMakeBorder, findContours,
-                 contourArea, boundingRect, rectangle, countNonZero, erode, subtract, Stitcher,
+                 contourArea, boundingRect, rectangle, countNonZero, erode, subtract,
                  COLOR_BGR2GRAY, THRESH_BINARY, BORDER_CONSTANT, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE)
 from numpy import zeros
 from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtCore import QCoreApplication
 
+from .stitcher import Stitcher
 from .panorama_ui import ImagePanoramaUI
 
 
@@ -13,11 +14,14 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
     """The ImagePanorama class represents stitching between chosen images."""
 
     ERROR_MESSAGES = {
-        1: "Need more input images to construct the panorama",
+        1: "Need more input images to construct the panorama,\n"
+           "or try to reverse the image order on the right list\n"
+           "using the 'Up' and 'Down' buttons",
         2: "RANSAC homography estimation failed:\n"
            "You may need more images or your images don't have enough distinguishing,\n"
            "unique texture/objects for keypoints to be accurately matched",
-        3: "Failed to properly estimate camera intrinsics/extrinsics from the input images."
+        3: "Failed to properly estimate camera intrinsics/extrinsics from the input images",
+        4: "The Manual mode stitches only two images",
     }
 
     def __init__(self, images):
@@ -67,8 +71,22 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         return images_data
 
     def stitch_manually(self, images_data):
-        print("Not implemented...")
-        return 1, None
+        """
+        Stitch two images using manual implementation.
+        See :class:`Stitcher` for more information.
+
+        :param images_data: The two images to stitch
+        :type images_data: list
+        :return: The status of stitching and image panorama
+        :rtype: tuple
+        """
+
+        if len(images_data) != 2:
+            return 4, None
+
+        status, stitched = Stitcher(images_data, 2000).stitch()
+
+        return status, stitched
 
     def stitch_built_in(self, images_data):
         """
@@ -77,7 +95,7 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         There is an additional mode to crop the stitched data,
         which cuts out black borders.
 
-        :param images_data: The images to stitch (pixels)
+        :param images_data: The images to stitch
         :type images_data: list
         :return: The status of stitching and image panorama
         :rtype: tuple
