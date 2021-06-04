@@ -55,6 +55,9 @@ class MainWindow(QMainWindow, MainWindowUI):
         # Panorama
         self.action_panorama.triggered.connect(self.image_panorama)
 
+        # Program information
+        self.action_program_info.triggered.connect(self.show_program_info)
+
         # Operation menu actions
         self.action_normalize.triggered.connect(lambda: self.run_operation("normalize"))
         self.action_equalize.triggered.connect(lambda: self.run_operation("equalize"))
@@ -261,6 +264,28 @@ class MainWindow(QMainWindow, MainWindowUI):
             return
         else:
             self.active_image.change_color_depth_2_uint8()
+
+    def show_program_info(self):
+        """Show program information in the message box."""
+
+        program_info = f"""
+                        <p style="text-align: center">
+                            <b>Algorytmy Przetwarzania Obrazów 2021</b><br>
+                            Aplikacja zbiorcza z ćwiczeń laboratoryjnych i projektu<br>
+                        </p>
+                        <table>
+                            <tr>
+                                <td>Tytuł projektu:&nbsp;&nbsp;</td>
+                                <td>Udoskonalenie oprogramowania przygotowanego na zajęciach przez implementację
+                                    nowego narzędzia do tworzenia panoramy na postawie serii zdjęć.</td>
+                            </tr>
+                            <tr><td>Autor:</td>         <td>Vadym Mariiechko</td></tr>
+                            <tr><td>Prowadzący:</td>    <td>mgr inż. Łukasz Roszkowiak</td></tr>
+                            <tr><td>WIT grupa:</td>     <td>ID06IO1</td></tr>
+                        </table>
+                        """
+
+        QMessageBox.information(self, "About", program_info)
 
     @validate_active_image
     def show_image_info(self, *args):

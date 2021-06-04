@@ -88,6 +88,9 @@ class MainWindowUI:
         self.action_panorama = QAction(main_window)
         self.action_panorama.setObjectName("action_panorama")
 
+        self.action_program_info = QAction(main_window)
+        self.action_program_info.setObjectName("action_program_info")
+
         self.action_open = QAction(main_window)
         self.action_open.setObjectName("action_open")
         icon = QIcon()
@@ -284,6 +287,7 @@ class MainWindowUI:
         self.menu_bar.addAction(self.menu_analyze.menuAction())
         self.menu_bar.addAction(self.menu_process.menuAction())
         self.menu_bar.addAction(self.action_panorama)
+        self.menu_bar.addAction(self.action_program_info)
 
         self.retranslate_ui(main_window)
         QMetaObject.connectSlotsByName(main_window)
@@ -312,6 +316,7 @@ class MainWindowUI:
         self.menu_edge_detection.setTitle(_translate(_window_title, "Edge Detection"))
 
         self.action_panorama.setText(_translate(_window_title, "Panorama"))
+        self.action_program_info.setText(_translate(_window_title, "Info"))
         self.action_open.setText(_translate(_window_title, "Open"))
         self.action_save.setText(_translate(_window_title, "Save"))
         self.action_cascade.setText(_translate(_window_title, "Cascade"))
