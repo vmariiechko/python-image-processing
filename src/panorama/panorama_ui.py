@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import (QLabel, QPushButton, QComboBox, QLineEdit, QRadioButton, QListWidget,
                              QDialogButtonBox, QGridLayout, QVBoxLayout, QSizePolicy)
 from PyQt5.QtCore import Qt, QMetaObject
+from PyQt5.QtGui import QIcon, QPixmap
 
 from src.operations.form_ui import FormUI
 
@@ -21,6 +22,10 @@ class ImagePanoramaUI(FormUI):
 
         panorama.setObjectName("panorama")
         self.form_ui(panorama)
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/panorama.png"), QIcon.Normal, QIcon.Off)
+        panorama.setWindowIcon(icon)
 
         self.label_mode = QLabel()
         self.label_mode.setObjectName("label_mode")
