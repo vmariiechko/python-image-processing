@@ -65,18 +65,23 @@ class Stitcher:
             if m.distance < 0.6 * n.distance:
                 self.good_matches.append(m)
 
-    def warp_images(self, H):
+    @staticmethod
+    def warp_images(image1, image2, H):
         """
         Warp perspective for the first image and stitch it with the referenced second image.
 
+        :param image1: The first image to warp perspective
+        :type image1: `numpy.ndarray`
+        :param image2: The second image as the reference
+        :type image2: `numpy.ndarray`
         :param H: The homography 3x3 matrix
         :type H: `numpy.ndarray`
         :return: The stitched image
         :rtype: `numpy.ndarray`
         """
 
-        rows1, cols1 = self.images[0].shape[:2]
-        rows2, cols2 = self.images[1].shape[:2]
+        rows1, cols1 = image1.shape[:2]
+        rows2, cols2 = image2.shape[:2]
 
         # Coordinates of the image to transform
         temp_points1 = float32([[0, 0], [0, rows1], [cols1, rows1], [cols1, 0]]).reshape(-1, 1, 2)
@@ -92,9 +97,9 @@ class Stitcher:
         translation_dist = [-x_min, -y_min]
         H_translation = array([[1, 0, translation_dist[0]], [0, 1, translation_dist[1]], [0, 0, 1]])
 
-        output_img = warpPerspective(self.images[0], H_translation.dot(H), (x_max - x_min, y_max - y_min))
+        output_img = warpPerspective(image1, H_translation.dot(H), (x_max - x_min, y_max - y_min))
         output_img[translation_dist[1]:rows2 + translation_dist[1],
-                   translation_dist[0]:cols2 + translation_dist[0]] = self.images[1]
+                   translation_dist[0]:cols2 + translation_dist[0]] = image2
 
         return output_img
 
@@ -121,7 +126,7 @@ class Stitcher:
             # Establish a homography
             M, _ = findHomography(src_points, dst_points, RANSAC, self.REPROJ_THRESH)
 
-            result = self.warp_images(M)
+            result = self.warp_images(*self.images, M)
             return 0, result
 
         # Error: not found enough strong matches between images
