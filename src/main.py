@@ -3,6 +3,7 @@ from functools import wraps
 from cv2 import imread, imwrite
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont
 
 from main_ui import MainWindowUI
 from image import Image, ImageWindow, ImageBmp
@@ -435,5 +436,7 @@ if __name__ == "__main__":
     app = QApplication([])
     main_window = MainWindow()
     app.setStyleSheet((load_style_sheet()))
+    font = QFont("Arial", 10)
+    QApplication.instance().setFont(font)
     main_window.show()
     app.exec_()
