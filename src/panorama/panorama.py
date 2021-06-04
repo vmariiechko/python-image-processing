@@ -62,6 +62,67 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         self.label_left_list.setText(_translate(_window_title, "All images"))
         self.label_right_list.setText(_translate(_window_title, "Images to stitch"))
 
+    @staticmethod
+    def crop_borders(stitched):
+        """
+        Cut out black borders from stitched images.
+
+        :param stitched: The stitched images
+        :type stitched: `numpy.ndarray`
+        :return: The cropped panorama (ROI)
+        :rtype: `numpy.ndarray`
+        """
+
+        # Create a 10-pixel border surrounding the stitched image
+        stitched = copyMakeBorder(stitched, 10, 10, 10, 10, BORDER_CONSTANT, (0, 0, 0))
+
+        # Convert the stitched image to grayscale and threshold it
+        # Pixels greater than zero are set to 255 and all others remain 0
+        stitched_gray = cvtColor(stitched.copy(), COLOR_BGR2GRAY)
+        stitched_thresh = threshold(stitched_gray, 0, 255, THRESH_BINARY)[1]
+
+        # Find external contours in the threshold image, then find the contour
+        # with the largest area, which is an outline of the stitched image
+        contours = findContours(stitched_thresh.copy(), RETR_EXTERNAL, CHAIN_APPROX_SIMPLE)
+        contours = grab_contours(contours)
+        outline = max(contours, key=contourArea)
+
+        # Allocate memory for the new mask, then
+        # calculate the bounding box of the largest contour, and
+        # using this box, draw a solid white rectangle on the mask
+        mask = zeros(stitched_thresh.shape, dtype="uint8")
+        x, y, w, h = boundingRect(outline)
+        rectangle(mask, (x, y), (x + w, y + h), 255, -1)
+
+        # Create two copies of the mask:
+        # the first mask will be slowly reduced in size
+        # until it can fit inside the inner part of the panorama;
+        # the second mask will be used to determine
+        # if we need to keep reducing the size of the first mask
+        crop = mask.copy()
+        sub = mask.copy()
+
+        # Loop until there are no non-zero pixels left in the subtracted image.
+        # By the end of the loop, we will calculate the smallest rectangular mask
+        # that can fit into the largest rectangular region of the panorama
+        while countNonZero(sub) > 0:
+            # Erode the minimum rectangular mask and then
+            # subtract the thresholded image from the minimum rectangular mask
+            crop = erode(crop, None)
+            sub = subtract(crop, stitched_thresh)
+
+        # Find the contours of the minimum rectangular mask, then
+        # extract the bounding box coordinates
+        contours = findContours(crop.copy(), RETR_EXTERNAL, CHAIN_APPROX_SIMPLE)
+        contours = grab_contours(contours)
+        contour = max(contours, key=contourArea)
+        x, y, w, h = boundingRect(contour)
+
+        # Use the bounding box coordinates to extract the final stitched image (ROI)
+        stitched_crop = stitched[y:y + h, x:x + w].copy()
+
+        return stitched_crop
+
     def get_selected_images(self):
         """Return image data from the list on the right side."""
 
@@ -87,16 +148,11 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         if len(images_data) != 2:
             return 4, None
 
-        status, stitched = Stitcher(images_data, 2000).stitch()
+        return Stitcher(images_data, 2000).stitch()
 
-        return status, stitched
-
-    def stitch_built_in(self, images_data):
+    def stitch_default(self, images_data):
         """
         Stitch images with built-in OpenCV .stitch() method.
-
-        There is an additional mode to crop the stitched data,
-        which cuts out black borders.
 
         :param images_data: The images to stitch
         :type images_data: list
@@ -104,93 +160,43 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         :rtype: tuple
         """
 
-        status, stitched = Stitcher_create().stitch(images_data)
-
-        # Stitched successfully
-        if status == 0:
-
-            # Perform additional cropping
-            if self.cb_mode.currentText() == "Default Cropped":
-
-                # Create a 10-pixel border surrounding the stitched image
-                stitched = copyMakeBorder(stitched, 10, 10, 10, 10, BORDER_CONSTANT, (0, 0, 0))
-
-                # Convert the stitched image to grayscale and threshold it
-                # Pixels greater than zero are set to 255 and all others remain 0
-                stitched_gray = cvtColor(stitched.copy(), COLOR_BGR2GRAY)
-                stitched_thresh = threshold(stitched_gray, 0, 255, THRESH_BINARY)[1]
-
-                # Find external contours in the threshold image, then find the contour
-                # with the largest area, which is an outline of the stitched image
-                contours = findContours(stitched_thresh.copy(), RETR_EXTERNAL, CHAIN_APPROX_SIMPLE)
-                contours = grab_contours(contours)
-                outline = max(contours, key=contourArea)
-
-                # Allocate memory for the new mask, then
-                # calculate the bounding box of the largest contour, and
-                # using this box, draw a solid white rectangle on the mask
-                mask = zeros(stitched_thresh.shape, dtype="uint8")
-                x, y, w, h = boundingRect(outline)
-                rectangle(mask, (x, y), (x + w, y + h), 255, -1)
-
-                # Create two copies of the mask:
-                # the first mask will be slowly reduced in size
-                # until it can fit inside the inner part of the panorama;
-                # the second mask will be used to determine
-                # if we need to keep reducing the size of the first mask
-                crop = mask.copy()
-                sub = mask.copy()
-
-                # Loop until there are no non-zero pixels left in the subtracted image.
-                # By the end of the loop, we will calculate the smallest rectangular mask
-                # that can fit into the largest rectangular region of the panorama
-                while countNonZero(sub) > 0:
-                    # Erode the minimum rectangular mask and then
-                    # subtract the thresholded image from the minimum rectangular mask
-                    crop = erode(crop, None)
-                    sub = subtract(crop, stitched_thresh)
-
-                # Find the contours of the minimum rectangular mask, then
-                # extract the bounding box coordinates
-                contours = findContours(crop.copy(), RETR_EXTERNAL, CHAIN_APPROX_SIMPLE)
-                contours = grab_contours(contours)
-                contour = max(contours, key=contourArea)
-                x, y, w, h = boundingRect(contour)
-
-                # Use the bounding box coordinates to extract the final stitched image (ROI)
-                stitched = stitched[y:y + h, x:x + w].copy()
-
-        return status, stitched
+        return Stitcher_create().stitch(images_data)
 
     def stitch_images(self):
         """
         Stitch selected images to the panorama.
 
-        There are three stitch modes:
+        There are two stitch modes:
             - Default: use builtin OpenCV .stitch() method.
-            - Default Cropped: same as previous, but with smart cropping to cut out black borders
-            - Manual: own implementation; see :method:`stitch_manually` for more information.
+            - Manual: own implementation; see :class:`Stitcher` for more information.
 
-        Noticed that the default built-in OpenCV mode has some problems with stitching the same images several times.
-        If you try to stitch the same photos several times, sometimes you will get a little bit different output,
-        which can cause program errors.
+        Additionally, there is a crop feature, which cuts out black borders.
+
+        Photos with the poor matching area can have some problems:
+            - For Default mode, the order of input images sometimes is sensitive.
+            - For Default mode, sometimes you will get a little bit different output, which can cause program errors.
+            - Noticed that the built-in OpenCV mode has some problems with stitching the same images several times.
         """
 
         images_data = self.get_selected_images()
 
-        if self.cb_mode.currentText() == "Manual":
-            status, stitched = self.stitch_manually(images_data)
-        else:
-            try:
-                status, stitched = self.stitch_built_in(images_data)
-            except ValueError:
-                self.label_errors.setText("Calculation Error. Restart the application and try again.")
-                return
-            except Exception:
-                self.label_errors.setText("Unexpected error happened. Restart the application and try again.")
-                return
+        try:
+            if self.cb_mode.currentText() == "Manual":
+                status, stitched = self.stitch_manually(images_data)
+            else:
+                status, stitched = self.stitch_default(images_data)
+        except ValueError:
+            self.label_errors.setText("Calculation Error. Please, restart the application and try again.")
+            return
+        except Exception:
+            self.label_errors.setText("Unexpected error happened. Please, restart the application and try again.")
+            return
 
         if status == 0:
+
+            if self.rbtn_crop.isChecked():
+                stitched = self.crop_borders(stitched)
+
             self.pano_data = stitched
             self.pano_name = self.edit_pano_name.text().strip()
             self.accept()

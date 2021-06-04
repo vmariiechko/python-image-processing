@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import (QLabel, QPushButton, QListWidget, QDialogButtonBox, QComboBox, QLineEdit,
-                             QGridLayout, QVBoxLayout, QSizePolicy)
+from PyQt5.QtWidgets import (QLabel, QPushButton, QComboBox, QLineEdit, QRadioButton, QListWidget,
+                             QDialogButtonBox, QGridLayout, QVBoxLayout, QSizePolicy)
 from PyQt5.QtCore import Qt, QMetaObject
 
 from src.operations.form_ui import FormUI
@@ -26,7 +26,7 @@ class ImagePanoramaUI(FormUI):
         self.label_mode.setObjectName("label_mode")
 
         self.cb_mode = QComboBox(panorama)
-        self.cb_mode.addItems(["Default", "Default Cropped", "Manual"])
+        self.cb_mode.addItems(["Default", "Manual"])
         self.cb_mode.setObjectName("cb_mode")
 
         self.label_pano_name = QLabel()
@@ -36,8 +36,13 @@ class ImagePanoramaUI(FormUI):
         self.edit_pano_name.setMaxLength(50)
         self.edit_pano_name.setObjectName("edit_pano_name")
 
+        self.rbtn_crop = QRadioButton("Crop Borders")
+        self.rbtn_crop.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.rbtn_crop.setObjectName("rbtn_crop")
+
         self.layout_form.addRow(self.label_mode, self.cb_mode)
         self.layout_form.addRow(self.label_pano_name, self.edit_pano_name)
+        self.layout_form.addRow(None, self.rbtn_crop)
 
         self.label_errors = QLabel()
         self.label_errors.setStyleSheet("color: red")
