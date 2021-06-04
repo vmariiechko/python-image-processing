@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import (QLabel, QPushButton, QComboBox, QLineEdit, QRadioButton, QListWidget,
-                             QDialogButtonBox, QGridLayout, QVBoxLayout, QSizePolicy)
+                             QDialogButtonBox, QGridLayout, QVBoxLayout, QHBoxLayout, QSizePolicy)
 from PyQt5.QtCore import Qt, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap
 
@@ -27,6 +27,14 @@ class ImagePanoramaUI(FormUI):
         icon.addPixmap(QPixmap("icons/panorama.png"), QIcon.Normal, QIcon.Off)
         panorama.setWindowIcon(icon)
 
+        self.btn_description = QPushButton("Description")
+        self.btn_description.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.btn_description.setFocusPolicy(Qt.NoFocus)
+        self.btn_description.setObjectName("btn_description")
+
+        self.layout_btn = QHBoxLayout()
+        self.layout_btn.addWidget(self.btn_description)
+
         self.label_mode = QLabel()
         self.label_mode.setObjectName("label_mode")
 
@@ -41,7 +49,7 @@ class ImagePanoramaUI(FormUI):
         self.edit_pano_name.setMaxLength(50)
         self.edit_pano_name.setObjectName("edit_pano_name")
 
-        self.rbtn_crop = QRadioButton("Crop Borders")
+        self.rbtn_crop = QRadioButton("Crop ROI")
         self.rbtn_crop.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
         self.rbtn_crop.setObjectName("rbtn_crop")
 
@@ -106,6 +114,7 @@ class ImagePanoramaUI(FormUI):
         self.layout = QVBoxLayout(panorama)
         self.layout.setObjectName("layout")
 
+        self.layout.addLayout(self.layout_btn)
         self.layout.addWidget(self.form)
         self.layout.addWidget(self.label_errors)
         self.layout.addLayout(self.grid_layout)

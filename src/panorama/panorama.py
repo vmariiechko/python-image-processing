@@ -45,6 +45,7 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         self.pano_name = "panorama"
         self.pano_data = None
 
+        self.btn_description.clicked.connect(self.show_description)
         self.edit_pano_name.setText(self.pano_name)
 
         self.update_button_status()
@@ -61,6 +62,45 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         self.label_pano_name.setText(_translate(_window_title, "Image Name:"))
         self.label_left_list.setText(_translate(_window_title, "All images"))
         self.label_right_list.setText(_translate(_window_title, "Images to stitch"))
+
+    def show_description(self):
+
+        description = """
+                      <p style="text-align: center">
+                        <b>Stitches selected images into the single panorama image</b><br>
+                           You can choose image stitching mode<br><br>
+                      </p>
+
+                      <table>
+                        <tr><th>Mode</th>       <th>Description</th></tr>
+                        <tr><td>Default&nbsp;&nbsp;&nbsp;</td>   <td>Use built-in OpenCV .stitch() method</td></tr>
+                        <tr><td>Manual</td>     <td>Own implementation stitches only two images.<br>
+                                                    Different image order gives non-identical output!</td></tr>
+                      </table><br>
+
+                      <p style="text-align: center"> <b>Usage</b> </p>
+
+                      The list on the left side contains all opened images.<br>
+                      Select an image from the left list and use arrow buttons<br>
+                      to move the images to the right list.<br>
+                      All images from the right list will be stitched into panorama<br>
+                      when you click the OK button.<br><br>
+
+                      There is a feature to cut out a black region in a panorama.<br>
+                      To do it, check the 'Crop ROI' radio button.<br>
+                      (ROI - region of interest)<br>
+
+                      <p style="text-align: center"> <b>Attention</b> </p>
+
+                      Photos with a poor matching area can have some problems<br>
+                      with default mode:
+                      <ul>
+                          <li>The order of input images sometimes is sensitive.</li>
+                          <li>Sometimes you will get a little bit different output.</li>
+                      </ul>
+                      """
+
+        QMessageBox.information(self, "Description", description)
 
     @staticmethod
     def crop_borders(stitched):
@@ -168,7 +208,7 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         Stitch selected images to the panorama.
 
         There are two stitch modes:
-            - Default: use builtin OpenCV .stitch() method.
+            - Default: use built-in OpenCV .stitch() method.
             - Manual: own implementation, input image order sensitive; see :class:`Stitcher` for more information.
 
         Additionally, there is a crop feature, which cuts out black borders.

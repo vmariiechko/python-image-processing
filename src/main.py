@@ -268,7 +268,7 @@ class MainWindow(QMainWindow, MainWindowUI):
     def show_program_info(self):
         """Show program information in the message box."""
 
-        program_info = f"""
+        program_info = """
                         <p style="text-align: center">
                             <b>Algorytmy Przetwarzania Obrazów 2021</b><br>
                             Aplikacja zbiorcza z ćwiczeń laboratoryjnych i projektu<br>
@@ -283,7 +283,7 @@ class MainWindow(QMainWindow, MainWindowUI):
                             <tr><td>Prowadzący:</td>    <td>mgr inż. Łukasz Roszkowiak</td></tr>
                             <tr><td>WIT grupa:</td>     <td>ID06IO1</td></tr>
                         </table>
-                        """
+                       """
 
         QMessageBox.information(self, "About", program_info)
 
