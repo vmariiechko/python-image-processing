@@ -7,15 +7,15 @@ from PyQt5.QtWidgets import QDialog, QTableWidgetItem
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QCoreApplication, QSize
 
-from .object_properties_ui import ObjectPropertiesUI
+from .object_features_ui import ObjectFeaturesUI
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, RETRIEVAL_MODES, APPROXIMATION_MODES
 
 
-class ObjectProperties(QDialog, ObjectPropertiesUI):
+class ObjectFeatures(QDialog, ObjectFeaturesUI):
 
     def __init__(self, parent):
         """
-        Create a new dialog window to analyze object properties.
+        Create a new dialog window to analyze object features.
 
         Get image data from :param:`parent` and threshold it.
 
@@ -41,7 +41,7 @@ class ObjectProperties(QDialog, ObjectPropertiesUI):
         """Set the text and titles of the widgets."""
 
         _translate = QCoreApplication.translate
-        _window_title = "Object Properties"
+        _window_title = "Object Features"
 
         self.setWindowTitle(_window_title)
         self.label_method.setText(_translate(_window_title, "Approximation method:"))
@@ -73,11 +73,11 @@ class ObjectProperties(QDialog, ObjectPropertiesUI):
         except ZeroDivisionError:
             return "Zero Division"
 
-    def calc_properties(self):
+    def calc_features(self):
         """
-        Calculate object properties based on selected object contour.
+        Calculate object features based on selected object contour.
 
-        Calculated object properties:
+        Calculated object features:
             - area;
             - perimeter;
             - aspect radio;
@@ -86,7 +86,7 @@ class ObjectProperties(QDialog, ObjectPropertiesUI):
             - equivalent diameter;
             - moments (up to the 3rd order).
 
-        :return: The object properties
+        :return: The object features
         :rtype: dict
         """
 
@@ -102,7 +102,7 @@ class ObjectProperties(QDialog, ObjectPropertiesUI):
         equivalent_diameter = sqrt(4 * area / pi)
         obj_moments = self.calc_moments()
 
-        properties = {
+        features = {
             "Area": area,
             "Perimeter": perimeter,
             "Aspect ratio": aspect_ratio,
@@ -111,20 +111,20 @@ class ObjectProperties(QDialog, ObjectPropertiesUI):
             "Equivalent diameter": equivalent_diameter,
             **obj_moments
         }
-        return properties
+        return features
 
     def update_selected_object(self):
         """Update the contour of the selected object whenever changed."""
 
         obj_num = int(self.cb_objects.currentText())
         self.selected_object = self.contours[obj_num]
-        self.update_properties()
+        self.update_features()
 
-    def update_properties(self):
-        """Update the properties table whenever the form changed."""
+    def update_features(self):
+        """Update the features table whenever the form changed."""
 
-        properties = self.calc_properties()
-        for row_num, attribute in enumerate(properties.items()):
+        features = self.calc_features()
+        for row_num, attribute in enumerate(features.items()):
             self.table_widget.setItem(row_num, 0, QTableWidgetItem(str(attribute[0])))
             self.table_widget.setItem(row_num, 1, QTableWidgetItem(str(attribute[1])))
         self.table_widget.resizeColumnsToContents()

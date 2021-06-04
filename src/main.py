@@ -50,7 +50,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         # Analyze menu actions
         self.action_histogram.triggered.connect(self.show_histogram)
         self.action_profile.triggered.connect(self.show_intensity_profile)
-        self.action_object_properties.triggered.connect(self.show_object_properties)
+        self.action_object_features.triggered.connect(self.show_object_features)
 
         # Panorama
         self.action_panorama.triggered.connect(self.image_panorama)
@@ -316,8 +316,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.active_image.subwindow.intensity_profile.show()
 
     @validate_active_image
-    def show_object_properties(self, *args):
-        """Show image dialog for object properties."""
+    def show_object_features(self, *args):
+        """Show image dialog for object features."""
 
         is_colored = not self.active_image.is_grayscale()
         if is_colored or self.active_image.color_depth > 256:
@@ -325,7 +325,7 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                      "The image must be grayscale, 8 bits per pixel.")
             return
 
-        self.active_image.run_properties_dialod()
+        self.active_image.run_features_dialod()
 
     @validate_active_image
     def run_operation(self, operation):

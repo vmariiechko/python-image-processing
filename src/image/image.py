@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
 from src.constants import BYTES_PER_PIXEL_2_BW_FORMAT, COLOR_CONVERSION_CODES
-from .analyze import HistGraphical, IntensityProfile, ObjectProperties
+from .analyze import HistGraphical, IntensityProfile, ObjectFeatures
 from .modify import Rename
 from operations.point import Normalize, Posterize, ImageCalculator
 from operations.local import Smooth, EdgeDetection, DirectionalEdgeDetection, Sharpen, Convolve, Morphology
@@ -250,12 +250,12 @@ class Image:
         if dialog_rename.exec():
             self.__update_image_name(dialog_rename.new_name)
 
-    def run_properties_dialod(self):
-        """Execute image dialog for object properties."""
+    def run_features_dialod(self):
+        """Execute image dialog for object features."""
 
-        dialog_properties = ObjectProperties(self)
+        dialog_features = ObjectFeatures(self)
 
-        if dialog_properties.exec():
+        if dialog_features.exec():
             return
 
     def run_operation_dialog(self, operation):

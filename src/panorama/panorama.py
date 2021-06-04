@@ -136,7 +136,8 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
 
     def stitch_manually(self, images_data):
         """
-        Stitch two images using manual implementation.
+        Stitch two images using manual implementation, input image order sensitive.
+
         See :class:`Stitcher` for more information.
 
         :param images_data: The two images to stitch
@@ -168,7 +169,7 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
 
         There are two stitch modes:
             - Default: use builtin OpenCV .stitch() method.
-            - Manual: own implementation; see :class:`Stitcher` for more information.
+            - Manual: own implementation, input image order sensitive; see :class:`Stitcher` for more information.
 
         Additionally, there is a crop feature, which cuts out black borders.
 
@@ -185,17 +186,18 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
                 status, stitched = self.stitch_manually(images_data)
             else:
                 status, stitched = self.stitch_default(images_data)
-        except ValueError:
-            self.label_errors.setText("Calculation Error. Please, restart the application and try again.")
-            return
         except Exception:
-            self.label_errors.setText("Unexpected error happened. Please, restart the application and try again.")
+            self.label_errors.setText("Unexpected Error. Please, restart the application and try again.")
             return
 
         if status == 0:
 
             if self.rbtn_crop.isChecked():
-                stitched = self.crop_borders(stitched)
+                try:
+                    stitched = self.crop_borders(stitched)
+                except ValueError:
+                    self.label_errors.setText("Calculation Error. Please, restart the application and try again.")
+                    return
 
             self.pano_data = stitched
             self.pano_name = self.edit_pano_name.text().strip()
