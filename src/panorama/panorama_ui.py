@@ -46,23 +46,27 @@ class ImagePanoramaUI(FormUI):
         self.left_list.setObjectName("left_list")
 
         self.grid_layout.addWidget(self.label_left_list, 1, 0, 1, 4, alignment=Qt.AlignCenter)
-        self.grid_layout.addWidget(self.left_list, 2, 0, 4, 4)
+        self.grid_layout.addWidget(self.left_list, 2, 0, 6, 4)
 
         self.buttons = dict()
         self.buttons['>>'] = QPushButton('>>')
         self.buttons['>'] = QPushButton('>')
         self.buttons['<'] = QPushButton('<')
         self.buttons['<<'] = QPushButton('<<')
+        self.buttons['Up'] = QPushButton('Up')
+        self.buttons['Down'] = QPushButton('Down')
 
         for b in self.buttons:
             self.buttons[b].setSizePolicy(QSizePolicy.Preferred, QSizePolicy.MinimumExpanding)
             self.buttons[b].setFocusPolicy(Qt.NoFocus)
 
-        self.grid_layout.setRowStretch(5, 1)
+        self.grid_layout.setRowStretch(7, 1)
         self.grid_layout.addWidget(self.buttons['>>'], 2, 4, 1, 1, alignment=Qt.AlignTop)
         self.grid_layout.addWidget(self.buttons['>'], 3, 4, 1, 1, alignment=Qt.AlignTop)
         self.grid_layout.addWidget(self.buttons['<'], 4, 4, 1, 1, alignment=Qt.AlignTop)
         self.grid_layout.addWidget(self.buttons['<<'], 5, 4, 1, 1, alignment=Qt.AlignTop)
+        self.grid_layout.addWidget(self.buttons['Up'], 6, 4, 1, 1, alignment=Qt.AlignTop)
+        self.grid_layout.addWidget(self.buttons['Down'], 7, 4, 1, 1, alignment=Qt.AlignTop)
 
         self.label_right_list = QLabel()
         self.label_right_list.setObjectName("label_right_list")
@@ -71,7 +75,7 @@ class ImagePanoramaUI(FormUI):
         self.right_list.setObjectName("right_list")
 
         self.grid_layout.addWidget(self.label_right_list, 1, 5, 1, 4, alignment=Qt.AlignCenter)
-        self.grid_layout.addWidget(self.right_list, 2, 5, 4, 4)
+        self.grid_layout.addWidget(self.right_list, 2, 5, 6, 4)
 
         self.button_box = QDialogButtonBox(panorama)
         self.button_box.setOrientation(Qt.Horizontal)
@@ -104,6 +108,9 @@ class ImagePanoramaUI(FormUI):
         self.buttons['>>'].clicked.connect(self.button_add_all_clicked)
         self.buttons['<<'].clicked.connect(self.button_remove_all_clicked)
 
+        self.buttons['Up'].clicked.connect(self.button_up_clicked)
+        self.buttons['Down'].clicked.connect(self.button_down_clicked)
+
     def button_add_clicked(self):
         """Move a selected item from the left list to the right."""
 
@@ -130,8 +137,27 @@ class ImagePanoramaUI(FormUI):
         for i in range(self.right_list.count()):
             self.left_list.addItem(self.right_list.takeItem(0))
 
+    def button_up_clicked(self):
+        """Move a selected item from the right list to the top."""
+
+        row_index = self.right_list.currentRow()
+        current_item = self.right_list.takeItem(row_index)
+        self.right_list.insertItem(row_index - 1, current_item)
+        self.right_list.setCurrentRow(row_index - 1)
+
+    def button_down_clicked(self):
+        """Move a selected item from the right list to the bottom."""
+
+        row_index = self.right_list.currentRow()
+        current_item = self.right_list.takeItem(row_index)
+        self.right_list.insertItem(row_index + 1, current_item)
+        self.right_list.setCurrentRow(row_index + 1)
+
     def update_button_status(self):
         """Update buttons access whenever move items."""
 
+        self.buttons['Up'].setDisabled(not bool(self.right_list.selectedItems()) or self.right_list.currentRow() == 0)
+        self.buttons['Down'].setDisabled(not bool(self.right_list.selectedItems())
+                                         or self.right_list.currentRow() == self.right_list.count() - 1)
         self.buttons['>'].setDisabled(not bool(self.left_list.selectedItems()) or self.left_list.count() == 0)
         self.buttons['<'].setDisabled(not bool(self.right_list.selectedItems()) or self.right_list.count() == 0)
