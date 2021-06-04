@@ -42,8 +42,10 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
             self.left_list.addItem(i)
 
         self.images = images.copy()
-        self.pano_name = "New Panorama Image"
+        self.pano_name = "panorama"
         self.pano_data = None
+
+        self.edit_pano_name.setText(self.pano_name)
 
         self.update_button_status()
         self.set_widget_connections()
@@ -56,6 +58,7 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
 
         self.setWindowTitle(_window_title)
         self.label_mode.setText(_translate(_window_title, "Mode:"))
+        self.label_pano_name.setText(_translate(_window_title, "Image Name:"))
         self.label_left_list.setText(_translate(_window_title, "All images"))
         self.label_right_list.setText(_translate(_window_title, "Images to stitch"))
 
@@ -189,6 +192,7 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
 
         if status == 0:
             self.pano_data = stitched
+            self.pano_name = self.edit_pano_name.text().strip()
             self.accept()
         else:
             QMessageBox.warning(self, "Error", self.ERROR_MESSAGES[status])

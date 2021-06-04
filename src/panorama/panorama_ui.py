@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (QLabel, QPushButton, QListWidget, QDialogButtonBox, QComboBox,
+from PyQt5.QtWidgets import (QLabel, QPushButton, QListWidget, QDialogButtonBox, QComboBox, QLineEdit,
                              QGridLayout, QVBoxLayout, QSizePolicy)
 from PyQt5.QtCore import Qt, QMetaObject
 
@@ -29,7 +29,15 @@ class ImagePanoramaUI(FormUI):
         self.cb_mode.addItems(["Default", "Default Cropped", "Manual"])
         self.cb_mode.setObjectName("cb_mode")
 
+        self.label_pano_name = QLabel()
+        self.label_pano_name.setObjectName("label_pano_name")
+
+        self.edit_pano_name = QLineEdit()
+        self.edit_pano_name.setMaxLength(50)
+        self.edit_pano_name.setObjectName("edit_pano_name")
+
         self.layout_form.addRow(self.label_mode, self.cb_mode)
+        self.layout_form.addRow(self.label_pano_name, self.edit_pano_name)
 
         self.label_errors = QLabel()
         self.label_errors.setStyleSheet("color: red")
