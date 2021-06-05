@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction, QActionGroup, QStatusBar
 from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap, QKeySequence
 
 from src.constants import IMAGE_TYPES
 
@@ -376,3 +376,12 @@ class MainWindowUI:
         self.action_watershed.setStatusTip(_translate(_main_title, "Perform watershed segmentation"))
         self.action_svm_classification.setStatusTip(_translate(_main_title, "Perform support vector machine "
                                                                             "classification"))
+
+        self.action_open.setShortcuts(QKeySequence.keyBindings(3))
+        self.action_save.setShortcuts(QKeySequence.keyBindings(5))
+        self.action_rename.setShortcut("Ctrl+R")
+        self.action_duplicate.setShortcut("Ctrl+D")
+        self.action_image_info.setShortcut("Ctrl+F")
+        self.action_histogram.setShortcut("Alt+S")
+        self.action_profile.setShortcut("Alt+R")
+        self.action_object_features.setShortcut("Alt+F")

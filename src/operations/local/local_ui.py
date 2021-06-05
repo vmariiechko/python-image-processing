@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QLabel, QSpinBox, QComboBox
 
+from src.constants import BORDER_TYPES
 from ..form_ui import FormUI
 
 
@@ -31,5 +32,5 @@ class LocalUI(FormUI):
         self.label_border_type.setObjectName("label_border_type")
 
         self.cb_border_type = QComboBox(child_ui)
-        self.cb_border_type.addItems(["Isolated", "Reflect", "Replicate"])
+        self.cb_border_type.addItems(list(BORDER_TYPES.keys()))
         self.cb_border_type.setObjectName("cb_border_type")
