@@ -102,9 +102,6 @@ class MainWindowUI:
 
         self.action_program_info = QAction(main_window)
         self.action_program_info.setObjectName("action_program_info")
-        icon = QIcon()
-        icon.addPixmap(QPixmap("icons/info.png"), QIcon.Normal, QIcon.Off)
-        self.action_program_info.setIcon(icon)
 
         self.action_open = QAction(main_window)
         self.action_open.setObjectName("action_open")
