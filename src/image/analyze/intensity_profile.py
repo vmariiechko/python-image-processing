@@ -97,6 +97,7 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
             intensities = [0.24 * r + 0.69 * g + 0.07 * b for b, g, r in intensities]
 
         self.profile_canvas.axes.clear()
+        self.profile_canvas.axes.set_title("Zoom off the image to be able to draw a line on it", fontsize=10)
         self.profile_canvas.axes.plot(range(len(intensities)), intensities, color="black")
         self.profile_canvas.axes.set_xlabel("Distance (pixels)")
         self.profile_canvas.axes.set_ylabel("Gray Value")

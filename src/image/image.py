@@ -1,6 +1,6 @@
 from cv2 import normalize, cvtColor, error, NORM_MINMAX
 from numpy import abs
-from PyQt5.QtWidgets import QMdiSubWindow, QLabel
+from PyQt5.QtWidgets import QLabel, QMdiSubWindow
 from PyQt5.QtCore import Qt, QPoint, QEvent, pyqtSignal
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QIcon, QImage
 
@@ -337,10 +337,10 @@ class ImageWindow(QMdiSubWindow):
 
         self.image_label = QLabel()
         self.pixmap = None
+        self.scale = 1
         self.update_window()
         self.update_icon()
 
-        self.setFixedSize(self.pixmap.width() + 15, self.pixmap.height() + 35)
         self.setWindowFlags(Qt.WindowMinimizeButtonHint)
         self.setWidget(self.image_label)
         self.setWindowTitle(self._title)
@@ -410,12 +410,36 @@ class ImageWindow(QMdiSubWindow):
         self.intensity_profile.set_title(title)
         self.setWindowTitle(title)
 
+    def zoom(self, mode):
+        """
+        Update the image window scale depending on the mode.
+
+        There are three zooming modes:
+            - 'in' - increase the window scale by 0.1
+            - 'out' - decrease the window scale by 0.1
+            - 'off' - set the window scale to 1
+
+        :param mode: The mode for zooming, can be 'in', 'out', 'off'
+        :type mode: str
+        """
+
+        if mode == "out":
+            self.scale -= 0.1
+        elif mode == "in":
+            self.scale += 0.1
+        else:
+            self.scale = 1
+
+        self.scale = round(self.scale, 1)
+        self.update_window()
+
     def update_window(self):
         """
         Update image sub-window.
 
         Convert image data to :class:`PyQt5.QtGui.QImage`.
-        Load the image to the the sub-window.
+        Scale the image based on :attr:`scale`
+        Load the image to the sub-window.
         """
 
         height, width = self._data.shape[:2]
@@ -427,6 +451,8 @@ class ImageWindow(QMdiSubWindow):
             image = QImage(self._data, width, height, 3 * width, QImage.Format_BGR888)
 
         self.pixmap = QPixmap(image)
+        self.pixmap = self.pixmap.scaled(self.scale * self.pixmap.size())
+        self.setFixedSize(self.pixmap.width() + 15, self.pixmap.height() + 35)
         self.image_label.setPixmap(self.pixmap.copy())
 
     def update_icon(self):
@@ -465,29 +491,32 @@ class ImageWindow(QMdiSubWindow):
 
         event_type = event.type()
 
-        if event_type == QEvent.MouseButtonPress:
-            point = event.pos()
+        # Draw a line only for not scaled image
+        if self.scale == 1:
 
-            if event.button() == Qt.LeftButton and point.y() > -1:
-                self.points[0] = point
-                self.image_label.setPixmap(self.pixmap.copy())
-                self.drawing = True
+            if event_type == QEvent.MouseButtonPress:
+                point = event.pos()
 
-        elif event_type == QEvent.MouseMove and self.drawing:
-            self.points[1] = self.__validate_point(event.pos())
-            self.image_label.setPixmap(self.pixmap.copy())
+                if event.button() == Qt.LeftButton and point.y() > -1:
+                    self.points[0] = point
+                    self.image_label.setPixmap(self.pixmap.copy())
+                    self.drawing = True
 
-            painter = QPainter(self.image_label.pixmap())
-            painter.setPen(QPen(Qt.yellow, 1, Qt.SolidLine))
-            painter.drawLine(self.points[0], self.points[1])
-
-            self.update()
-
-        elif event_type == QEvent.MouseButtonRelease:
-            if event.button() == Qt.LeftButton and self.drawing:
+            elif event_type == QEvent.MouseMove and self.drawing:
                 self.points[1] = self.__validate_point(event.pos())
-                self.drawing = False
-                self.create_profile()
+                self.image_label.setPixmap(self.pixmap.copy())
+
+                painter = QPainter(self.image_label.pixmap())
+                painter.setPen(QPen(Qt.yellow, 1, Qt.SolidLine))
+                painter.drawLine(self.points[0], self.points[1])
+
+                self.update()
+
+            elif event_type == QEvent.MouseButtonRelease:
+                if event.button() == Qt.LeftButton and self.drawing:
+                    self.points[1] = self.__validate_point(event.pos())
+                    self.drawing = False
+                    self.create_profile()
 
         return super(ImageWindow, self).eventFilter(obj, event)
 

@@ -45,6 +45,9 @@ class MainWindow(QMainWindow, MainWindowUI):
         # Image menu actions
         self.action_rename.triggered.connect(self.rename_title)
         self.action_duplicate.triggered.connect(self.duplicate)
+        self.action_zoom_in.triggered.connect(lambda: self.zoom("in"))
+        self.action_zoom_out.triggered.connect(lambda: self.zoom("out"))
+        self.action_zoom_off.triggered.connect(lambda: self.zoom("off"))
         self.action_image_info.triggered.connect(self.show_image_info)
         self.group_image_type.triggered.connect(self.set_image_type)
         self.action_color_depth_uint8.triggered.connect(self.set_color_depth)
@@ -123,6 +126,7 @@ class MainWindow(QMainWindow, MainWindowUI):
             self.active_image = self.images.get(sub_window)
             self.set_image_type(None)
             self.set_color_depth(None)
+            self.__update_zoom_actions()
 
         self.__show_image_status()
 
@@ -133,6 +137,7 @@ class MainWindow(QMainWindow, MainWindowUI):
             self.active_image = list(self.images.values())[-1]
             self.set_image_type(None)
             self.set_color_depth(None)
+            self.__update_zoom_actions()
         except IndexError:
             self.active_image = None
 
@@ -180,13 +185,45 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.image_backup = None
         self.action_undo.setEnabled(False)
 
+    @validate_active_image
+    def __update_zoom_actions(self):
+        """Update zoom actions access whenever zoomed image."""
+
+        scale = self.active_image.subwindow.scale
+        height, width = self.active_image.data.shape[:2]
+
+        # Get scaling range depending on the image size
+        if width < 150 or height < 100:
+            max_scale = 4
+            min_scale = 0.9
+        elif width < 300 or height < 250:
+            max_scale = 2.5
+            min_scale = 0.7
+        elif width < 500 or height < 400:
+            max_scale = 2
+            min_scale = 0.6
+        elif width < 1000 or height < 800:
+            max_scale = 1.5
+            min_scale = 0.5
+        else:
+            max_scale = 1.1
+            min_scale = 0.3
+
+        if scale >= max_scale:
+            self.action_zoom_in.setEnabled(False)
+        elif scale <= min_scale:
+            self.action_zoom_out.setEnabled(False)
+        else:
+            self.action_zoom_in.setEnabled(True)
+            self.action_zoom_out.setEnabled(True)
+
     def __show_image_status(self):
         """Show the image information in the status bar."""
 
         if self.active_image:
             image_type = "Grayscale" if self.active_image.is_grayscale() else "BGR"
-            status = f"{self.active_image.name}   {self.active_image.data.shape[0]}x" \
-                     f"{self.active_image.data.shape[1]}   {image_type}"
+            status = f"{self.active_image.name}   {self.active_image.data.shape[1]}x" \
+                     f"{self.active_image.data.shape[0]}   {image_type}"
             self.status_bar.showMessage(status)
         else:
             self.status_bar.showMessage("")
@@ -223,6 +260,10 @@ class MainWindow(QMainWindow, MainWindowUI):
             # Open image using opencv function
             img_data = imread(file_path, -1)
 
+        if img_data.shape[1] < 100 or img_data.shape[0] < 50:
+            QMessageBox.warning(self, "Input image is small", "The program cannot work with images less than 100x50")
+            return
+
         img_name = file_path.split("/")[-1]
         image = Image(img_data, img_name)
         self.__add_image_window(image)
@@ -256,6 +297,18 @@ class MainWindow(QMainWindow, MainWindowUI):
         """Change the image name and title."""
 
         self.active_image.rename()
+
+    @validate_active_image
+    def zoom(self, mode):
+        """
+        Perform image zoom depending on the mode.
+
+        :param mode: The mode for zooming, can be 'in', 'out', 'off'
+        :type mode: str
+        """
+
+        self.active_image.subwindow.zoom(mode)
+        self.__update_zoom_actions()
 
     @validate_active_image
     def duplicate(self, *args):
@@ -355,8 +408,8 @@ class MainWindow(QMainWindow, MainWindowUI):
         image_info = f"""
                         <table>
                             <tr><td>Title</td>          <td>{self.active_image.name}</td></tr>
-                            <tr><td>Width</td>          <td>{data.shape[0]}</td></tr>
-                            <tr><td>Height</td>         <td>{data.shape[1]}</td></tr>
+                            <tr><td>Width</td>          <td>{data.shape[1]}</td></tr>
+                            <tr><td>Height</td>         <td>{data.shape[0]}</td></tr>
                             <tr><td>Bits per pixel</td> <td>{bits_per_pixel}</td></tr>
                             <tr><td>Display range&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                         <td>0-{self.active_image.color_depth - 1}</td></tr>
