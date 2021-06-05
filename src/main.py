@@ -493,6 +493,13 @@ class MainWindow(QMainWindow, MainWindowUI):
                                                      "The image must be grayscale, 8 bits per pixel.")
             return
 
+        if operation == "normalize":
+            data = self.active_image.data
+            if data.min() == data.max():
+                QMessageBox.warning(self, "Incorrect Image", "Selected image has the same \n"
+                                                             "minimum and maximum pixel value.")
+                return
+
         if operation == "equalize":
             self.active_image.equalize_histogram()
         elif operation == "negation":
