@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction, QActionGroup, QStatusBar
-from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
+from PyQt5.QtWidgets import QMdiArea, QMenuBar, QStatusBar, QToolBar, QMenu, QAction, QActionGroup
+from PyQt5.QtCore import Qt, QRect, QMetaObject, QCoreApplication
 from PyQt5.QtGui import QIcon, QPixmap, QKeySequence
 
 from src.constants import IMAGE_TYPES
@@ -37,6 +37,10 @@ class MainWindowUI:
 
         self.status_bar = QStatusBar()
         self.status_bar.setObjectName("status_bar")
+
+        self.file__toolbar = QToolBar("File", main_window)
+        self.image__toolbar = QToolBar("Image", main_window)
+        self.analyze__toolbar = QToolBar("Analyze", main_window)
 
         self.menu_file = QMenu(self.menu_bar)
         self.menu_file.setObjectName("menu_file")
@@ -88,6 +92,10 @@ class MainWindowUI:
 
         main_window.setMenuBar(self.menu_bar)
         main_window.setStatusBar(self.status_bar)
+
+        main_window.addToolBar(self.file__toolbar)
+        main_window.addToolBar(self.image__toolbar)
+        main_window.addToolBar(Qt.LeftToolBarArea, self.analyze__toolbar)
 
         self.action_panorama = QAction(main_window)
         self.action_panorama.setObjectName("action_panorama")
@@ -296,6 +304,16 @@ class MainWindowUI:
         self.menu_bar.addAction(self.action_panorama)
         self.menu_bar.addAction(self.action_program_info)
 
+        self.file__toolbar.addAction(self.action_open)
+        self.file__toolbar.addAction(self.action_save)
+        self.file__toolbar.addAction(self.action_cascade)
+        self.image__toolbar.addAction(self.action_rename)
+        self.image__toolbar.addAction(self.action_duplicate)
+        self.image__toolbar.addAction(self.action_image_info)
+        self.analyze__toolbar.addAction(self.action_histogram)
+        self.analyze__toolbar.addAction(self.action_profile)
+        self.analyze__toolbar.addAction(self.action_object_features)
+
         self.retranslate_ui(main_window)
         QMetaObject.connectSlotsByName(main_window)
 
@@ -325,7 +343,7 @@ class MainWindowUI:
         self.action_panorama.setText(_translate(_main_title, "Panorama"))
         self.action_program_info.setText(_translate(_main_title, "Info"))
         self.action_open.setText(_translate(_main_title, "Open"))
-        self.action_save.setText(_translate(_main_title, "Save"))
+        self.action_save.setText(_translate(_main_title, "Save As"))
         self.action_cascade.setText(_translate(_main_title, "Cascade"))
         self.action_exit.setText(_translate(_main_title, "Exit"))
         self.action_rename.setText(_translate(_main_title, "Rename"))
