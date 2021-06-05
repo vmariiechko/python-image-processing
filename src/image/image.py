@@ -231,7 +231,10 @@ class Image:
 
         for i in cumulative_hist:
             # Normalize cumulative sum to 0-255 range
-            equalized_val = abs(int(((i - hist_min) * 255) / (hist_max - hist_min)))
+            try:
+                equalized_val = abs(int(((i - hist_min) * 255) / (hist_max - hist_min)))
+            except ZeroDivisionError:
+                return
             lut.append(equalized_val)
 
         self.__apply_lut(lut)

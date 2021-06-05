@@ -38,6 +38,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         # File menu actions
         self.action_open.triggered.connect(self.open_images)
         self.action_save.triggered.connect(self.save_image)
+        self.action_undo.triggered.connect(self.restore_backup)
         self.action_cascade.triggered.connect(self.central_mdi_area.cascadeSubWindows)
         self.action_exit.triggered.connect(self.close)
 
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         self.images = dict()
         self.active_image = None
+        self.image_backup = None
 
     def __browse_files(self):
         """
@@ -146,13 +148,45 @@ class MainWindow(QMainWindow, MainWindowUI):
         self.__activate_last_image()
         self.__show_image_status()
 
+        if self.image_backup and image.subwindow == self.image_backup[0]:
+            self.__clear_backup()
+
+    def __set_checked_image_type(self, is_grayscale):
+        """
+        Check action with a given image type.
+
+        :param is_grayscale: The image type: grayscale or color
+        :type is_grayscale: bool
+        """
+
+        actions = self.group_image_type.actions()
+        if is_grayscale:
+            actions[0].setChecked(True)
+        else:
+            actions[1].setChecked(True)
+
+    def __make_image_backup(self):
+        """Store copy of active image data."""
+
+        self.image_backup = [window for window, img in self.images.items() if img == self.active_image]
+        self.image_backup.append(self.active_image.data.copy())
+        self.action_undo.setEnabled(True)
+        self.set_image_type(None)
+        self.set_color_depth(None)
+
+    def __clear_backup(self):
+        """Clear current backup buffer."""
+
+        self.image_backup = None
+        self.action_undo.setEnabled(False)
+
     def __show_image_status(self):
         """Show the image information in the status bar."""
 
         if self.active_image:
-            color_depth = "Grayscale" if self.active_image.is_grayscale() else "BGR"
+            image_type = "Grayscale" if self.active_image.is_grayscale() else "BGR"
             status = f"{self.active_image.name}   {self.active_image.data.shape[0]}x" \
-                     f"{self.active_image.data.shape[1]}   {color_depth}"
+                     f"{self.active_image.data.shape[1]}   {image_type}"
             self.status_bar.showMessage(status)
         else:
             self.status_bar.showMessage("")
@@ -207,6 +241,16 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         imwrite(file_path, self.active_image.data)
 
+    def restore_backup(self):
+        """Restore changed the last time the image data."""
+
+        if self.image_backup:
+            self.images[self.image_backup[0]].data = self.image_backup[1]
+            self.images[self.image_backup[0]].update()
+            self.set_image_type(None)
+            self.set_color_depth(None)
+            self.__clear_backup()
+
     @validate_active_image
     def rename_title(self, *args):
         """Change the image name and title."""
@@ -236,11 +280,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         is_grayscale = self.active_image.is_grayscale()
 
         if not action:
-            actions = self.group_image_type.actions()
-            if is_grayscale:
-                actions[0].setChecked(True)
-            else:
-                actions[1].setChecked(True)
+            self.__set_checked_image_type(is_grayscale)
             return
 
         img_type = action.text()
@@ -250,7 +290,9 @@ class MainWindow(QMainWindow, MainWindowUI):
                 or (not is_grayscale and img_type == "BGR-Color"):
             return
 
+        self.__make_image_backup()
         self.active_image.change_type(img_type)
+        self.__set_checked_image_type(img_type == "Grayscale")
         self.set_color_depth(None)
         self.active_image.update()
 
@@ -379,6 +421,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         :type operation: str
         """
 
+        self.__make_image_backup()
         is_colored = not self.active_image.is_grayscale()
 
         if operation == "watershed" and not is_colored:

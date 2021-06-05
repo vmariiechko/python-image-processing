@@ -118,6 +118,13 @@ class MainWindowUI:
         icon.addPixmap(QPixmap("icons/save.png"), QIcon.Normal, QIcon.Off)
         self.action_save.setIcon(icon)
 
+        self.action_undo = QAction(main_window)
+        self.action_undo.setEnabled(False)
+        self.action_undo.setObjectName("action_undo")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons/undo.png"), QIcon.Normal, QIcon.Off)
+        self.action_undo.setIcon(icon)
+
         self.action_cascade = QAction(main_window)
         self.action_cascade.setObjectName("action_cascade")
         icon = QIcon()
@@ -266,6 +273,7 @@ class MainWindowUI:
 
         self.menu_file.addAction(self.action_open)
         self.menu_file.addAction(self.action_save)
+        self.menu_file.addAction(self.action_undo)
         self.menu_file.addAction(self.action_cascade)
         self.menu_file.addAction(self.action_exit)
 
@@ -306,6 +314,7 @@ class MainWindowUI:
 
         self.file__toolbar.addAction(self.action_open)
         self.file__toolbar.addAction(self.action_save)
+        self.file__toolbar.addAction(self.action_undo)
         self.file__toolbar.addAction(self.action_cascade)
         self.image__toolbar.addAction(self.action_rename)
         self.image__toolbar.addAction(self.action_duplicate)
@@ -344,6 +353,7 @@ class MainWindowUI:
         self.action_program_info.setText(_translate(_main_title, "Info"))
         self.action_open.setText(_translate(_main_title, "Open"))
         self.action_save.setText(_translate(_main_title, "Save As"))
+        self.action_undo.setText(_translate(_main_title, "Undo"))
         self.action_cascade.setText(_translate(_main_title, "Cascade"))
         self.action_exit.setText(_translate(_main_title, "Exit"))
         self.action_rename.setText(_translate(_main_title, "Rename"))
@@ -371,6 +381,7 @@ class MainWindowUI:
         self.action_program_info.setStatusTip(_translate(_main_title, "About program"))
         self.action_open.setStatusTip(_translate(_main_title, "Open a new image"))
         self.action_save.setStatusTip(_translate(_main_title, "Save selected image"))
+        self.action_undo.setStatusTip(_translate(_main_title, "Undo the last image changing."))
         self.action_cascade.setStatusTip(_translate(_main_title, "Arrange all the windows in a cascade pattern."))
         self.action_exit.setStatusTip(_translate(_main_title, "Exit the program"))
         self.action_rename.setStatusTip(_translate(_main_title, "Rename selected image"))
@@ -397,6 +408,7 @@ class MainWindowUI:
 
         self.action_open.setShortcuts(QKeySequence.keyBindings(3))
         self.action_save.setShortcuts(QKeySequence.keyBindings(5))
+        self.action_undo.setShortcuts(QKeySequence.keyBindings(11))
         self.action_rename.setShortcut("Ctrl+R")
         self.action_duplicate.setShortcut("Ctrl+D")
         self.action_image_info.setShortcut("Ctrl+F")
