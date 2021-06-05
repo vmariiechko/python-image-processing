@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction, QActionGroup
+from PyQt5.QtWidgets import QMdiArea, QMenuBar, QMenu, QAction, QActionGroup, QStatusBar
 from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
 from PyQt5.QtGui import QIcon, QPixmap
 
@@ -34,6 +34,9 @@ class MainWindowUI:
         self.menu_bar = QMenuBar(main_window)
         self.menu_bar.setGeometry(QRect(0, 0, 720, 21))
         self.menu_bar.setObjectName("menu_bar")
+
+        self.status_bar = QStatusBar()
+        self.status_bar.setObjectName("status_bar")
 
         self.menu_file = QMenu(self.menu_bar)
         self.menu_file.setObjectName("menu_file")
@@ -84,6 +87,7 @@ class MainWindowUI:
         self.menu_edge_detection.setIcon(icon)
 
         main_window.setMenuBar(self.menu_bar)
+        main_window.setStatusBar(self.status_bar)
 
         self.action_panorama = QAction(main_window)
         self.action_panorama.setObjectName("action_panorama")

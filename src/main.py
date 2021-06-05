@@ -117,10 +117,12 @@ class MainWindow(QMainWindow, MainWindowUI):
         :param sub_window: The active sub-window, the sender of the signal
         """
 
-        if isinstance(sub_window, ImageWindow):
+        if sub_window in self.images:
             self.active_image = self.images.get(sub_window)
             self.set_image_type(None)
             self.set_color_depth(None)
+
+        self.__show_image_status()
 
     def __activate_last_image(self):
         """Change activated image to the last uploaded."""
@@ -142,6 +144,18 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         self.images = {window: img for window, img in self.images.items() if img != image}
         self.__activate_last_image()
+        self.__show_image_status()
+
+    def __show_image_status(self):
+        """Show the image information in the status bar."""
+
+        if self.active_image:
+            color_depth = "Grayscale" if self.active_image.is_grayscale() else "BGR"
+            status = f"{self.active_image.name}   {self.active_image.data.shape[0]}x" \
+                     f"{self.active_image.data.shape[1]}   {color_depth}"
+            self.status_bar.showMessage(status)
+        else:
+            self.status_bar.showMessage("")
 
     def open_images(self, files_paths=None):
         """Open images by their paths."""
