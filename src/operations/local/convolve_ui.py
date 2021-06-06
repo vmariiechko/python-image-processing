@@ -58,7 +58,13 @@ class ConvolveUI(OperationUI, LocalUI):
         self.grids[1].setLayout(self.layout_grid2)
         self.grids[1].setVisible(False)
 
+        self.label_grid5x5 = QLabel(convolve)
+        self.label_grid5x5.setAlignment(Qt.AlignCenter)
+        self.label_grid5x5.setVisible(False)
+        self.label_grid5x5.setObjectName("label_grid5x5")
+
         self.layout_kernels.addWidget(self.grids[0])
+        self.layout_kernels.addWidget(self.label_grid5x5)
         self.layout_kernels.addWidget(self.grids[1])
 
         self.kernels_widget = QWidget(convolve)

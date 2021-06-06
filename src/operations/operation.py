@@ -18,6 +18,14 @@ class Operation:
         img_data = self.current_img_data
         height, width = img_data.shape[:2]
 
+        scale = 1
+        if width > 1200 or height > 1200:
+            scale = 0.4
+        elif width > 800 or height > 800:
+            scale = 0.6
+        elif width > 300 and height > 300:
+            scale = 0.8
+
         if len(img_data.shape) == 2:
             pixel_bytes = img_data.dtype.itemsize
             image = QImage(img_data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
@@ -25,6 +33,7 @@ class Operation:
             image = QImage(img_data, width, height, 3 * width, QImage.Format_BGR888)
 
         pixmap = QPixmap(image)
+        pixmap = pixmap.scaled(scale * pixmap.size())
         self.label_image.setPixmap(pixmap)
 
         # Prevent from calculating histogram for images with color depth higher than 8-bit

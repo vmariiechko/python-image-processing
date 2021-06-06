@@ -50,9 +50,11 @@ class Convolve(QDialog, Operation, ConvolveUI):
 
         if self.rbtn_two_stage_convolve.isChecked():
             self.grids[1].setVisible(True)
+            self.label_grid5x5.setVisible(True)
             self.label_kernel.setText("Kernels:")
         else:
             self.grids[1].setVisible(False)
+            self.label_grid5x5.setVisible(False)
             self.label_kernel.setText("Kernel:")
 
         self.update_img_preview()
@@ -126,6 +128,21 @@ class Convolve(QDialog, Operation, ConvolveUI):
 
         if self.rbtn_two_stage_convolve.isChecked():
             kernel_values = self.merge_kernels()
+
+            # Create a preview table for kernel 5x5
+            grid5x5 = """<table align="center" style="border: 1px solid black; border-collapse: collapse;">"""
+            for i in range(5):
+                grid5x5 += """<tr style="border: 1px solid black; border-collapse: collapse;">"""
+                for j in range(5):
+                    grid5x5 += f"""<td style="border: 1px solid black; border-collapse: collapse;
+                                              padding: 5px 10px 5px 10px; font-size: 14px;
+                                              text-align: center;"> {kernel_values[i][j]}
+                                   </td>"""
+
+                grid5x5 += "</tr>"
+            grid5x5 += "</table>"
+            self.label_grid5x5.setText(grid5x5)
+
         else:
             kernel_values = self.kernel1_values
 
