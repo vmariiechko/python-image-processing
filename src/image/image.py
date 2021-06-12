@@ -446,7 +446,7 @@ class ImageWindow(QMdiSubWindow):
 
         if self._is_grayscale():
             pixel_bytes = self._data.dtype.itemsize
-            image = QImage(self._data, width, height, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
+            image = QImage(self._data, width, height, width, BYTES_PER_PIXEL_2_BW_FORMAT[pixel_bytes])
         else:
             image = QImage(self._data, width, height, 3 * width, QImage.Format_BGR888)
 
