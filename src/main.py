@@ -1,3 +1,4 @@
+from os import path
 from functools import wraps
 
 from cv2 import imread, imwrite
@@ -491,6 +492,14 @@ class MainWindow(QMainWindow, MainWindowUI):
                 and (is_colored or self.active_image.color_depth > 256):
             QMessageBox.warning(self, "Doesn't fit", "Selected image doesn't meet the requirements.\n"
                                                      "The image must be grayscale, 8 bits per pixel.")
+            return
+
+        train_images = ['./icons/SVM_train_data/train_ryz.jpg',
+                        './icons/SVM_train_data/train_soczewica.jpg',
+                        './icons/SVM_train_data/train_fasola.jpg']
+        if operation == "SVM" and any([not path.isfile(img) for img in train_images]):
+            QMessageBox.warning(self, "Not Found", "Can't find train data images\n"
+                                                   "It must be under 'icons/SVM_train_data' folder")
             return
 
         if operation == "normalize":
