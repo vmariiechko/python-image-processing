@@ -1,5 +1,5 @@
 from cv2 import (ORB_create, BFMatcher_create, perspectiveTransform, warpPerspective, findHomography,
-                 NORM_HAMMING, RANSAC)
+                 NORM_HAMMING, RANSAC, drawKeypoints, imshow, waitKey)
 from numpy import array, concatenate, float32, int32
 
 
@@ -21,7 +21,7 @@ class Stitcher:
     # The maximum pixel "wiggle room" allowed by the RANSAC algorithm
     REPROJ_THRESH = 5.0
 
-    def __init__(self, images, nfeatures):
+    def __init__(self, images, nfeatures, details=False):
         """
         Create a new Stitcher instance.
 
@@ -29,12 +29,15 @@ class Stitcher:
         :type images: list
         :param nfeatures: The maximum number of features to be detected in each image
         :type nfeatures: int
+        :param details: The flag to indicate whether show keypoints or not
+        :type details: bool
         """
 
         assert len(images) == 2, AttributeError("Can stitch only two images")
 
         self.images = images
         self.nfeatures = nfeatures
+        self.details = details
         self.keypoints = []
         self.descriptors = []
         self.good_matches = []
@@ -51,6 +54,12 @@ class Stitcher:
         self.keypoints.extend([keypoints1, keypoints2])
         self.descriptors.extend([descriptors1, descriptors2])
 
+        # Draw all keypoints for images
+        if self.details:
+            imshow("Image 1: All Keypoints", drawKeypoints(self.images[0], keypoints1, None, (255, 0, 255)))
+            imshow("Image 2: All Keypoints", drawKeypoints(self.images[1], keypoints2, None, (255, 0, 255)))
+            waitKey(0)
+
     def match_keypoints(self):
         """Match keypoints (features) between two images."""
 
@@ -58,12 +67,24 @@ class Stitcher:
         bf = BFMatcher_create(NORM_HAMMING)
 
         # Find matching features
-        matches = bf.knnMatch(self.descriptors[0], self.descriptors[1], 2)
+        matches = bf.knnMatch(self.descriptors[0], self.descriptors[1], k=2)
 
         # Keep only strong matches
         for m, n in matches:
             if m.distance < 0.6 * n.distance:
                 self.good_matches.append(m)
+
+        # Draw only matching strong keypoints for images
+        if self.details:
+            matched_keypoints1 = [self.keypoints[0][m.queryIdx] for m in self.good_matches]
+            matched_keypoints2 = [self.keypoints[1][m.trainIdx] for m in self.good_matches]
+
+            imshow("Image 1: Matched Strong Keypoints",
+                   drawKeypoints(self.images[0], matched_keypoints1, None, (255, 0, 255)))
+            imshow("Image 2: Matched Strong Keypoints",
+                   drawKeypoints(self.images[1], matched_keypoints2, None, (255, 0, 255)))
+
+            waitKey(0)
 
     @staticmethod
     def warp_images(image1, image2, H):

@@ -39,7 +39,7 @@ class ImagePanoramaUI(FormUI):
         self.label_mode.setObjectName("label_mode")
 
         self.cb_mode = QComboBox(panorama)
-        self.cb_mode.addItems(["Default", "Manual"])
+        self.cb_mode.addItems(["Default", "Manual", "Manual Details"])
         self.cb_mode.setObjectName("cb_mode")
 
         self.label_pano_name = QLabel()

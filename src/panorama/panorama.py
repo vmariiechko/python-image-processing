@@ -73,9 +73,12 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
 
                       <table>
                         <tr><th>Mode</th>       <th>Description</th></tr>
-                        <tr><td>Default&nbsp;&nbsp;&nbsp;</td>   <td>Use built-in OpenCV .stitch() method</td></tr>
+                        <tr><td>Default</td>    <td>Use built-in OpenCV .stitch() method</td></tr>
                         <tr><td>Manual</td>     <td>Own implementation stitches only two images.<br>
                                                     Different image order gives non-identical output!</td></tr>
+                        <tr><td>Manual Details&nbsp;&nbsp;&nbsp;</td>
+                                                <td>Same as the previous mode, 
+                                                but with keypoints demonstration</td></tr>
                       </table><br>
 
                       <p style="text-align: center"> <b>Usage</b> </p>
@@ -189,7 +192,12 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         if len(images_data) != 2:
             return 4, None
 
-        return Stitcher(images_data, 2000).stitch()
+        if self.cb_mode.currentText() == "Manual Details":
+            status, stitched = Stitcher(images_data, 2000, True).stitch()
+        else:
+            status, stitched = Stitcher(images_data, 2000, False).stitch()
+
+        return status, stitched
 
     def stitch_default(self, images_data):
         """
@@ -222,11 +230,12 @@ class ImagePanorama(QDialog, ImagePanoramaUI):
         images_data = self.get_selected_images()
 
         try:
-            if self.cb_mode.currentText() == "Manual":
-                status, stitched = self.stitch_manually(images_data)
-            else:
+            if self.cb_mode.currentText() == "Default":
                 status, stitched = self.stitch_default(images_data)
-        except Exception:
+            else:
+                status, stitched = self.stitch_manually(images_data)
+        except Exception as e:
+            print(e)
             self.label_errors.setText("Unexpected Error. Please, restart the application and try again.")
             return
 
