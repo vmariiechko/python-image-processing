@@ -60,8 +60,8 @@ class SVM(QDialog, Operation, SVMUI):
         _training_data = f"The training data has {self.training_shape[1]} features (properties) " \
                          f"and {self.training_shape[0]} examples"
         _svm_accuracy = "Trained accuracy: " + str(self.svm_accuracy)
-        _objects_colors = "The objects classified as rice have red contours, " \
-                          "beans have green, and lentils have blue ones"
+        _objects_colors = "The objects classified as rice have green contours, " \
+                          "beans have blue, and lentils have red ones"
 
         self.setWindowTitle(_window_title)
         self.label_svm_desc.setText(_translate(_window_title, _svm_desc))
