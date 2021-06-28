@@ -16,7 +16,7 @@ class Threshold(QDialog, Operation, ThresholdUI):
         """
         Create a new dialog window to perform thresholding.
 
-        Get image data and color depth from :param:`parent`.
+        Get image data and color depth from :attr:`parent`.
         Set slider values based on image data.
 
         :param parent: The image to threshold
@@ -80,7 +80,7 @@ class Threshold(QDialog, Operation, ThresholdUI):
         """
         Calculate threshold binary point operation.
 
-        if the pixel is higher than :param:`thresh_value`,
+        if the pixel is higher than :attr:`thresh_value`,
         then the new pixel intensity is set to a maximum
         value - :attr:`color_depth`-1.
         Otherwise, the pixels are set to 0
@@ -103,7 +103,7 @@ class Threshold(QDialog, Operation, ThresholdUI):
         """
         Calculate threshold to zero point operation.
 
-        If the pixel is lower than :param:`thresh_value`,
+        If the pixel is lower than :attr:`thresh_value`,
         the new pixel value will be set to 0.
 
         :param thresh_value: The value for thresholding

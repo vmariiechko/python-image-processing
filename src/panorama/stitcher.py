@@ -128,11 +128,11 @@ class Stitcher:
         """
         Perform all the stitching algorithm.
 
-        - Detect keypoints using :method:`detect_keypoints`.
-        - Match keypoints using :method:`match_keypoints`.
+        - Detect keypoints using :meth:`detect_keypoints`.
+        - Match keypoints using :meth:`match_keypoints`.
         - Make sure we found at least the minimum number of matches defined in :attr:`MIN_MATCH_COUNT`.
         - Calculate homography 3x3 matrix using RANSAC procedure.
-        - Stitch images using :method:`warp_images`.
+        - Stitch images using :meth:`warp_images`.
         """
 
         self.detect_keypoints()

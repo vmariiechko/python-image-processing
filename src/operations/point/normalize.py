@@ -58,7 +58,7 @@ class Normalize(QDialog, Operation, NormalizeUI):
         Calculate histogram normalization:
 
         - Define min/max pixel values in the image.
-        - Calculate contrast stretching for range: [:param:`min_val`; :param:`max_val`]
+        - Calculate contrast stretching for range: [:attr:`min_val`; :attr:`max_val`]
 
         :param min_val: The lower stretching bound
         :type min_val: int

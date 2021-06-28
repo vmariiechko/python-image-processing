@@ -324,7 +324,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         """
         Set the image type for the selected image.
 
-        If :param:`action` is `None`,
+        If :attr:`action` is `None`,
         check action for the active current image type.
         Otherwise, set a specified image type.
 
@@ -358,7 +358,7 @@ class MainWindow(QMainWindow, MainWindowUI):
         It's possible to change color depth only to
         8 bit per pixel from other bit lengths.
 
-        If :param:`action` is `None`,
+        If :attr:`action` is `None`,
         check action for the active current image color depth.
         Otherwise, set an 8 bit per pixel color depth.
 

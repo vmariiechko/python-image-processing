@@ -11,7 +11,7 @@ class Posterize(QDialog, Operation, PosterizeUI):
         """
         Create a new dialog window to perform posterizing.
 
-        Get image data and color depth from :param:`parent`.
+        Get image data and color depth from :attr:`parent`.
         Set slider values based on image data.
 
         :param parent: The image to posterize
@@ -57,7 +57,7 @@ class Posterize(QDialog, Operation, PosterizeUI):
         """
         Calculate LUT for posterizing point operation.
 
-        Based on given :param:`bins_num`:
+        Based on given :attr:`bins_num`:
 
         - Calculate length for a single bin.
         - Calculate ranges for bins.

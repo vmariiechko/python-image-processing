@@ -33,7 +33,7 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
 
     def __calc_line_points(self, p1, p2):
         """
-        Calculate all the line points from :param:`p1` to :param:`p2`.
+        Calculate all the line points from :attr:`p1` to :attr:`p2`.
 
         :param p1: The start point of the profile line
         :type p1: :class:`.PyQt5.QtCore.QPoint`
@@ -71,7 +71,7 @@ class IntensityProfile(QMdiSubWindow, IntensityProfileUI):
         """
         Create intensity profile window.
 
-        Calculate pixel intensities between two :param:`points`.
+        Calculate pixel intensities between two :attr:`points`.
 
         - For one-channel image the intensities are the same as original.
         - For three-channel image the intensities are calculated using the formula: 0.24*R + 0.69*G + 0.07*B.
