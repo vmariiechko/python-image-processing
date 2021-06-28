@@ -1,0 +1,1419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>src.operations.local package &mdash; Image Processing 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.operations.point package" href="src.operations.point.html" />
+    <link rel="prev" title="src.operations.classification package" href="src.operations.classification.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Image Processing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">python-image-processing</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="src.image.html">src.image package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="src.operations.html">src.operations package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.panorama.html">src.panorama package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.widgets.html">src.widgets package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.constants">src.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.main">src.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.main_ui">src.main_ui module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.style_sheet">src.style_sheet module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Image Processing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">python-image-processing</a> &raquo;</li>
+        
+          <li><a href="src.html">src package</a> &raquo;</li>
+        
+          <li><a href="src.operations.html">src.operations package</a> &raquo;</li>
+        
+      <li>src.operations.local package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/src.operations.local.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="src-operations-local-package">
+<h1>src.operations.local package<a class="headerlink" href="#src-operations-local-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.operations.local.convolve">
+<span id="src-operations-local-convolve-module"></span><h2>src.operations.local.convolve module<a class="headerlink" href="#module-src.operations.local.convolve" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.convolve.Convolve">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.convolve.</span></span><span class="sig-name descname"><span class="pre">Convolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve.Convolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="src.operations.html#src.operations.operation.Operation" title="src.operations.operation.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation.Operation</span></code></a>, <a class="reference internal" href="#src.operations.local.convolve_ui.ConvolveUI" title="src.operations.local.convolve_ui.ConvolveUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.convolve_ui.ConvolveUI</span></code></a></p>
+<p>The Convolve class implements a local convolve operation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve.Convolve.calc_convolve">
+<span class="sig-name descname"><span class="pre">calc_convolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve.Convolve.calc_convolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolve an image based on border type and kernel values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>border</strong> (<em>str</em>) – The border type for convolution, defined in BORDER_TYPES</p></li>
+<li><p><strong>kernel_values</strong> (class:<cite>numpy.ndarray</cite>) – The values of kernel matrix to convolve</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new convolved image data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve.Convolve.merge_kernels">
+<span class="sig-name descname"><span class="pre">merge_kernels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve.Convolve.merge_kernels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge two input kernels 3x3 to single kernel 5x5.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The new merged kernel of size 5x5</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve.Convolve.update_form">
+<span class="sig-name descname"><span class="pre">update_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve.Convolve.update_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the second kernel grid access whenever <code class="xref py py-attr docutils literal notranslate"><span class="pre">rbtn_two_stage_convolve</span></code> clicked.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve.Convolve.update_img_preview">
+<span class="sig-name descname"><span class="pre">update_img_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve.Convolve.update_img_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update image preview window.</p>
+<ul class="simple">
+<li><p>Calculate convolve based on border and kernel input values.</p></li>
+<li><p>Reload image preview using the base <code class="xref py py-class docutils literal notranslate"><span class="pre">operation.Operation</span></code> method.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve.Convolve.update_kernel_value">
+<span class="sig-name descname"><span class="pre">update_kernel_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_kernel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve.Convolve.update_kernel_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update kernel values whenever changed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>tuple</em><em>[</em><em>int</em><em>]</em>) – The index of kernel cell, e.g. (1, 2)</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – The new value of kernel cell</p></li>
+<li><p><strong>first_kernel</strong> (<em>bool</em>) – The flag to indicate whether the first or second kernel need to update</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.convolve.filter2D">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.convolve.</span></span><span class="sig-name descname"><span class="pre">filter2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ddepth</span></em>, <em class="sig-param"><span class="pre">kernel</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">delta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.convolve.filter2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Convolves an image with the kernel.
+.   
+.   The function applies an arbitrary linear filter to an image. In-place operation is supported. When
+.   the aperture is partially outside the image, the function interpolates outlier pixel values
+.   according to the specified border mode.
+.   
+.   The function does actually compute correlation, not the convolution:
+.   
+.   f[texttt{dst} (x,y) =  sum _{ substack{0leq x’ &lt; texttt{kernel.cols}\{0leq y’ &lt; texttt{kernel.rows}}}}  texttt{kernel} (x’,y’)* texttt{src} (x+x’- texttt{anchor.x} ,y+y’- texttt{anchor.y} )f]
+.   
+.   That is, the kernel is not mirrored around the anchor point. If you need a real convolution, flip
+.   the kernel using #flip and set the new anchor to <cite>(kernel.cols - anchor.x - 1, kernel.rows -
+.   anchor.y - 1)</cite>.
+.   
+.   The function uses the DFT-based algorithm in case of sufficiently large kernels (~`11 x 11` or
+.   larger) and the direct algorithm for small kernels.
+.   
+.   &#64;param src input image.
+.   &#64;param dst output image of the same size and the same number of channels as src.
+.   &#64;param ddepth desired depth of the destination image, see &#64;ref filter_depths “combinations”
+.   &#64;param kernel convolution kernel (or rather a correlation kernel), a single-channel floating point
+.   matrix; if you want to apply different kernels to different channels, split the image into
+.   separate color planes using split and process them individually.
+.   &#64;param anchor anchor of the kernel that indicates the relative position of a filtered point within
+.   the kernel; the anchor should lie within the kernel; default value (-1,-1) means that the anchor
+.   is at the kernel center.
+.   &#64;param delta optional value added to the filtered pixels before storing them in dst.
+.   &#64;param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;sa  sepFilter2D, dft, matchTemplate</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.convolve.normalize">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.convolve.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">alpha</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">beta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">norm_type</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dtype</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.convolve.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Normalizes the norm or value range of an array.
+.   
+.   The function cv::normalize normalizes scale and shift the input array elements so that
+.   f[| texttt{dst} | _{L_p}= texttt{alpha}f]
+.   (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
+.   f[min _I  texttt{dst} (I)= texttt{alpha} , , , max _I  texttt{dst} (I)= texttt{beta}f]
+.   
+.   when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
+.   normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
+.   sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
+.   min-max but modify the whole array, you can use norm and Mat::convertTo.
+.   
+.   In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
+.   the range transformation for sparse matrices is not allowed since it can shift the zero level.
+.   
+.   Possible usage with some positive example data:
+.   &#64;code{.cpp}
+.       vector&lt;double&gt; positiveData = { 2.0, 8.0, 10.0 };
+.       vector&lt;double&gt; normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
+.   
+.       // Norm to probability (total count)
+.       // sum(numbers) = 20.0
+.       // 2.0      0.1     (2.0/20.0)
+.       // 8.0      0.4     (8.0/20.0)
+.       // 10.0     0.5     (10.0/20.0)
+.       normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
+.   
+.       // Norm to unit vector: ||positiveData|| = 1.0
+.       // 2.0      0.15
+.       // 8.0      0.62
+.       // 10.0     0.77
+.       normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
+.   
+.       // Norm to max element
+.       // 2.0      0.2     (2.0/10.0)
+.       // 8.0      0.8     (8.0/10.0)
+.       // 10.0     1.0     (10.0/10.0)
+.       normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
+.   
+.       // Norm to range [0.0;1.0]
+.       // 2.0      0.0     (shift to left border)
+.       // 8.0      0.75    (6.0/8.0)
+.       // 10.0     1.0     (shift to right border)
+.       normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
+.   &#64;endcode
+.   
+.   &#64;param src input array.
+.   &#64;param dst output array of the same size as src .
+.   &#64;param alpha norm value to normalize to or the lower range boundary in case of the range
+.   normalization.
+.   &#64;param beta upper range boundary in case of the range normalization; it is not used for the norm
+.   normalization.
+.   &#64;param norm_type normalization type (see cv::NormTypes).
+.   &#64;param dtype when negative, the output array has the same type as src; otherwise, it has the same
+.   number of channels as src and the depth =CV_MAT_DEPTH(dtype).
+.   &#64;param mask optional operation mask.
+.   &#64;sa norm, Mat::convertTo, SparseMat::convertTo</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.convolve_ui">
+<span id="src-operations-local-convolve-ui-module"></span><h2>src.operations.local.convolve_ui module<a class="headerlink" href="#module-src.operations.local.convolve_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.convolve_ui.ConvolveUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.convolve_ui.</span></span><span class="sig-name descname"><span class="pre">ConvolveUI</span></span><a class="headerlink" href="#src.operations.local.convolve_ui.ConvolveUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.operation_ui.OperationUI" title="src.operations.operation_ui.OperationUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation_ui.OperationUI</span></code></a>, <a class="reference internal" href="#src.operations.local.local_ui.LocalUI" title="src.operations.local.local_ui.LocalUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.local_ui.LocalUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">convolve.Convolve</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve_ui.ConvolveUI.create_layout_grid">
+<span class="sig-name descname"><span class="pre">create_layout_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">convolve</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_kernel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve_ui.ConvolveUI.create_layout_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create layout grid 3x3 of spin boxes to input kernel values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>convolve</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">convolve.Convolve</span></code>) – The dialog convolve window</p></li>
+<li><p><strong>first_kernel</strong> – The flag to indicate whether the layout is for first or second kernel</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.convolve_ui.ConvolveUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">convolve</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.convolve_ui.ConvolveUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">convolve.Convolve</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>convolve</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">convolve.Convolve</span></code>) – The dialog convolve window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.edge_detection">
+<span id="src-operations-local-edge-detection-module"></span><h2>src.operations.local.edge_detection module<a class="headerlink" href="#module-src.operations.local.edge_detection" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.Canny">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">Canny</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">image</span></em>, <em class="sig-param"><span class="pre">threshold1</span></em>, <em class="sig-param"><span class="pre">threshold2</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">edges</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">apertureSize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">L2gradient</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">edges</span><a class="headerlink" href="#src.operations.local.edge_detection.Canny" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Finds edges in an image using the Canny algorithm &#64;cite Canny86 .
+.   
+.   The function finds edges in the input image and marks them in the output map edges using the
+.   Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The
+.   largest value is used to find initial segments of strong edges. See
+.   &lt;<a class="reference external" href="http://en.wikipedia.org/wiki/Canny_edge_detector">http://en.wikipedia.org/wiki/Canny_edge_detector</a>&gt;
+.   
+.   &#64;param image 8-bit input image.
+.   &#64;param edges output edge map; single channels 8-bit image, which has the same size as image .
+.   &#64;param threshold1 first threshold for the hysteresis procedure.
+.   &#64;param threshold2 second threshold for the hysteresis procedure.
+.   &#64;param apertureSize aperture size for the Sobel operator.
+.   &#64;param L2gradient a flag, indicating whether a more accurate f$L_2f$ norm
+.   f$=sqrt{(dI/dx)^2 + (dI/dy)^2}f$ should be used to calculate the image gradient magnitude (
+.   L2gradient=true ), or whether the default f$L_1f$ norm f$=|dI/dx|+|dI/dy|f$ is enough (
+.   L2gradient=false ).</p>
+<p>Canny(dx, dy, threshold1, threshold2[, edges[, L2gradient]]) -&gt; edges
+.   overload
+.   
+.   Finds edges in an image using the Canny algorithm with custom image gradient.
+.   
+.   &#64;param dx 16-bit x derivative of input image (CV_16SC1 or CV_16SC3).
+.   &#64;param dy 16-bit y derivative of input image (same type as dx).
+.   &#64;param edges output edge map; single channels 8-bit image, which has the same size as image .
+.   &#64;param threshold1 first threshold for the hysteresis procedure.
+.   &#64;param threshold2 second threshold for the hysteresis procedure.
+.   &#64;param L2gradient a flag, indicating whether a more accurate f$L_2f$ norm
+.   f$=sqrt{(dI/dx)^2 + (dI/dy)^2}f$ should be used to calculate the image gradient magnitude (
+.   L2gradient=true ), or whether the default f$L_1f$ norm f$=|dI/dx|+|dI/dy|f$ is enough (
+.   L2gradient=false ).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.DirectionalEdgeDetection">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">DirectionalEdgeDetection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.DirectionalEdgeDetection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="src.operations.html#src.operations.operation.Operation" title="src.operations.operation.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation.Operation</span></code></a>, <a class="reference internal" href="#src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI" title="src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI</span></code></a></p>
+<p>The DirectionalEdgeDetection class implements a local direction edge detection operation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.DirectionalEdgeDetection.DIRECTION_MASKS">
+<span class="sig-name descname"><span class="pre">DIRECTION_MASKS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'E':</span> <span class="pre">array([[-1,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">1]]),</span> <span class="pre">'N':</span> <span class="pre">array([[</span> <span class="pre">1,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">0,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">0],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span> <span class="pre">-1,</span> <span class="pre">-1]]),</span> <span class="pre">'NE':</span> <span class="pre">array([[</span> <span class="pre">0,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span> <span class="pre">-1,</span>&#160; <span class="pre">0]]),</span> <span class="pre">'NW':</span> <span class="pre">array([[</span> <span class="pre">1,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">0],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">1,</span>&#160; <span class="pre">0,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">0,</span> <span class="pre">-1,</span> <span class="pre">-1]]),</span> <span class="pre">'S':</span> <span class="pre">array([[-1,</span> <span class="pre">-1,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">0,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">0],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">1,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">1]]),</span> <span class="pre">'SE':</span> <span class="pre">array([[-1,</span> <span class="pre">-1,</span>&#160; <span class="pre">0],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span>&#160; <span class="pre">0,</span>&#160; <span class="pre">1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">0,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">1]]),</span> <span class="pre">'SW':</span> <span class="pre">array([[</span> <span class="pre">0,</span> <span class="pre">-1,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">1,</span>&#160; <span class="pre">0,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">1,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">0]]),</span> <span class="pre">'W':</span> <span class="pre">array([[</span> <span class="pre">1,</span>&#160; <span class="pre">0,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">1,</span>&#160; <span class="pre">0,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">1,</span>&#160; <span class="pre">0,</span> <span class="pre">-1]])}</span></em><a class="headerlink" href="#src.operations.local.edge_detection.DirectionalEdgeDetection.DIRECTION_MASKS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.DirectionalEdgeDetection.calc_edges">
+<span class="sig-name descname"><span class="pre">calc_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.DirectionalEdgeDetection.calc_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect image edges for selected direction.
+Direction specifies Prewitt mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> – The Prewitt mask direction, defined in DIRECTION_MASKS</p></li>
+<li><p><strong>border</strong> (<em>str</em>) – The border type for edge detection, defined in BORDER_TYPES</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new image data with detected edges</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.DirectionalEdgeDetection.update_img_preview">
+<span class="sig-name descname"><span class="pre">update_img_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.DirectionalEdgeDetection.update_img_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update image preview window.</p>
+<ul class="simple">
+<li><p>Calculate image edges based on chosen direction and border.</p></li>
+<li><p>Reload image preview using the base <code class="xref py py-class docutils literal notranslate"><span class="pre">operation.Operation</span></code> method.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.EdgeDetection">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">EdgeDetection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.EdgeDetection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="src.operations.html#src.operations.operation.Operation" title="src.operations.operation.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation.Operation</span></code></a>, <a class="reference internal" href="#src.operations.local.edge_detection_ui.EdgeDetectionUI" title="src.operations.local.edge_detection_ui.EdgeDetectionUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.edge_detection_ui.EdgeDetectionUI</span></code></a></p>
+<p>The EdgeDetection class implements a local edge detection operation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.EdgeDetection.calc_edges">
+<span class="sig-name descname"><span class="pre">calc_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.EdgeDetection.calc_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect image edges for selected edge type.</p>
+<p>To get better results, Sobel and Laplacian methods
+perform edge detection in int16 data type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_type</strong> (<em>str</em>) – The type of edge detecting, can be “Sobel”, “Laplacian”, “Canny”</p></li>
+<li><p><strong>border</strong> (<em>str</em>) – The border type for edge detection, defined in BORDER_TYPES</p></li>
+<li><p><strong>ksize</strong> (<em>int</em>) – The number for NxN kernel</p></li>
+<li><p><strong>threshold</strong> (<em>tuple</em><em>[</em><em>int</em><em>]</em>) – The lower:upper threshold values for Canny detection</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new image data with detected edges</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.EdgeDetection.update_form">
+<span class="sig-name descname"><span class="pre">update_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.EdgeDetection.update_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update lower:upper threshold spin box, border, and kernel size access.</p>
+<p>The threshold range is available only for Canny detection.
+Border type and kernel size are available for other methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.EdgeDetection.update_img_preview">
+<span class="sig-name descname"><span class="pre">update_img_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.EdgeDetection.update_img_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update image preview window.</p>
+<ul class="simple">
+<li><p>Calculate image edges based on form parameters.</p></li>
+<li><p>Reload image preview using the base <code class="xref py py-class docutils literal notranslate"><span class="pre">operation.Operation</span></code> method.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.EdgeDetection.validate_high_value">
+<span class="sig-name descname"><span class="pre">validate_high_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.EdgeDetection.validate_high_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter threshold range to be valid for the upper value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.EdgeDetection.validate_low_value">
+<span class="sig-name descname"><span class="pre">validate_low_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection.EdgeDetection.validate_low_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter threshold range to be valid for the lower value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.Laplacian">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">Laplacian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ddepth</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">ksize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">scale</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">delta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.edge_detection.Laplacian" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the Laplacian of an image.
+.   
+.   The function calculates the Laplacian of the source image by adding up the second x and y
+.   derivatives calculated using the Sobel operator:
+.   
+.   f[texttt{dst} =  Delta texttt{src} =  frac{partial^2 texttt{src}}{partial x^2} +  frac{partial^2 texttt{src}}{partial y^2}f]
+.   
+.   This is done when <cite>ksize &gt; 1</cite>. When <cite>ksize == 1</cite>, the Laplacian is computed by filtering the image
+.   with the following f$3 times 3f$ aperture:
+.   
+.   f[vecthreethree {0}{1}{0}{1}{-4}{1}{0}{1}{0}f]
+.   
+.   &#64;param src Source image.
+.   &#64;param dst Destination image of the same size and the same number of channels as src .
+.   &#64;param ddepth Desired depth of the destination image.
+.   &#64;param ksize Aperture size used to compute the second-derivative filters. See #getDerivKernels for
+.   details. The size must be positive and odd.
+.   &#64;param scale Optional scale factor for the computed Laplacian values. By default, no scaling is
+.   applied. See #getDerivKernels for details.
+.   &#64;param delta Optional delta value that is added to the results prior to storing them in dst .
+.   &#64;param borderType Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;sa  Sobel, Scharr</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.Sobel">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">Sobel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ddepth</span></em>, <em class="sig-param"><span class="pre">dx</span></em>, <em class="sig-param"><span class="pre">dy</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">ksize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">scale</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">delta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.edge_detection.Sobel" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the first, second, third, or mixed image derivatives using an extended Sobel operator.
+.   
+.   In all cases except one, the f$texttt{ksize} times texttt{ksize}f$ separable kernel is used to
+.   calculate the derivative. When f$texttt{ksize = 1}f$, the f$3 times 1f$ or f$1 times 3f$
+.   kernel is used (that is, no Gaussian smoothing is done). <cite>ksize = 1</cite> can only be used for the first
+.   or the second x- or y- derivatives.
+.   
+.   There is also the special value <cite>ksize = #FILTER_SCHARR (-1)</cite> that corresponds to the f$3times3f$ Scharr
+.   filter that may give more accurate results than the f$3times3f$ Sobel. The Scharr aperture is
+.   
+.   f[vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}f]
+.   
+.   for the x-derivative, or transposed for the y-derivative.
+.   
+.   The function calculates an image derivative by convolving the image with the appropriate kernel:
+.   
+.   f[texttt{dst} =  frac{partial^{xorder+yorder} texttt{src}}{partial x^{xorder} partial y^{yorder}}f]
+.   
+.   The Sobel operators combine Gaussian smoothing and differentiation, so the result is more or less
+.   resistant to the noise. Most often, the function is called with ( xorder = 1, yorder = 0, ksize = 3)
+.   or ( xorder = 0, yorder = 1, ksize = 3) to calculate the first x- or y- image derivative. The first
+.   case corresponds to a kernel of:
+.   
+.   f[vecthreethree{-1}{0}{1}{-2}{0}{2}{-1}{0}{1}f]
+.   
+.   The second case corresponds to a kernel of:
+.   
+.   f[vecthreethree{-1}{-2}{-1}{0}{0}{0}{1}{2}{1}f]
+.   
+.   &#64;param src input image.
+.   &#64;param dst output image of the same size and the same number of channels as src .
+.   &#64;param ddepth output image depth, see &#64;ref filter_depths “combinations”; in the case of
+.       8-bit input images it will result in truncated derivatives.
+.   &#64;param dx order of the derivative x.
+.   &#64;param dy order of the derivative y.
+.   &#64;param ksize size of the extended Sobel kernel; it must be 1, 3, 5, or 7.
+.   &#64;param scale optional scale factor for the computed derivative values; by default, no scaling is
+.   applied (see #getDerivKernels for details).
+.   &#64;param delta optional delta value that is added to the results prior to storing them in dst.
+.   &#64;param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;sa  Scharr, Laplacian, sepFilter2D, filter2D, GaussianBlur, cartToPolar</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.add">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src1</span></em>, <em class="sig-param"><span class="pre">src2</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dtype</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.edge_detection.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the per-element sum of two arrays or an array and a scalar.
+.   
+.   The function add calculates:
+.   - Sum of two arrays when both input arrays have the same size and the same number of channels:
+.   f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1}(I) +  texttt{src2}(I)) quad texttt{if mask}(I) ne0f]
+.   - Sum of an array and a scalar when src2 is constructed from Scalar or has the same number of
+.   elements as <cite>src1.channels()</cite>:
+.   f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1}(I) +  texttt{src2} ) quad texttt{if mask}(I) ne0f]
+.   - Sum of a scalar and an array when src1 is constructed from Scalar or has the same number of
+.   elements as <cite>src2.channels()</cite>:
+.   f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1} +  texttt{src2}(I) ) quad texttt{if mask}(I) ne0f]
+.   where <cite>I</cite> is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+.   channel is processed independently.
+.   
+.   The first function in the list above can be replaced with matrix expressions:
+.   &#64;code{.cpp}
+.       dst = src1 + src2;
+.       dst += src1; // equivalent to add(dst, src1, dst);
+.   &#64;endcode
+.   The input arrays and the output array can all have the same or different depths. For example, you
+.   can add a 16-bit unsigned array to a 8-bit signed array and store the sum as a 32-bit
+.   floating-point array. Depth of the output array is determined by the dtype parameter. In the second
+.   and third cases above, as well as in the first case, when src1.depth() == src2.depth(), dtype can
+.   be set to the default -1. In this case, the output array will have the same depth as the input
+.   array, be it src1, src2 or both.
+.   &#64;note Saturation is not applied when the output array has the depth CV_32S. You may even get
+.   result of an incorrect sign in the case of overflow.
+.   &#64;param src1 first input array or a scalar.
+.   &#64;param src2 second input array or a scalar.
+.   &#64;param dst output array that has the same size and number of channels as the input array(s); the
+.   depth is defined by dtype or src1/src2.
+.   &#64;param mask optional operation mask - 8-bit single channel array, that specifies elements of the
+.   output array to be changed.
+.   &#64;param dtype optional depth of the output array (see the discussion below).
+.   &#64;sa subtract, addWeighted, scaleAdd, Mat::convertTo</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.filter2D">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">filter2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ddepth</span></em>, <em class="sig-param"><span class="pre">kernel</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">delta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.edge_detection.filter2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Convolves an image with the kernel.
+.   
+.   The function applies an arbitrary linear filter to an image. In-place operation is supported. When
+.   the aperture is partially outside the image, the function interpolates outlier pixel values
+.   according to the specified border mode.
+.   
+.   The function does actually compute correlation, not the convolution:
+.   
+.   f[texttt{dst} (x,y) =  sum _{ substack{0leq x’ &lt; texttt{kernel.cols}\{0leq y’ &lt; texttt{kernel.rows}}}}  texttt{kernel} (x’,y’)* texttt{src} (x+x’- texttt{anchor.x} ,y+y’- texttt{anchor.y} )f]
+.   
+.   That is, the kernel is not mirrored around the anchor point. If you need a real convolution, flip
+.   the kernel using #flip and set the new anchor to <cite>(kernel.cols - anchor.x - 1, kernel.rows -
+.   anchor.y - 1)</cite>.
+.   
+.   The function uses the DFT-based algorithm in case of sufficiently large kernels (~`11 x 11` or
+.   larger) and the direct algorithm for small kernels.
+.   
+.   &#64;param src input image.
+.   &#64;param dst output image of the same size and the same number of channels as src.
+.   &#64;param ddepth desired depth of the destination image, see &#64;ref filter_depths “combinations”
+.   &#64;param kernel convolution kernel (or rather a correlation kernel), a single-channel floating point
+.   matrix; if you want to apply different kernels to different channels, split the image into
+.   separate color planes using split and process them individually.
+.   &#64;param anchor anchor of the kernel that indicates the relative position of a filtered point within
+.   the kernel; the anchor should lie within the kernel; default value (-1,-1) means that the anchor
+.   is at the kernel center.
+.   &#64;param delta optional value added to the filtered pixels before storing them in dst.
+.   &#64;param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;sa  sepFilter2D, dft, matchTemplate</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection.normalize">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">alpha</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">beta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">norm_type</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dtype</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.edge_detection.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Normalizes the norm or value range of an array.
+.   
+.   The function cv::normalize normalizes scale and shift the input array elements so that
+.   f[| texttt{dst} | _{L_p}= texttt{alpha}f]
+.   (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
+.   f[min _I  texttt{dst} (I)= texttt{alpha} , , , max _I  texttt{dst} (I)= texttt{beta}f]
+.   
+.   when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
+.   normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
+.   sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
+.   min-max but modify the whole array, you can use norm and Mat::convertTo.
+.   
+.   In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
+.   the range transformation for sparse matrices is not allowed since it can shift the zero level.
+.   
+.   Possible usage with some positive example data:
+.   &#64;code{.cpp}
+.       vector&lt;double&gt; positiveData = { 2.0, 8.0, 10.0 };
+.       vector&lt;double&gt; normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
+.   
+.       // Norm to probability (total count)
+.       // sum(numbers) = 20.0
+.       // 2.0      0.1     (2.0/20.0)
+.       // 8.0      0.4     (8.0/20.0)
+.       // 10.0     0.5     (10.0/20.0)
+.       normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
+.   
+.       // Norm to unit vector: ||positiveData|| = 1.0
+.       // 2.0      0.15
+.       // 8.0      0.62
+.       // 10.0     0.77
+.       normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
+.   
+.       // Norm to max element
+.       // 2.0      0.2     (2.0/10.0)
+.       // 8.0      0.8     (8.0/10.0)
+.       // 10.0     1.0     (10.0/10.0)
+.       normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
+.   
+.       // Norm to range [0.0;1.0]
+.       // 2.0      0.0     (shift to left border)
+.       // 8.0      0.75    (6.0/8.0)
+.       // 10.0     1.0     (shift to right border)
+.       normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
+.   &#64;endcode
+.   
+.   &#64;param src input array.
+.   &#64;param dst output array of the same size as src .
+.   &#64;param alpha norm value to normalize to or the lower range boundary in case of the range
+.   normalization.
+.   &#64;param beta upper range boundary in case of the range normalization; it is not used for the norm
+.   normalization.
+.   &#64;param norm_type normalization type (see cv::NormTypes).
+.   &#64;param dtype when negative, the output array has the same type as src; otherwise, it has the same
+.   number of channels as src and the depth =CV_MAT_DEPTH(dtype).
+.   &#64;param mask optional operation mask.
+.   &#64;sa norm, Mat::convertTo, SparseMat::convertTo</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.edge_detection_ui">
+<span id="src-operations-local-edge-detection-ui-module"></span><h2>src.operations.local.edge_detection_ui module<a class="headerlink" href="#module-src.operations.local.edge_detection_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection_ui.</span></span><span class="sig-name descname"><span class="pre">DirectionalEdgeDetectionUI</span></span><a class="headerlink" href="#src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.operation_ui.OperationUI" title="src.operations.operation_ui.OperationUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation_ui.OperationUI</span></code></a>, <a class="reference internal" href="#src.operations.local.local_ui.LocalUI" title="src.operations.local.local_ui.LocalUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.local_ui.LocalUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">edge_detection.DirectionalEdgeDetection</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_dt_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection_ui.DirectionalEdgeDetectionUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">edge_detection.DirectionalEdgeDetection</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>edge_dt_dir</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">edge_detection.DirectionalEdgeDetection</span></code>) – The dialog directional edge detection window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection_ui.EdgeDetectionUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.edge_detection_ui.</span></span><span class="sig-name descname"><span class="pre">EdgeDetectionUI</span></span><a class="headerlink" href="#src.operations.local.edge_detection_ui.EdgeDetectionUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.operation_ui.OperationUI" title="src.operations.operation_ui.OperationUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation_ui.OperationUI</span></code></a>, <a class="reference internal" href="#src.operations.local.local_ui.LocalUI" title="src.operations.local.local_ui.LocalUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.local_ui.LocalUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">edge_detection.EdgeDetection</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.edge_detection_ui.EdgeDetectionUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.edge_detection_ui.EdgeDetectionUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">edge_detection.EdgeDetection</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>edge_dt</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">edge_detection.EdgeDetection</span></code>) – The dialog edge detection window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.local_ui">
+<span id="src-operations-local-local-ui-module"></span><h2>src.operations.local.local_ui module<a class="headerlink" href="#module-src.operations.local.local_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.local_ui.LocalUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.local_ui.</span></span><span class="sig-name descname"><span class="pre">LocalUI</span></span><a class="headerlink" href="#src.operations.local.local_ui.LocalUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.form_ui.FormUI" title="src.operations.form_ui.FormUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.form_ui.FormUI</span></code></a></p>
+<p>The LocalUI class represents the base UI for local operation UI classes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.local_ui.LocalUI.local_ui">
+<span class="sig-name descname"><span class="pre">local_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child_ui</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.local_ui.LocalUI.local_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a base user interface for local operation UI classes.</p>
+<p>The method creates main widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>child_ui</strong> – The local operation UI class</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.morphology">
+<span id="src-operations-local-morphology-module"></span><h2>src.operations.local.morphology module<a class="headerlink" href="#module-src.operations.local.morphology" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.morphology.Morphology">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">Morphology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology.Morphology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="src.operations.html#src.operations.operation.Operation" title="src.operations.operation.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation.Operation</span></code></a>, <a class="reference internal" href="#src.operations.local.morphology_ui.MorphologyUI" title="src.operations.local.morphology_ui.MorphologyUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.morphology_ui.MorphologyUI</span></code></a></p>
+<p>The Morphology class implements a morphological transformation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.morphology.Morphology.calc_edges">
+<span class="sig-name descname"><span class="pre">calc_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology.Morphology.calc_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate edges based on morphological dilate and erode operations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>border</strong> (<em>str</em>) – The border type for morphology, defined in BORDER_TYPES</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new image data with detected edges</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.morphology.Morphology.calc_morphology">
+<span class="sig-name descname"><span class="pre">calc_morphology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operation_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology.Morphology.calc_morphology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate morphological transformation based on structuring element,
+operation and border type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operation_name</strong> (<em>str</em>) – The type of morphological operation</p></li>
+<li><p><strong>border</strong> (<em>str</em>) – The border type for morphology, defined in BORDER_TYPES</p></li>
+<li><p><strong>iterations</strong> (<em>str</em>) – The number of times to execute operation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new morphological transformed image data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.morphology.Morphology.calc_skeletonize">
+<span class="sig-name descname"><span class="pre">calc_skeletonize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology.Morphology.calc_skeletonize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate skeletonization of the image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>border</strong> (<em>str</em>) – The border type for morphology, defined in BORDER_TYPES</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new skeletonized image data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.morphology.Morphology.update_img_preview">
+<span class="sig-name descname"><span class="pre">update_img_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology.Morphology.update_img_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update image preview window.</p>
+<ul class="simple">
+<li><p>Calculate morphological transformation.</p></li>
+<li><p>Reload histogram preview.</p></li>
+<li><p>Reload image preview using the base <code class="xref py py-class docutils literal notranslate"><span class="pre">operation.Operation</span></code> method.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.morphology.Morphology.update_structuring_element">
+<span class="sig-name descname"><span class="pre">update_structuring_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology.Morphology.update_structuring_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update structuring element whenever shape or kernel size changed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.morphology.bitwise_or">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">bitwise_or</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src1</span></em>, <em class="sig-param"><span class="pre">src2</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.morphology.bitwise_or" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the per-element bit-wise disjunction of two arrays or an
+.   array and a scalar.
+.   
+.   The function cv::bitwise_or calculates the per-element bit-wise logical disjunction for:
+.   *   Two arrays when src1 and src2 have the same size:
+.       f[texttt{dst} (I) =  texttt{src1} (I)  vee texttt{src2} (I) quad texttt{if mask} (I) ne0f]
+.   *   An array and a scalar when src2 is constructed from Scalar or has
+.       the same number of elements as <cite>src1.channels()</cite>:
+.       f[texttt{dst} (I) =  texttt{src1} (I)  vee texttt{src2} quad texttt{if mask} (I) ne0f]
+.   *   A scalar and an array when src1 is constructed from Scalar or has
+.       the same number of elements as <cite>src2.channels()</cite>:
+.       f[texttt{dst} (I) =  texttt{src1}  vee texttt{src2} (I) quad texttt{if mask} (I) ne0f]
+.   In case of floating-point arrays, their machine-specific bit
+.   representations (usually IEEE754-compliant) are used for the operation.
+.   In case of multi-channel arrays, each channel is processed
+.   independently. In the second and third cases above, the scalar is first
+.   converted to the array type.
+.   &#64;param src1 first input array or a scalar.
+.   &#64;param src2 second input array or a scalar.
+.   &#64;param dst output array that has the same size and type as the input
+.   arrays.
+.   &#64;param mask optional operation mask, 8-bit single channel array, that
+.   specifies elements of the output array to be changed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.morphology.countNonZero">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">countNonZero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.operations.local.morphology.countNonZero" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Counts non-zero array elements.
+.   
+.   The function returns the number of non-zero elements in src :
+.   f[sum _{I: ; texttt{src} (I) ne0 } 1f]
+.   &#64;param src single-channel array.
+.   &#64;sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.morphology.getStructuringElement">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">getStructuringElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">ksize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.operations.local.morphology.getStructuringElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Returns a structuring element of the specified size and shape for morphological operations.
+.   
+.   The function constructs and returns the structuring element that can be further passed to #erode,
+.   #dilate or #morphologyEx. But you can also construct an arbitrary binary mask yourself and use it as
+.   the structuring element.
+.   
+.   &#64;param shape Element shape that could be one of #MorphShapes
+.   &#64;param ksize Size of the structuring element.
+.   &#64;param anchor Anchor position within the element. The default value f$(-1, -1)f$ means that the
+.   anchor is at the center. Note that only the shape of a cross-shaped element depends on the anchor
+.   position. In other cases the anchor just regulates how much the result of the morphological
+.   operation is shifted.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.morphology.morphologyEx">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">morphologyEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">op</span></em>, <em class="sig-param"><span class="pre">kernel</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">iterations</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderValue</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.morphology.morphologyEx" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Performs advanced morphological transformations.
+.   
+.   The function cv::morphologyEx can perform advanced morphological transformations using an erosion and dilation as
+.   basic operations.
+.   
+.   Any of the operations can be done in-place. In case of multi-channel images, each channel is
+.   processed independently.
+.   
+.   &#64;param src Source image. The number of channels can be arbitrary. The depth should be one of
+.   CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+.   &#64;param dst Destination image of the same size and type as source image.
+.   &#64;param op Type of a morphological operation, see #MorphTypes
+.   &#64;param kernel Structuring element. It can be created using #getStructuringElement.
+.   &#64;param anchor Anchor position with the kernel. Negative values mean that the anchor is at the
+.   kernel center.
+.   &#64;param iterations Number of times erosion and dilation are applied.
+.   &#64;param borderType Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;param borderValue Border value in case of a constant border. The default value has a special
+.   meaning.
+.   &#64;sa  dilate, erode, getStructuringElement
+.   &#64;note The number of iterations is the number of times erosion or dilatation operation will be applied.
+.   For instance, an opening operation (#MORPH_OPEN) with two iterations is equivalent to apply
+.   successively: erode -&gt; erode -&gt; dilate -&gt; dilate (and not erode -&gt; dilate -&gt; erode -&gt; dilate).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.morphology.subtract">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">subtract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src1</span></em>, <em class="sig-param"><span class="pre">src2</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dtype</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.morphology.subtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the per-element difference between two arrays or array and a scalar.
+.   
+.   The function subtract calculates:
+.   - Difference between two arrays, when both input arrays have the same size and the same number of
+.   channels:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1}(I) -  texttt{src2}(I)) quad texttt{if mask}(I) ne0f]
+.   - Difference between an array and a scalar, when src2 is constructed from Scalar or has the same
+.   number of elements as <cite>src1.channels()</cite>:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1}(I) -  texttt{src2} ) quad texttt{if mask}(I) ne0f]
+.   - Difference between a scalar and an array, when src1 is constructed from Scalar or has the same
+.   number of elements as <cite>src2.channels()</cite>:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1} -  texttt{src2}(I) ) quad texttt{if mask}(I) ne0f]
+.   - The reverse difference between a scalar and an array in the case of <cite>SubRS</cite>:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src2} -  texttt{src1}(I) ) quad texttt{if mask}(I) ne0f]
+.   where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+.   channel is processed independently.
+.   
+.   The first function in the list above can be replaced with matrix expressions:
+.   &#64;code{.cpp}
+.       dst = src1 - src2;
+.       dst -= src1; // equivalent to subtract(dst, src1, dst);
+.   &#64;endcode
+.   The input arrays and the output array can all have the same or different depths. For example, you
+.   can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signed array. Depth of
+.   the output array is determined by dtype parameter. In the second and third cases above, as well as
+.   in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
+.   case the output array will have the same depth as the input array, be it src1, src2 or both.
+.   &#64;note Saturation is not applied when the output array has the depth CV_32S. You may even get
+.   result of an incorrect sign in the case of overflow.
+.   &#64;param src1 first input array or a scalar.
+.   &#64;param src2 second input array or a scalar.
+.   &#64;param dst output array of the same size and the same number of channels as the input array.
+.   &#64;param mask optional operation mask; this is an 8-bit single channel array that specifies elements
+.   of the output array to be changed.
+.   &#64;param dtype optional depth of the output array
+.   &#64;sa  add, addWeighted, scaleAdd, Mat::convertTo</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.morphology.threshold">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology.</span></span><span class="sig-name descname"><span class="pre">threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">thresh</span></em>, <em class="sig-param"><span class="pre">maxval</span></em>, <em class="sig-param"><span class="pre">type</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><span class="p"><span class="pre">,</span> </span><span class="pre">dst</span><a class="headerlink" href="#src.operations.local.morphology.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Applies a fixed-level threshold to each array element.
+.   
+.   The function applies fixed-level thresholding to a multiple-channel array. The function is typically
+.   used to get a bi-level (binary) image out of a grayscale image ( #compare could be also used for
+.   this purpose) or for removing a noise, that is, filtering out pixels with too small or too large
+.   values. There are several types of thresholding supported by the function. They are determined by
+.   type parameter.
+.   
+.   Also, the special values #THRESH_OTSU or #THRESH_TRIANGLE may be combined with one of the
+.   above values. In these cases, the function determines the optimal threshold value using the Otsu’s
+.   or Triangle algorithm and uses it instead of the specified thresh.
+.   
+.   &#64;note Currently, the Otsu’s and Triangle methods are implemented only for 8-bit single-channel images.
+.   
+.   &#64;param src input array (multiple-channel, 8-bit or 32-bit floating point).
+.   &#64;param dst output array of the same size  and type and the same number of channels as src.
+.   &#64;param thresh threshold value.
+.   &#64;param maxval maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding
+.   types.
+.   &#64;param type thresholding type (see #ThresholdTypes).
+.   &#64;return the computed threshold value if Otsu’s or Triangle methods used.
+.   
+.   &#64;sa  adaptiveThreshold, findContours, compare, min, max</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.morphology_ui">
+<span id="src-operations-local-morphology-ui-module"></span><h2>src.operations.local.morphology_ui module<a class="headerlink" href="#module-src.operations.local.morphology_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.morphology_ui.MorphologyUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.morphology_ui.</span></span><span class="sig-name descname"><span class="pre">MorphologyUI</span></span><a class="headerlink" href="#src.operations.local.morphology_ui.MorphologyUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.operation_ui.OperationUI" title="src.operations.operation_ui.OperationUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation_ui.OperationUI</span></code></a>, <a class="reference internal" href="#src.operations.local.local_ui.LocalUI" title="src.operations.local.local_ui.LocalUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.local_ui.LocalUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">morphology.Morphology</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.morphology_ui.MorphologyUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">morphology</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.morphology_ui.MorphologyUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">morphology.Morphology</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>morphology</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">morphology.Morphology</span></code>) – The dialog morphology window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.sharpen">
+<span id="src-operations-local-sharpen-module"></span><h2>src.operations.local.sharpen module<a class="headerlink" href="#module-src.operations.local.sharpen" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.sharpen.Sharpen">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.sharpen.</span></span><span class="sig-name descname"><span class="pre">Sharpen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.sharpen.Sharpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="src.operations.html#src.operations.operation.Operation" title="src.operations.operation.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation.Operation</span></code></a>, <a class="reference internal" href="#src.operations.local.sharpen_ui.SharpenUI" title="src.operations.local.sharpen_ui.SharpenUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.sharpen_ui.SharpenUI</span></code></a></p>
+<p>The Sharpen class implements a local sharpen operation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.sharpen.Sharpen.calc_sharpen">
+<span class="sig-name descname"><span class="pre">calc_sharpen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.sharpen.Sharpen.calc_sharpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sharpen an image based on chosen Laplacian mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>border</strong> (<em>str</em>) – The border type for sharpening, defined in BORDER_TYPES</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The image sharpening</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.sharpen.Sharpen.update_img_preview">
+<span class="sig-name descname"><span class="pre">update_img_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.sharpen.Sharpen.update_img_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update image preview window.</p>
+<ul class="simple">
+<li><p>Calculate image sharpen.</p></li>
+<li><p>Reload image preview using the base <code class="xref py py-class docutils literal notranslate"><span class="pre">operation.Operation</span></code> method.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.sharpen.filter2D">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.sharpen.</span></span><span class="sig-name descname"><span class="pre">filter2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ddepth</span></em>, <em class="sig-param"><span class="pre">kernel</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">delta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.sharpen.filter2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Convolves an image with the kernel.
+.   
+.   The function applies an arbitrary linear filter to an image. In-place operation is supported. When
+.   the aperture is partially outside the image, the function interpolates outlier pixel values
+.   according to the specified border mode.
+.   
+.   The function does actually compute correlation, not the convolution:
+.   
+.   f[texttt{dst} (x,y) =  sum _{ substack{0leq x’ &lt; texttt{kernel.cols}\{0leq y’ &lt; texttt{kernel.rows}}}}  texttt{kernel} (x’,y’)* texttt{src} (x+x’- texttt{anchor.x} ,y+y’- texttt{anchor.y} )f]
+.   
+.   That is, the kernel is not mirrored around the anchor point. If you need a real convolution, flip
+.   the kernel using #flip and set the new anchor to <cite>(kernel.cols - anchor.x - 1, kernel.rows -
+.   anchor.y - 1)</cite>.
+.   
+.   The function uses the DFT-based algorithm in case of sufficiently large kernels (~`11 x 11` or
+.   larger) and the direct algorithm for small kernels.
+.   
+.   &#64;param src input image.
+.   &#64;param dst output image of the same size and the same number of channels as src.
+.   &#64;param ddepth desired depth of the destination image, see &#64;ref filter_depths “combinations”
+.   &#64;param kernel convolution kernel (or rather a correlation kernel), a single-channel floating point
+.   matrix; if you want to apply different kernels to different channels, split the image into
+.   separate color planes using split and process them individually.
+.   &#64;param anchor anchor of the kernel that indicates the relative position of a filtered point within
+.   the kernel; the anchor should lie within the kernel; default value (-1,-1) means that the anchor
+.   is at the kernel center.
+.   &#64;param delta optional value added to the filtered pixels before storing them in dst.
+.   &#64;param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;sa  sepFilter2D, dft, matchTemplate</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.sharpen.normalize">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.sharpen.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">alpha</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">beta</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">norm_type</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dtype</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.sharpen.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Normalizes the norm or value range of an array.
+.   
+.   The function cv::normalize normalizes scale and shift the input array elements so that
+.   f[| texttt{dst} | _{L_p}= texttt{alpha}f]
+.   (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
+.   f[min _I  texttt{dst} (I)= texttt{alpha} , , , max _I  texttt{dst} (I)= texttt{beta}f]
+.   
+.   when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
+.   normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
+.   sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
+.   min-max but modify the whole array, you can use norm and Mat::convertTo.
+.   
+.   In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
+.   the range transformation for sparse matrices is not allowed since it can shift the zero level.
+.   
+.   Possible usage with some positive example data:
+.   &#64;code{.cpp}
+.       vector&lt;double&gt; positiveData = { 2.0, 8.0, 10.0 };
+.       vector&lt;double&gt; normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
+.   
+.       // Norm to probability (total count)
+.       // sum(numbers) = 20.0
+.       // 2.0      0.1     (2.0/20.0)
+.       // 8.0      0.4     (8.0/20.0)
+.       // 10.0     0.5     (10.0/20.0)
+.       normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
+.   
+.       // Norm to unit vector: ||positiveData|| = 1.0
+.       // 2.0      0.15
+.       // 8.0      0.62
+.       // 10.0     0.77
+.       normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
+.   
+.       // Norm to max element
+.       // 2.0      0.2     (2.0/10.0)
+.       // 8.0      0.8     (8.0/10.0)
+.       // 10.0     1.0     (10.0/10.0)
+.       normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
+.   
+.       // Norm to range [0.0;1.0]
+.       // 2.0      0.0     (shift to left border)
+.       // 8.0      0.75    (6.0/8.0)
+.       // 10.0     1.0     (shift to right border)
+.       normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
+.   &#64;endcode
+.   
+.   &#64;param src input array.
+.   &#64;param dst output array of the same size as src .
+.   &#64;param alpha norm value to normalize to or the lower range boundary in case of the range
+.   normalization.
+.   &#64;param beta upper range boundary in case of the range normalization; it is not used for the norm
+.   normalization.
+.   &#64;param norm_type normalization type (see cv::NormTypes).
+.   &#64;param dtype when negative, the output array has the same type as src; otherwise, it has the same
+.   number of channels as src and the depth =CV_MAT_DEPTH(dtype).
+.   &#64;param mask optional operation mask.
+.   &#64;sa norm, Mat::convertTo, SparseMat::convertTo</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.sharpen_ui">
+<span id="src-operations-local-sharpen-ui-module"></span><h2>src.operations.local.sharpen_ui module<a class="headerlink" href="#module-src.operations.local.sharpen_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.sharpen_ui.SharpenUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.sharpen_ui.</span></span><span class="sig-name descname"><span class="pre">SharpenUI</span></span><a class="headerlink" href="#src.operations.local.sharpen_ui.SharpenUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.operation_ui.OperationUI" title="src.operations.operation_ui.OperationUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation_ui.OperationUI</span></code></a>, <a class="reference internal" href="#src.operations.local.local_ui.LocalUI" title="src.operations.local.local_ui.LocalUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.local_ui.LocalUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">sharpen.Sharpen</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.sharpen_ui.SharpenUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sharpen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.sharpen_ui.SharpenUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">sharpen.Sharpen</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sharpen</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">sharpen.Sharpen</span></code>) – The dialog sharpen window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.smooth">
+<span id="src-operations-local-smooth-module"></span><h2>src.operations.local.smooth module<a class="headerlink" href="#module-src.operations.local.smooth" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.smooth.GaussianBlur">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.smooth.</span></span><span class="sig-name descname"><span class="pre">GaussianBlur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ksize</span></em>, <em class="sig-param"><span class="pre">sigmaX</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">sigmaY</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.smooth.GaussianBlur" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Blurs an image using a Gaussian filter.
+.   
+.   The function convolves the source image with the specified Gaussian kernel. In-place filtering is
+.   supported.
+.   
+.   &#64;param src input image; the image can have any number of channels, which are processed
+.   independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+.   &#64;param dst output image of the same size and type as src.
+.   &#64;param ksize Gaussian kernel size. ksize.width and ksize.height can differ but they both must be
+.   positive and odd. Or, they can be zero’s and then they are computed from sigma.
+.   &#64;param sigmaX Gaussian kernel standard deviation in X direction.
+.   &#64;param sigmaY Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be
+.   equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height,
+.   respectively (see #getGaussianKernel for details); to fully control the result regardless of
+.   possible future modifications of all this semantics, it is recommended to specify all of ksize,
+.   sigmaX, and sigmaY.
+.   &#64;param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   
+.   &#64;sa  sepFilter2D, filter2D, blur, boxFilter, bilateralFilter, medianBlur</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.smooth.Smooth">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.smooth.</span></span><span class="sig-name descname"><span class="pre">Smooth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.smooth.Smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="src.operations.html#src.operations.operation.Operation" title="src.operations.operation.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation.Operation</span></code></a>, <a class="reference internal" href="#src.operations.local.smooth_ui.SmoothUI" title="src.operations.local.smooth_ui.SmoothUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.smooth_ui.SmoothUI</span></code></a></p>
+<p>The Smooth class implements a local smoothing operation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.smooth.Smooth.calc_smooth">
+<span class="sig-name descname"><span class="pre">calc_smooth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smooth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksize</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.smooth.Smooth.calc_smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the smoothing of the selected type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>smooth</strong> (<em>str</em>) – The smooth type to calculate, can be “Blur”, “Gaussian Blur” or “Median Blur”</p></li>
+<li><p><strong>border</strong> (<em>str</em>) – The border type for smoothing, defined in BORDER_TYPES</p></li>
+<li><p><strong>ksize</strong> (<em>int</em>) – The number for NxN kernel</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The smoothed image data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>class:<cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.smooth.Smooth.update_form">
+<span class="sig-name descname"><span class="pre">update_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.smooth.Smooth.update_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the border type access, which isn’t available for Median Blur.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.smooth.Smooth.update_img_preview">
+<span class="sig-name descname"><span class="pre">update_img_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.smooth.Smooth.update_img_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update image preview window.</p>
+<ul class="simple">
+<li><p>Calculate image smoothing based on kernel size, smooth and border type.</p></li>
+<li><p>Reload image preview using the base <code class="xref py py-class docutils literal notranslate"><span class="pre">operation.Operation</span></code> method.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.smooth.blur">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.smooth.</span></span><span class="sig-name descname"><span class="pre">blur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ksize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.smooth.blur" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Blurs an image using the normalized box filter.
+.   
+.   The function smooths an image using the kernel:
+.   
+.   f[texttt{K} =  frac{1}{texttt{ksize.width*ksize.height}} begin{bmatrix} 1 &amp; 1 &amp; 1 &amp;  cdots &amp; 1 &amp; 1  \ 1 &amp; 1 &amp; 1 &amp;  cdots &amp; 1 &amp; 1  \ hdotsfor{6} \ 1 &amp; 1 &amp; 1 &amp;  cdots &amp; 1 &amp; 1  \ end{bmatrix}f]
+.   
+.   The call <cite>blur(src, dst, ksize, anchor, borderType)</cite> is equivalent to <cite>boxFilter(src, dst, src.type(), ksize,
+.   anchor, true, borderType)</cite>.
+.   
+.   &#64;param src input image; it can have any number of channels, which are processed independently, but
+.   the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+.   &#64;param dst output image of the same size and type as src.
+.   &#64;param ksize blurring kernel size.
+.   &#64;param anchor anchor point; default value Point(-1,-1) means that the anchor is at the kernel
+.   center.
+.   &#64;param borderType border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;sa  boxFilter, bilateralFilter, GaussianBlur, medianBlur</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.operations.local.smooth.medianBlur">
+<span class="sig-prename descclassname"><span class="pre">src.operations.local.smooth.</span></span><span class="sig-name descname"><span class="pre">medianBlur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">ksize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.operations.local.smooth.medianBlur" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Blurs an image using the median filter.
+.   
+.   The function smoothes an image using the median filter with the f$texttt{ksize} times
+.   texttt{ksize}f$ aperture. Each channel of a multi-channel image is processed independently.
+.   In-place operation is supported.
+.   
+.   &#64;note The median filter uses #BORDER_REPLICATE internally to cope with border pixels, see #BorderTypes
+.   
+.   &#64;param src input 1-, 3-, or 4-channel image; when ksize is 3 or 5, the image depth should be
+.   CV_8U, CV_16U, or CV_32F, for larger aperture sizes, it can only be CV_8U.
+.   &#64;param dst destination array of the same size and type as src.
+.   &#64;param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 …
+.   &#64;sa  bilateralFilter, blur, boxFilter, GaussianBlur</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local.smooth_ui">
+<span id="src-operations-local-smooth-ui-module"></span><h2>src.operations.local.smooth_ui module<a class="headerlink" href="#module-src.operations.local.smooth_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.operations.local.smooth_ui.SmoothUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.operations.local.smooth_ui.</span></span><span class="sig-name descname"><span class="pre">SmoothUI</span></span><a class="headerlink" href="#src.operations.local.smooth_ui.SmoothUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.operation_ui.OperationUI" title="src.operations.operation_ui.OperationUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.operation_ui.OperationUI</span></code></a>, <a class="reference internal" href="#src.operations.local.local_ui.LocalUI" title="src.operations.local.local_ui.LocalUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.local.local_ui.LocalUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">smooth.SmoothUI</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.operations.local.smooth_ui.SmoothUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smooth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.operations.local.smooth_ui.SmoothUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">smooth.SmoothUI</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>smooth</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">smooth.SmoothUI</span></code>) – The dialog smooth window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.operations.local">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.operations.local" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="src.operations.point.html" class="btn btn-neutral float-right" title="src.operations.point package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.operations.classification.html" class="btn btn-neutral float-left" title="src.operations.classification package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Vadym Mariiechko.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

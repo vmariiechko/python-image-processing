@@ -1,0 +1,1046 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>src.panorama package &mdash; Image Processing 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.widgets package" href="src.widgets.html" />
+    <link rel="prev" title="src.operations.segmentation package" href="src.operations.segmentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Image Processing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">python-image-processing</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="src.image.html">src.image package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.operations.html">src.operations package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">src.panorama package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.widgets.html">src.widgets package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.constants">src.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.main">src.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.main_ui">src.main_ui module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.style_sheet">src.style_sheet module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Image Processing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">python-image-processing</a> &raquo;</li>
+        
+          <li><a href="src.html">src package</a> &raquo;</li>
+        
+      <li>src.panorama package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/src.panorama.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="src-panorama-package">
+<h1>src.panorama package<a class="headerlink" href="#src-panorama-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-src.panorama.panorama">
+<span id="src-panorama-panorama-module"></span><h2>src.panorama.panorama module<a class="headerlink" href="#module-src.panorama.panorama" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">ImagePanorama</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="#src.panorama.panorama_ui.ImagePanoramaUI" title="src.panorama.panorama_ui.ImagePanoramaUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.panorama.panorama_ui.ImagePanoramaUI</span></code></a></p>
+<p>The ImagePanorama class represents stitching between chosen images.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.ERROR_MESSAGES">
+<span class="sig-name descname"><span class="pre">ERROR_MESSAGES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{1:</span> <span class="pre">&quot;Need</span> <span class="pre">more</span> <span class="pre">input</span> <span class="pre">images</span> <span class="pre">to</span> <span class="pre">construct</span> <span class="pre">the</span> <span class="pre">panorama,\nor</span> <span class="pre">try</span> <span class="pre">to</span> <span class="pre">reverse</span> <span class="pre">the</span> <span class="pre">image</span> <span class="pre">order</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">right</span> <span class="pre">list\nusing</span> <span class="pre">the</span> <span class="pre">'Up'</span> <span class="pre">and</span> <span class="pre">'Down'</span> <span class="pre">buttons&quot;,</span> <span class="pre">2:</span> <span class="pre">&quot;RANSAC</span> <span class="pre">homography</span> <span class="pre">estimation</span> <span class="pre">failed:\nYou</span> <span class="pre">may</span> <span class="pre">need</span> <span class="pre">more</span> <span class="pre">images</span> <span class="pre">or</span> <span class="pre">your</span> <span class="pre">images</span> <span class="pre">don't</span> <span class="pre">have</span> <span class="pre">enough</span> <span class="pre">distinguishing,\nunique</span> <span class="pre">texture/objects</span> <span class="pre">for</span> <span class="pre">keypoints</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">accurately</span> <span class="pre">matched&quot;,</span> <span class="pre">3:</span> <span class="pre">'Failed</span> <span class="pre">to</span> <span class="pre">properly</span> <span class="pre">estimate</span> <span class="pre">camera</span> <span class="pre">intrinsics/extrinsics</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">input</span> <span class="pre">images',</span> <span class="pre">4:</span> <span class="pre">'The</span> <span class="pre">Manual</span> <span class="pre">mode</span> <span class="pre">stitches</span> <span class="pre">only</span> <span class="pre">two</span> <span class="pre">images'}</span></em><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.ERROR_MESSAGES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.crop_borders">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">crop_borders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stitched</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.crop_borders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cut out black borders from stitched images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>stitched</strong> (<cite>numpy.ndarray</cite>) – The stitched images</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The cropped panorama (ROI)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.get_selected_images">
+<span class="sig-name descname"><span class="pre">get_selected_images</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.get_selected_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return image data from the list on the right side.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.show_description">
+<span class="sig-name descname"><span class="pre">show_description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.show_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.stitch_default">
+<span class="sig-name descname"><span class="pre">stitch_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.stitch_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stitch images with built-in OpenCV .stitch() method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>images_data</strong> (<em>list</em>) – The images to stitch</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The status of stitching and image panorama</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.stitch_images">
+<span class="sig-name descname"><span class="pre">stitch_images</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.stitch_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stitch selected images to the panorama.</p>
+<dl class="simple">
+<dt>There are two stitch modes:</dt><dd><ul class="simple">
+<li><p>Default: use built-in OpenCV .stitch() method.</p></li>
+<li><p>Manual: own implementation, input image order sensitive; see <code class="xref py py-class docutils literal notranslate"><span class="pre">Stitcher</span></code> for more information.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Additionally, there is a crop feature, which cuts out black borders.</p>
+<dl class="simple">
+<dt>Photos with the poor matching area can have some problems:</dt><dd><ul class="simple">
+<li><p>For Default mode, the order of input images sometimes is sensitive.</p></li>
+<li><p>For Default mode, sometimes you will get a little bit different output, which can cause program errors.</p></li>
+<li><p>Noticed that the built-in OpenCV mode has some problems with stitching the same images several times.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama.ImagePanorama.stitch_manually">
+<span class="sig-name descname"><span class="pre">stitch_manually</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama.ImagePanorama.stitch_manually" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stitch two images using manual implementation, input image order sensitive.</p>
+<p>See <code class="xref py py-class docutils literal notranslate"><span class="pre">Stitcher</span></code> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>images_data</strong> (<em>list</em>) – The two images to stitch</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The status of stitching and image panorama</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.Stitcher_create">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">Stitcher_create</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">mode</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.panorama.Stitcher_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Creates a Stitcher configured in one of the stitching modes.
+.   
+.       &#64;param mode Scenario for stitcher operation. This is usually determined by source of images
+.       to stitch and their transformation. Default parameters will be chosen for operation in given
+.       scenario.
+.       &#64;return Stitcher class instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.boundingRect">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">boundingRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.panorama.boundingRect" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
+.   
+.   The function calculates and returns the minimal up-right bounding rectangle for the specified point set or
+.   non-zero pixels of gray-scale image.
+.   
+.   &#64;param array Input gray-scale image or 2D point set, stored in std::vector or Mat.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.contourArea">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">contourArea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">contour</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">oriented</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.panorama.contourArea" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates a contour area.
+.   
+.   The function computes a contour area. Similarly to moments , the area is computed using the Green
+.   formula. Thus, the returned area and the number of non-zero pixels, if you draw the contour using
+.   #drawContours or #fillPoly , can be different. Also, the function will most certainly give a wrong
+.   results for contours with self-intersections.
+.   
+.   Example:
+.   &#64;code
+.       vector&lt;Point&gt; contour;
+.       contour.push_back(Point2f(0, 0));
+.       contour.push_back(Point2f(10, 0));
+.       contour.push_back(Point2f(10, 10));
+.       contour.push_back(Point2f(5, 4));
+.   
+.       double area0 = contourArea(contour);
+.       vector&lt;Point&gt; approx;
+.       approxPolyDP(contour, approx, 5, true);
+.       double area1 = contourArea(approx);
+.   
+.       cout &lt;&lt; “area0 =” &lt;&lt; area0 &lt;&lt; endl &lt;&lt;
+.               “area1 =” &lt;&lt; area1 &lt;&lt; endl &lt;&lt;
+.               “approx poly vertices” &lt;&lt; approx.size() &lt;&lt; endl;
+.   &#64;endcode
+.   &#64;param contour Input vector of 2D points (contour vertices), stored in std::vector or Mat.
+.   &#64;param oriented Oriented area flag. If it is true, the function returns a signed area value,
+.   depending on the contour orientation (clockwise or counter-clockwise). Using this feature you can
+.   determine orientation of a contour by taking the sign of an area. By default, the parameter is
+.   false, which means that the absolute value is returned.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.copyMakeBorder">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">copyMakeBorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">top</span></em>, <em class="sig-param"><span class="pre">bottom</span></em>, <em class="sig-param"><span class="pre">left</span></em>, <em class="sig-param"><span class="pre">right</span></em>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">value</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.panorama.panorama.copyMakeBorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Forms a border around an image.
+.   
+.   The function copies the source image into the middle of the destination image. The areas to the
+.   left, to the right, above and below the copied source image will be filled with extrapolated
+.   pixels. This is not what filtering functions based on it do (they extrapolate pixels on-fly), but
+.   what other more complex functions, including your own, may do to simplify image boundary handling.
+.   
+.   The function supports the mode when src is already in the middle of dst . In this case, the
+.   function does not copy src itself but simply constructs the border, for example:
+.   
+.   &#64;code{.cpp}
+.       // let border be the same in all directions
+.       int border=2;
+.       // constructs a larger image to fit both the image and the border
+.       Mat gray_buf(rgb.rows + border*2, rgb.cols + border*2, rgb.depth());
+.       // select the middle part of it w/o copying data
+.       Mat gray(gray_canvas, Rect(border, border, rgb.cols, rgb.rows));
+.       // convert image from RGB to grayscale
+.       cvtColor(rgb, gray, COLOR_RGB2GRAY);
+.       // form a border in-place
+.       copyMakeBorder(gray, gray_buf, border, border,
+.                      border, border, BORDER_REPLICATE);
+.       // now do some custom filtering …
+.       …
+.   &#64;endcode
+.   &#64;note When the source image is a part (ROI) of a bigger image, the function will try to use the
+.   pixels outside of the ROI to form a border. To disable this feature and always do extrapolation, as
+.   if src was not a ROI, use borderType | #BORDER_ISOLATED.
+.   
+.   &#64;param src Source image.
+.   &#64;param dst Destination image of the same type as src and the size Size(src.cols+left+right,
+.   src.rows+top+bottom) .
+.   &#64;param top the top pixels
+.   &#64;param bottom the bottom pixels
+.   &#64;param left the left pixels
+.   &#64;param right Parameter specifying how many pixels in each direction from the source image rectangle
+.   to extrapolate. For example, top=1, bottom=1, left=1, right=1 mean that 1 pixel-wide border needs
+.   to be built.
+.   &#64;param borderType Border type. See borderInterpolate for details.
+.   &#64;param value Border value if borderType==BORDER_CONSTANT .
+.   
+.   &#64;sa  borderInterpolate</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.countNonZero">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">countNonZero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.panorama.countNonZero" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Counts non-zero array elements.
+.   
+.   The function returns the number of non-zero elements in src :
+.   f[sum _{I: ; texttt{src} (I) ne0 } 1f]
+.   &#64;param src single-channel array.
+.   &#64;sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.cvtColor">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">cvtColor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">code</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dstCn</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.panorama.panorama.cvtColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Converts an image from one color space to another.
+.   
+.   The function converts an input image from one color space to another. In case of a transformation
+.   to-from RGB color space, the order of the channels should be specified explicitly (RGB or BGR). Note
+.   that the default color format in OpenCV is often referred to as RGB but it is actually BGR (the
+.   bytes are reversed). So the first byte in a standard (24-bit) color image will be an 8-bit Blue
+.   component, the second byte will be Green, and the third byte will be Red. The fourth, fifth, and
+.   sixth bytes would then be the second pixel (Blue, then Green, then Red), and so on.
+.   
+.   The conventional ranges for R, G, and B channel values are:
+.   -   0 to 255 for CV_8U images
+.   -   0 to 65535 for CV_16U images
+.   -   0 to 1 for CV_32F images
+.   
+.   In case of linear transformations, the range does not matter. But in case of a non-linear
+.   transformation, an input RGB image should be normalized to the proper value range to get the correct
+.   results, for example, for RGB f$rightarrowf$ L*u*v* transformation. For example, if you have a
+.   32-bit floating-point image directly converted from an 8-bit image without any scaling, then it will
+.   have the 0..255 value range instead of 0..1 assumed by the function. So, before calling #cvtColor ,
+.   you need first to scale the image down:
+.   &#64;code
+.       img <a href="#id1"><span class="problematic" id="id2">*</span></a>= 1./255;
+.       cvtColor(img, img, COLOR_BGR2Luv);
+.   &#64;endcode
+.   If you use #cvtColor with 8-bit images, the conversion will have some information lost. For many
+.   applications, this will not be noticeable but it is recommended to use 32-bit images in applications
+.   that need the full range of colors or that convert an image before an operation and then convert
+.   back.
+.   
+.   If conversion adds the alpha channel, its value will set to the maximum of corresponding channel
+.   range: 255 for CV_8U, 65535 for CV_16U, 1 for CV_32F.
+.   
+.   &#64;param src input image: 8-bit unsigned, 16-bit unsigned ( CV_16UC… ), or single-precision
+.   floating-point.
+.   &#64;param dst output image of the same size and depth as src.
+.   &#64;param code color space conversion code (see #ColorConversionCodes).
+.   &#64;param dstCn number of channels in the destination image; if the parameter is 0, the number of the
+.   channels is derived automatically from src and code.
+.   
+.   &#64;see &#64;ref imgproc_color_conversions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.erode">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">erode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">kernel</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">anchor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">iterations</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderType</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderValue</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.panorama.panorama.erode" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Erodes an image by using a specific structuring element.
+.   
+.   The function erodes the source image using the specified structuring element that determines the
+.   shape of a pixel neighborhood over which the minimum is taken:
+.   
+.   f[texttt{dst} (x,y) =  min _{(x’,y’):  , texttt{element} (x’,y’) ne0 } texttt{src} (x+x’,y+y’)f]
+.   
+.   The function supports the in-place mode. Erosion can be applied several ( iterations ) times. In
+.   case of multi-channel images, each channel is processed independently.
+.   
+.   &#64;param src input image; the number of channels can be arbitrary, but the depth should be one of
+.   CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+.   &#64;param dst output image of the same size and type as src.
+.   &#64;param kernel structuring element used for erosion; if <cite>element=Mat()</cite>, a <cite>3 x 3</cite> rectangular
+.   structuring element is used. Kernel can be created using #getStructuringElement.
+.   &#64;param anchor position of the anchor within the element; default value (-1, -1) means that the
+.   anchor is at the element center.
+.   &#64;param iterations number of times erosion is applied.
+.   &#64;param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+.   &#64;param borderValue border value in case of a constant border
+.   &#64;sa  dilate, morphologyEx, getStructuringElement</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.findContours">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">findContours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">image</span></em>, <em class="sig-param"><span class="pre">mode</span></em>, <em class="sig-param"><span class="pre">method</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">contours</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">hierarchy</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">offset</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">contours</span><span class="p"><span class="pre">,</span> </span><span class="pre">hierarchy</span><a class="headerlink" href="#src.panorama.panorama.findContours" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Finds contours in a binary image.
+.   
+.   The function retrieves contours from the binary image using the algorithm &#64;cite Suzuki85 . The contours
+.   are a useful tool for shape analysis and object detection and recognition. See squares.cpp in the
+.   OpenCV sample directory.
+.   &#64;note Since opencv 3.2 source image is not modified by this function.
+.   
+.   &#64;param image Source, an 8-bit single-channel image. Non-zero pixels are treated as 1’s. Zero
+.   pixels remain 0’s, so the image is treated as binary . You can use #compare, #inRange, #threshold ,
+.   #adaptiveThreshold, #Canny, and others to create a binary image out of a grayscale or color one.
+.   If mode equals to #RETR_CCOMP or #RETR_FLOODFILL, the input can also be a 32-bit integer image of labels (CV_32SC1).
+.   &#64;param contours Detected contours. Each contour is stored as a vector of points (e.g.
+.   std::vector&lt;std::vector&lt;cv::Point&gt; &gt;).
+.   &#64;param hierarchy Optional output vector (e.g. std::vector&lt;cv::Vec4i&gt;), containing information about the image topology. It has
+.   as many elements as the number of contours. For each i-th contour contours[i], the elements
+.   hierarchy[i][0] , hierarchy[i][1] , hierarchy[i][2] , and hierarchy[i][3] are set to 0-based indices
+.   in contours of the next and previous contours at the same hierarchical level, the first child
+.   contour and the parent contour, respectively. If for the contour i there are no next, previous,
+.   parent, or nested contours, the corresponding elements of hierarchy[i] will be negative.
+.   &#64;param mode Contour retrieval mode, see #RetrievalModes
+.   &#64;param method Contour approximation method, see #ContourApproximationModes
+.   &#64;param offset Optional offset by which every contour point is shifted. This is useful if the
+.   contours are extracted from the image ROI and then they should be analyzed in the whole image
+.   context.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.rectangle">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">img</span></em>, <em class="sig-param"><span class="pre">pt1</span></em>, <em class="sig-param"><span class="pre">pt2</span></em>, <em class="sig-param"><span class="pre">color</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">thickness</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">lineType</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">shift</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">img</span><a class="headerlink" href="#src.panorama.panorama.rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Draws a simple, thick, or filled up-right rectangle.
+.   
+.   The function cv::rectangle draws a rectangle outline or a filled rectangle whose two opposite corners
+.   are pt1 and pt2.
+.   
+.   &#64;param img Image.
+.   &#64;param pt1 Vertex of the rectangle.
+.   &#64;param pt2 Vertex of the rectangle opposite to pt1 .
+.   &#64;param color Rectangle color or brightness (grayscale image).
+.   &#64;param thickness Thickness of lines that make up the rectangle. Negative values, like #FILLED,
+.   mean that the function has to draw a filled rectangle.
+.   &#64;param lineType Type of the line. See #LineTypes
+.   &#64;param shift Number of fractional bits in the point coordinates.</p>
+<p>rectangle(img, rec, color[, thickness[, lineType[, shift]]]) -&gt; img
+.   &#64;overload
+.   
+.   use <cite>rec</cite> parameter as alternative specification of the drawn rectangle: <cite>r.tl() and
+.   r.br()-Point(1,1)</cite> are opposite corners</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.subtract">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">subtract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src1</span></em>, <em class="sig-param"><span class="pre">src2</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dtype</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.panorama.panorama.subtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Calculates the per-element difference between two arrays or array and a scalar.
+.   
+.   The function subtract calculates:
+.   - Difference between two arrays, when both input arrays have the same size and the same number of
+.   channels:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1}(I) -  texttt{src2}(I)) quad texttt{if mask}(I) ne0f]
+.   - Difference between an array and a scalar, when src2 is constructed from Scalar or has the same
+.   number of elements as <cite>src1.channels()</cite>:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1}(I) -  texttt{src2} ) quad texttt{if mask}(I) ne0f]
+.   - Difference between a scalar and an array, when src1 is constructed from Scalar or has the same
+.   number of elements as <cite>src2.channels()</cite>:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src1} -  texttt{src2}(I) ) quad texttt{if mask}(I) ne0f]
+.   - The reverse difference between a scalar and an array in the case of <cite>SubRS</cite>:
+.       f[texttt{dst}(I) =  texttt{saturate} ( texttt{src2} -  texttt{src1}(I) ) quad texttt{if mask}(I) ne0f]
+.   where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+.   channel is processed independently.
+.   
+.   The first function in the list above can be replaced with matrix expressions:
+.   &#64;code{.cpp}
+.       dst = src1 - src2;
+.       dst -= src1; // equivalent to subtract(dst, src1, dst);
+.   &#64;endcode
+.   The input arrays and the output array can all have the same or different depths. For example, you
+.   can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signed array. Depth of
+.   the output array is determined by dtype parameter. In the second and third cases above, as well as
+.   in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
+.   case the output array will have the same depth as the input array, be it src1, src2 or both.
+.   &#64;note Saturation is not applied when the output array has the depth CV_32S. You may even get
+.   result of an incorrect sign in the case of overflow.
+.   &#64;param src1 first input array or a scalar.
+.   &#64;param src2 second input array or a scalar.
+.   &#64;param dst output array of the same size and the same number of channels as the input array.
+.   &#64;param mask optional operation mask; this is an 8-bit single channel array that specifies elements
+.   of the output array to be changed.
+.   &#64;param dtype optional depth of the output array
+.   &#64;sa  add, addWeighted, scaleAdd, Mat::convertTo</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.panorama.threshold">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.panorama.</span></span><span class="sig-name descname"><span class="pre">threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">thresh</span></em>, <em class="sig-param"><span class="pre">maxval</span></em>, <em class="sig-param"><span class="pre">type</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><span class="p"><span class="pre">,</span> </span><span class="pre">dst</span><a class="headerlink" href="#src.panorama.panorama.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Applies a fixed-level threshold to each array element.
+.   
+.   The function applies fixed-level thresholding to a multiple-channel array. The function is typically
+.   used to get a bi-level (binary) image out of a grayscale image ( #compare could be also used for
+.   this purpose) or for removing a noise, that is, filtering out pixels with too small or too large
+.   values. There are several types of thresholding supported by the function. They are determined by
+.   type parameter.
+.   
+.   Also, the special values #THRESH_OTSU or #THRESH_TRIANGLE may be combined with one of the
+.   above values. In these cases, the function determines the optimal threshold value using the Otsu’s
+.   or Triangle algorithm and uses it instead of the specified thresh.
+.   
+.   &#64;note Currently, the Otsu’s and Triangle methods are implemented only for 8-bit single-channel images.
+.   
+.   &#64;param src input array (multiple-channel, 8-bit or 32-bit floating point).
+.   &#64;param dst output array of the same size  and type and the same number of channels as src.
+.   &#64;param thresh threshold value.
+.   &#64;param maxval maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding
+.   types.
+.   &#64;param type thresholding type (see #ThresholdTypes).
+.   &#64;return the computed threshold value if Otsu’s or Triangle methods used.
+.   
+.   &#64;sa  adaptiveThreshold, findContours, compare, min, max</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.panorama.panorama_ui">
+<span id="src-panorama-panorama-ui-module"></span><h2>src.panorama.panorama_ui module<a class="headerlink" href="#module-src.panorama.panorama_ui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.panorama.panorama_ui.</span></span><span class="sig-name descname"><span class="pre">ImagePanoramaUI</span></span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.operations.html#src.operations.form_ui.FormUI" title="src.operations.form_ui.FormUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.operations.form_ui.FormUI</span></code></a></p>
+<p>Build UI for <code class="xref py py-class docutils literal notranslate"><span class="pre">panorama.ImagePanorama</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.button_add_all_clicked">
+<span class="sig-name descname"><span class="pre">button_add_all_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.button_add_all_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move all items from the left list to the right.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.button_add_clicked">
+<span class="sig-name descname"><span class="pre">button_add_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.button_add_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a selected item from the left list to the right.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.button_down_clicked">
+<span class="sig-name descname"><span class="pre">button_down_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.button_down_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a selected item from the right list to the bottom.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.button_remove_all_clicked">
+<span class="sig-name descname"><span class="pre">button_remove_all_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.button_remove_all_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move all items from the right list to the left.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.button_remove_clicked">
+<span class="sig-name descname"><span class="pre">button_remove_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.button_remove_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a selected item from the right list to the left.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.button_up_clicked">
+<span class="sig-name descname"><span class="pre">button_up_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.button_up_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move a selected item from the right list to the top.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">panorama</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.init_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create user interface for <code class="xref py py-class docutils literal notranslate"><span class="pre">panorama.ImagePanorama</span></code>.</p>
+<p>The method creates the widget objects in the proper containers
+and assigns the object names to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>panorama</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">panorama.ImagePanorama</span></code>) – The image panorama dialog</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.set_widget_connections">
+<span class="sig-name descname"><span class="pre">set_widget_connections</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.set_widget_connections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect widgets to methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.panorama_ui.ImagePanoramaUI.update_button_status">
+<span class="sig-name descname"><span class="pre">update_button_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.panorama_ui.ImagePanoramaUI.update_button_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update buttons access whenever move items.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.panorama.stitcher">
+<span id="src-panorama-stitcher-module"></span><h2>src.panorama.stitcher module<a class="headerlink" href="#module-src.panorama.stitcher" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.BFMatcher_create">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">BFMatcher_create</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">normType</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">crossCheck</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.stitcher.BFMatcher_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Brute-force matcher create method.
+.       &#64;param normType One of NORM_L1, NORM_L2, NORM_HAMMING, NORM_HAMMING2. L1 and L2 norms are
+.       preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with ORB, BRISK and
+.       BRIEF, NORM_HAMMING2 should be used with ORB when WTA_K==3 or 4 (see ORB::ORB constructor
+.       description).
+.       &#64;param crossCheck If it is false, this is will be default BFMatcher behaviour when it finds the k
+.       nearest neighbors for each query descriptor. If crossCheck==true, then the knnMatch() method with
+.       k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the
+.       matcher’s collection is the nearest and vice versa, i.e. the BFMatcher will only return consistent
+.       pairs. Such technique usually produces best results with minimal number of outliers when there are
+.       enough matches. This is alternative to the ratio test, used by D. Lowe in SIFT paper.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.ORB_create">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">ORB_create</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">nfeatures</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">scaleFactor</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">nlevels</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">edgeThreshold</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">firstLevel</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">WTA_K</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">scoreType</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">patchSize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">fastThreshold</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.stitcher.ORB_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief The ORB constructor
+.   
+.       &#64;param nfeatures The maximum number of features to retain.
+.       &#64;param scaleFactor Pyramid decimation ratio, greater than 1. scaleFactor==2 means the classical
+.       pyramid, where each next level has 4x less pixels than the previous, but such a big scale factor
+.       will degrade feature matching scores dramatically. On the other hand, too close to 1 scale factor
+.       will mean that to cover certain scale range you will need more pyramid levels and so the speed
+.       will suffer.
+.       &#64;param nlevels The number of pyramid levels. The smallest level will have linear size equal to
+.       input_image_linear_size/pow(scaleFactor, nlevels - firstLevel).
+.       &#64;param edgeThreshold This is size of the border where the features are not detected. It should
+.       roughly match the patchSize parameter.
+.       &#64;param firstLevel The level of pyramid to put source image to. Previous layers are filled
+.       with upscaled source image.
+.       &#64;param WTA_K The number of points that produce each element of the oriented BRIEF descriptor. The
+.       default value 2 means the BRIEF where we take a random point pair and compare their brightnesses,
+.       so we get 0/1 response. Other possible values are 3 and 4. For example, 3 means that we take 3
+.       random points (of course, those point coordinates are random, but they are generated from the
+.       pre-defined seed, so each element of BRIEF descriptor is computed deterministically from the pixel
+.       rectangle), find point of maximum brightness and output index of the winner (0, 1 or 2). Such
+.       output will occupy 2 bits, and therefore it will need a special variant of Hamming distance,
+.       denoted as NORM_HAMMING2 (2 bits per bin). When WTA_K=4, we take 4 random points to compute each
+.       bin (that will also occupy 2 bits with possible values 0, 1, 2 or 3).
+.       &#64;param scoreType The default HARRIS_SCORE means that Harris algorithm is used to rank features
+.       (the score is written to KeyPoint::score and is used to retain best nfeatures features);
+.       FAST_SCORE is alternative value of the parameter that produces slightly less stable keypoints,
+.       but it is a little faster to compute.
+.       &#64;param patchSize size of the patch used by the oriented BRIEF descriptor. Of course, on smaller
+.       pyramid layers the perceived image area covered by a feature will be larger.
+.       &#64;param fastThreshold the fast threshold</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">Stitcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfeatures</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.stitcher.Stitcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The Stitcher class implements manual stitching between two images.</p>
+<dl class="simple">
+<dt>Panorama (stitch) algorithm:</dt><dd><ul class="simple">
+<li><p>Detect keypoints and descriptors.</p></li>
+<li><p>Detect a set of matching points that is present in both images (overlapping area).</p></li>
+<li><p>Apply the RANSAC method to improve the matching process detection.</p></li>
+<li><p>Apply perspective transformation on the first image using the second image as a reference frame.</p></li>
+<li><p>Stitch images together.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher.MIN_MATCH_COUNT">
+<span class="sig-name descname"><span class="pre">MIN_MATCH_COUNT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#src.panorama.stitcher.Stitcher.MIN_MATCH_COUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher.REPROJ_THRESH">
+<span class="sig-name descname"><span class="pre">REPROJ_THRESH</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5.0</span></em><a class="headerlink" href="#src.panorama.stitcher.Stitcher.REPROJ_THRESH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher.detect_keypoints">
+<span class="sig-name descname"><span class="pre">detect_keypoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.stitcher.Stitcher.detect_keypoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detect keypoints and descriptors.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher.match_keypoints">
+<span class="sig-name descname"><span class="pre">match_keypoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.stitcher.Stitcher.match_keypoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match keypoints (features) between two images.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher.stitch">
+<span class="sig-name descname"><span class="pre">stitch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.stitcher.Stitcher.stitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform all the stitching algorithm.</p>
+<ul class="simple">
+<li><p>Detect keypoints using <a class="reference internal" href="#src.panorama.stitcher.Stitcher.detect_keypoints" title="src.panorama.stitcher.Stitcher.detect_keypoints"><code class="xref py py-meth docutils literal notranslate"><span class="pre">detect_keypoints()</span></code></a>.</p></li>
+<li><p>Match keypoints using <a class="reference internal" href="#src.panorama.stitcher.Stitcher.match_keypoints" title="src.panorama.stitcher.Stitcher.match_keypoints"><code class="xref py py-meth docutils literal notranslate"><span class="pre">match_keypoints()</span></code></a>.</p></li>
+<li><p>Make sure we found at least the minimum number of matches defined in <a class="reference internal" href="#src.panorama.stitcher.Stitcher.MIN_MATCH_COUNT" title="src.panorama.stitcher.Stitcher.MIN_MATCH_COUNT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MIN_MATCH_COUNT</span></code></a>.</p></li>
+<li><p>Calculate homography 3x3 matrix using RANSAC procedure.</p></li>
+<li><p>Stitch images using <a class="reference internal" href="#src.panorama.stitcher.Stitcher.warp_images" title="src.panorama.stitcher.Stitcher.warp_images"><code class="xref py py-meth docutils literal notranslate"><span class="pre">warp_images()</span></code></a>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.panorama.stitcher.Stitcher.warp_images">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">warp_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.panorama.stitcher.Stitcher.warp_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Warp perspective for the first image and stitch it with the referenced second image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image1</strong> (<cite>numpy.ndarray</cite>) – The first image to warp perspective</p></li>
+<li><p><strong>image2</strong> (<cite>numpy.ndarray</cite>) – The second image as the reference</p></li>
+<li><p><strong>H</strong> (<cite>numpy.ndarray</cite>) – The homography 3x3 matrix</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The stitched image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.drawKeypoints">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">drawKeypoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">image</span></em>, <em class="sig-param"><span class="pre">keypoints</span></em>, <em class="sig-param"><span class="pre">outImage</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">color</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">flags</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">outImage</span><a class="headerlink" href="#src.panorama.stitcher.drawKeypoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Draws keypoints.
+.   
+.   &#64;param image Source image.
+.   &#64;param keypoints Keypoints from the source image.
+.   &#64;param outImage Output image. Its content depends on the flags value defining what is drawn in the
+.   output image. See possible flags bit values below.
+.   &#64;param color Color of keypoints.
+.   &#64;param flags Flags setting drawing features. Possible flags bit values are defined by
+.   DrawMatchesFlags. See details above in drawMatches .
+.   
+.   &#64;note
+.   For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT,
+.   cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG,
+.   cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.findHomography">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">findHomography</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">srcPoints</span></em>, <em class="sig-param"><span class="pre">dstPoints</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">method</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">ransacReprojThreshold</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">mask</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">maxIters</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">confidence</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><span class="p"><span class="pre">,</span> </span><span class="pre">mask</span><a class="headerlink" href="#src.panorama.stitcher.findHomography" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Finds a perspective transformation between two planes.
+.   
+.   &#64;param srcPoints Coordinates of the points in the original plane, a matrix of the type CV_32FC2
+.   or vector&lt;Point2f&gt; .
+.   &#64;param dstPoints Coordinates of the points in the target plane, a matrix of the type CV_32FC2 or
+.   a vector&lt;Point2f&gt; .
+.   &#64;param method Method used to compute a homography matrix. The following methods are possible:
+.   -   <strong>0</strong> - a regular method using all the points, i.e., the least squares method
+.   -   &#64;ref RANSAC - RANSAC-based robust method
+.   -   &#64;ref LMEDS - Least-Median robust method
+.   -   &#64;ref RHO - PROSAC-based robust method
+.   &#64;param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier
+.   (used in the RANSAC and RHO methods only). That is, if
+.   f[| texttt{dstPoints} _i -  texttt{convertPointsHomogeneous} ( texttt{H} * texttt{srcPoints} _i) |_2  &gt;  texttt{ransacReprojThreshold}f]
+.   then the point f$if$ is considered as an outlier. If srcPoints and dstPoints are measured in pixels,
+.   it usually makes sense to set this parameter somewhere in the range of 1 to 10.
+.   &#64;param mask Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input
+.   mask values are ignored.
+.   &#64;param maxIters The maximum number of RANSAC iterations.
+.   &#64;param confidence Confidence level, between 0 and 1.
+.   
+.   The function finds and returns the perspective transformation f$Hf$ between the source and the
+.   destination planes:
+.   
+.   f[s_i  vecthree{x’_i}{y’_i}{1} sim H  vecthree{x_i}{y_i}{1}f]
+.   
+.   so that the back-projection error
+.   
+.   f[sum _i left ( x’_i- frac{h_{11} x_i + h_{12} y_i + h_{13}}{h_{31} x_i + h_{32} y_i + h_{33}} right )^2+ left ( y’_i- frac{h_{21} x_i + h_{22} y_i + h_{23}}{h_{31} x_i + h_{32} y_i + h_{33}} right )^2f]
+.   
+.   is minimized. If the parameter method is set to the default value 0, the function uses all the point
+.   pairs to compute an initial homography estimate with a simple least-squares scheme.
+.   
+.   However, if not all of the point pairs ( f$srcPoints_if$, f$dstPoints_if$ ) fit the rigid perspective
+.   transformation (that is, there are some outliers), this initial estimate will be poor. In this case,
+.   you can use one of the three robust methods. The methods RANSAC, LMeDS and RHO try many different
+.   random subsets of the corresponding point pairs (of four pairs each, collinear pairs are discarded), estimate the homography matrix
+.   using this subset and a simple least-squares algorithm, and then compute the quality/goodness of the
+.   computed homography (which is the number of inliers for RANSAC or the least median re-projection error for
+.   LMeDS). The best subset is then used to produce the initial estimate of the homography matrix and
+.   the mask of inliers/outliers.
+.   
+.   Regardless of the method, robust or not, the computed homography matrix is refined further (using
+.   inliers only in case of a robust method) with the Levenberg-Marquardt method to reduce the
+.   re-projection error even more.
+.   
+.   The methods RANSAC and RHO can handle practically any ratio of outliers but need a threshold to
+.   distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
+.   correctly only when there are more than 50% of inliers. Finally, if there are no outliers and the
+.   noise is rather small, use the default method (method=0).
+.   
+.   The function is used to find initial intrinsic and extrinsic matrices. Homography matrix is
+.   determined up to a scale. Thus, it is normalized so that f$h_{33}=1f$. Note that whenever an f$Hf$ matrix
+.   cannot be estimated, an empty one will be returned.
+.   
+.   &#64;sa
+.   getAffineTransform, estimateAffine2D, estimateAffinePartial2D, getPerspectiveTransform, warpPerspective,
+.   perspectiveTransform</p>
+<p>findHomography(srcPoints, dstPoints, params[, mask]) -&gt; retval, mask
+.   &#64;overload</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.imshow">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">imshow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">winname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#src.panorama.stitcher.imshow" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Displays an image in the specified window.
+.   
+.   The function imshow displays an image in the specified window. If the window was created with the
+.   cv::WINDOW_AUTOSIZE flag, the image is shown with its original size, however it is still limited by the screen resolution.
+.   Otherwise, the image is scaled to fit the window. The function may scale the image, depending on its depth:
+.   
+.   -   If the image is 8-bit unsigned, it is displayed as is.
+.   -   If the image is 16-bit unsigned or 32-bit integer, the pixels are divided by 256. That is, the
+.       value range [0,255*256] is mapped to [0,255].
+.   -   If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255. That is, the
+.       value range [0,1] is mapped to [0,255].
+.   
+.   If window was created with OpenGL support, cv::imshow also support ogl::Buffer , ogl::Texture2D and
+.   cuda::GpuMat as input.
+.   
+.   If the window was not created before this function, it is assumed creating a window with cv::WINDOW_AUTOSIZE.
+.   
+.   If you need to show an image that is bigger than the screen resolution, you will need to call namedWindow(“”, WINDOW_NORMAL) before the imshow.
+.   
+.   &#64;note This function should be followed by cv::waitKey function which displays the image for specified
+.   milliseconds. Otherwise, it won’t display the image. For example, <strong>waitKey(0)</strong> will display the window
+.   infinitely until any keypress (it is suitable for image display). <strong>waitKey(25)</strong> will display a frame
+.   for 25 ms, after which display will be automatically closed. (If you put it in a loop to read
+.   videos, it will display the video frame-by-frame)
+.   
+.   &#64;note
+.   
+.   [__Windows Backend <a href="#id3"><span class="problematic" id="id4">Only__</span></a>] Pressing Ctrl+C will copy the image to the clipboard.
+.   
+.   [__Windows Backend <a href="#id3"><span class="problematic" id="id5">Only__</span></a>] Pressing Ctrl+S will show a dialog to save the image.
+.   
+.   &#64;param winname Name of the window.
+.   &#64;param mat Image to be shown.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.perspectiveTransform">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">perspectiveTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">m</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.panorama.stitcher.perspectiveTransform" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Performs the perspective matrix transformation of vectors.
+.   
+.   The function cv::perspectiveTransform transforms every element of src by
+.   treating it as a 2D or 3D vector, in the following way:
+.   f[(x, y, z)  rightarrow (x’/w, y’/w, z’/w)f]
+.   where
+.   f[(x’, y’, z’, w’) =  texttt{mat} cdot begin{bmatrix} x &amp; y &amp; z &amp; 1  end{bmatrix}f]
+.   and
+.   f[w =  fork{w’}{if (w’ ne 0)}{infty}{otherwise}f]
+.   
+.   Here a 3D vector transformation is shown. In case of a 2D vector
+.   transformation, the z component is omitted.
+.   
+.   &#64;note The function transforms a sparse set of 2D or 3D vectors. If you
+.   want to transform an image using perspective transformation, use
+.   warpPerspective . If you have an inverse problem, that is, you want to
+.   compute the most probable perspective transformation out of several
+.   pairs of corresponding points, you can use getPerspectiveTransform or
+.   findHomography .
+.   &#64;param src input two-channel or three-channel floating-point array; each
+.   element is a 2D/3D vector to be transformed.
+.   &#64;param dst output array of the same size and type as src.
+.   &#64;param m 3x3 or 4x4 floating-point transformation matrix.
+.   &#64;sa  transform, warpPerspective, getPerspectiveTransform, findHomography</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.waitKey">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">waitKey</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">delay</span></em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">retval</span><a class="headerlink" href="#src.panorama.stitcher.waitKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Waits for a pressed key.
+.   
+.   The function waitKey waits for a key event infinitely (when f$texttt{delay}leq 0f$ ) or for delay
+.   milliseconds, when it is positive. Since the OS has a minimum time between switching threads, the
+.   function will not wait exactly delay ms, it will wait at least delay ms, depending on what else is
+.   running on your computer at that time. It returns the code of the pressed key or -1 if no key was
+.   pressed before the specified time had elapsed.
+.   
+.   &#64;note
+.   
+.   This function is the only method in HighGUI that can fetch and handle events, so it needs to be
+.   called periodically for normal event processing unless HighGUI is used within an environment that
+.   takes care of event processing.
+.   
+.   &#64;note
+.   
+.   The function only works if there is at least one HighGUI window created and the window is active.
+.   If there are several HighGUI windows, any of them can be active.
+.   
+.   &#64;param delay Delay in milliseconds. 0 is the special value that means “forever”.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.panorama.stitcher.warpPerspective">
+<span class="sig-prename descclassname"><span class="pre">src.panorama.stitcher.</span></span><span class="sig-name descname"><span class="pre">warpPerspective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">src</span></em>, <em class="sig-param"><span class="pre">M</span></em>, <em class="sig-param"><span class="pre">dsize</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">dst</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">flags</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderMode</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">borderValue</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dst</span><a class="headerlink" href="#src.panorama.stitcher.warpPerspective" title="Permalink to this definition">¶</a></dt>
+<dd><p>.   &#64;brief Applies a perspective transformation to an image.
+.   
+.   The function warpPerspective transforms the source image using the specified matrix:
+.   
+.   f[texttt{dst} (x,y) =  texttt{src} left ( frac{M_{11} x + M_{12} y + M_{13}}{M_{31} x + M_{32} y + M_{33}} ,
+.        frac{M_{21} x + M_{22} y + M_{23}}{M_{31} x + M_{32} y + M_{33}} right )f]
+.   
+.   when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted with invert
+.   and then put in the formula above instead of M. The function cannot operate in-place.
+.   
+.   &#64;param src input image.
+.   &#64;param dst output image that has the size dsize and the same type as src .
+.   &#64;param M f$3times 3f$ transformation matrix.
+.   &#64;param dsize size of the output image.
+.   &#64;param flags combination of interpolation methods (#INTER_LINEAR or #INTER_NEAREST) and the
+.   optional flag #WARP_INVERSE_MAP, that sets M as the inverse transformation (
+.   f$texttt{dst}rightarrowtexttt{src}f$ ).
+.   &#64;param borderMode pixel extrapolation method (#BORDER_CONSTANT or #BORDER_REPLICATE).
+.   &#64;param borderValue value used in case of a constant border; by default, it equals 0.
+.   
+.   &#64;sa  warpAffine, resize, remap, getRectSubPix, perspectiveTransform</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-src.panorama">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.panorama" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="src.widgets.html" class="btn btn-neutral float-right" title="src.widgets package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="src.operations.segmentation.html" class="btn btn-neutral float-left" title="src.operations.segmentation package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Vadym Mariiechko.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
