@@ -16,22 +16,8 @@ import sphinx_rtd_theme
 #
 import os
 import sys
-# sys.path.insert(0, os.path.abspath('..'))
-# sys.path.insert(0, os.path.abspath('../..'))
-# sys.path.insert(0, os.path.abspath(''))
-# sys.path.extend(['D:\\Documents\\UBI_Documents\\6 Semestr\\APO\\Laboratorium\\Projekt\\python-image-processing',
-#                  'D:/Documents/UBI_Documents/6 Semestr/APO/Laboratorium/Projekt/python-image-processing',
-#                  'D:\\Documents\\UBI_Documents\\6 Semestr\\APO\\Laboratorium\\Projekt\\python-image-processing\\src',
-#                  'D:/Documents/UBI_Documents/6 Semestr/APO/Laboratorium/Projekt/python-image-processing/src'])
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../src'))
-# D:\Documents\UBI_Documents\6 Semestr\APO\Laboratorium\Projekt\python-image-processing\src
-# D:\Documents\UBI_Documents\6 Semestr\APO\Laboratorium\Projekt\python-image-processing\
-# sys.path.insert(0, os.path.abspath('../../src'))
-# sys.path.insert(0, os.path.abspath('../../src/image'))
-# sys.path.insert(0, os.path.abspath('../../src/operations'))
-# sys.path.insert(0, os.path.abspath('../../src/panorama'))
-# sys.path.insert(0, os.path.abspath('../../src/widgets'))
 
 # -- Project information -----------------------------------------------------
 
